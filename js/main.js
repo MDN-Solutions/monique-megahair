@@ -38,6 +38,7 @@
   /* ---------- Galeria + lightbox ---------- */
   const gallery = $("#gallery");
   const items = C.galeria || [];
+  gallery.dataset.count = items.length;
   items.forEach((it, i) => {
     const btn = document.createElement("button");
     btn.type = "button";

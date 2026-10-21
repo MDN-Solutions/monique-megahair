@@ -33,12 +33,8 @@ window.STUDIO_CONFIG = {
 
   // Galeria editorial (6 a 8 fotos ficam melhor). Ordem = ordem na tela.
   galeria: [
-    { src: "images/galeria-01.jpg", alt: "Transformação com mega hair — comprimento e volume" },
-    { src: "images/galeria-02.jpg", alt: "Mega hair com acabamento natural" },
-    { src: "images/galeria-03.jpg", alt: "Cabelo longo com brilho e movimento" },
-    { src: "images/galeria-04.jpg", alt: "Resultado de mega hair em tom personalizado" },
-    { src: "images/galeria-05.jpg", alt: "Detalhe de textura e caimento" },
-    { src: "images/galeria-06.jpg", alt: "Transformação finalizada no estúdio" }
+    { src: "images/galeria-01.jpg", alt: "Mega hair loiro com ondas e raiz esfumada" },
+    { src: "images/galeria-02.jpg", alt: "Mega hair loiro longo com ondas, visto de costas" }
   ],
 
   // Somente pares REAIS da mesma cliente. Ex.:

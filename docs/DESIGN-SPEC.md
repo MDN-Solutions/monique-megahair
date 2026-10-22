@@ -61,7 +61,7 @@ Nome gigante: degradê `#ECD6D0 → #C79591 → #9E5A63` (de cima para baixo), c
 
 ## 3. Componentes de assinatura
 
-- **Nome gigante** (`.hero__giant`, `.footer__giant`): "Monique Marques" de fora a fora. O tamanho usa unidades de container (`cqi`) divididas pela largura real do texto em Jost, então sempre ocupa a largura do container. Duas linhas no celular. A foto da hero fica na frente da metade de baixo das letras.
+- **Nome gigante** (`.hero__giant`, `.footer__giant`): "Monique Marques" de fora a fora. O tamanho usa unidades de container (`cqi`) divididas pela largura real do texto em Jost, então sempre ocupa a largura do container. Duas linhas no celular. A foto da hero é um recorte sem fundo: a cabeça fica por cima das letras e a base reta some atrás da faixa diagonal (desktop) ou num degradê (celular e tablet).
 - **Traço à mão** (`<smm-scribble>`): sublinhado duplo em magenta sob uma palavra ("Mega Hair", "horário?"), desenhado com `stroke-dashoffset` quando a hero entra ou quando o bloco aparece.
 - **Split com sangria** (`.split`, `.split--flip`): texto em 5 colunas e foto em 7, a foto vai até a borda da tela.
 - **Card de tags** (`.scope` em Serviços): pílulas alternando rosé e preto, como o "Scope of Work" do GESTWŁOSY. Itens não confirmados aparecem tracejados.
@@ -111,7 +111,7 @@ O vídeo começa com `play()` logo depois da marca, sem esperar `canplay`: o Saf
 
 | Arquivo | Origem | Uso |
 |---|---|---|
-| `images/hero-portrait.webp` | frame 37,25 s do vídeo original | hero |
+| `images/hero-cutout.webp` | frame 36,90 s recortado, sem fundo (rembg / BiRefNet, borda afinada 1px), webp com transparência | hero |
 | `images/about-wide.webp` | frame 36,90 s | O Studio |
 | `images/mega-hair.webp` | frame 22,0 s | Mega Hair |
 | `images/studio/neon.webp` | `media/film/inauguracao-720.mp4`, 4,2 s | Por dentro do Studio, card do vídeo |

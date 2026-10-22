@@ -66,35 +66,46 @@
   }
 }
 
-// ---------- Foto (na frente do nome) ----------
+// ---------- Foto recortada (na frente do nome) ----------
+// A foto não tem fundo: a cabeça fica por cima das letras e o corte reto da base some
+// atrás da faixa diagonal da seção seguinte (desktop) ou num degradê (celular/tablet).
 .hero__photo {
   grid-row: 2;
   position: relative;
   z-index: 1;
-  width: min(80%, 360px);
-  aspect-ratio: 4 / 5;
-  // sobe por cima da metade de baixo das letras
-  margin-top: calc(100cqi / 4.55 * -0.36);
+  width: min(88%, 400px);
+  // a cabeça sobe por cima da segunda linha do nome
+  margin-top: calc(100cqi / 4.55 * -0.5);
   transition:
     opacity 1s var(--ease),
     transform 1.2s var(--ease);
+  -webkit-mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
+  mask-image: linear-gradient(180deg, #000 78%, transparent 100%);
 
   img {
-    object-position: 56% 20%;
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 24px 30px rgba(38, 28, 26, 0.12));
   }
 
   @include up($bp-md) {
-    width: min(52%, 360px);
-    margin-top: calc(100cqi / 9.25 * -0.3);
+    width: min(58%, 420px);
+    margin-top: calc(100cqi / 9.25 * -0.45);
   }
 
   @include up($bp-lg) {
     grid-column: 2;
     grid-row: 1 / 3;
     align-self: start;
-    width: 100%;
-    // começa na metade da altura das letras
-    margin-top: calc(100cqi / 9.25 * 0.42);
+    justify-self: center;
+    width: 118%;
+    max-width: 560px;
+    // a cabeça começa no meio da altura das letras
+    margin-top: calc(100cqi / 9.25 * 0.3);
+    // desce até a base da hero (o padding-bottom), onde a faixa diagonal cobre o corte
+    margin-bottom: calc((var(--slant) + clamp(2rem, 4vw, 3rem)) * -1);
+    -webkit-mask-image: none;
+    mask-image: none;
   }
 }
 

@@ -1,0 +1,20 @@
+<section id="sobre" class="about" aria-labelledby="about-title">
+  <div class="split">
+    <div class="split__text about__text reveal" smmReveal>
+      <h2 id="about-title" class="title"><strong>{{ about.titleStrong }}</strong> {{ about.title }}</h2>
+      @for (p of about.paragraphs; track p) {
+        <p class="about__p">{{ p }}</p>
+      }
+      <button type="button" class="btn btn--dark about__btn" (click)="openFilm()">
+        <smm-icon name="play" style="--icon-size: 0.8rem" />
+        Ver o vídeo da inauguração
+      </button>
+    </div>
+
+    <div class="split__media reveal" smmReveal>
+      <div class="photo about__photo">
+        <img [src]="about.image.src" [alt]="about.image.alt" width="1920" height="1080" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </div>
+</section>

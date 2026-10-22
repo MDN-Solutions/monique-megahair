@@ -1,0 +1,29 @@
+<!-- Cena 2/3: vídeo real do corte da fita -->
+<div class="stage" aria-hidden="true">
+  <video
+    #video
+    class="video"
+    muted
+    playsinline
+    preload="auto"
+    disablepictureinpicture
+    disableremoteplayback
+    poster="media/opening/opening-poster.webp"
+    [style.object-position]="scene() === 'close' ? '30% 50%' : '50% 50%'"
+    (canplay)="onCanPlay()"
+  >
+    <source [src]="base + '.mp4'" type="video/mp4" />
+    <source [src]="base + '.webm'" type="video/webm" (error)="onVideoError()" />
+  </video>
+</div>
+
+<!-- Cena 1: marca sobre o creme -->
+<div class="logo" aria-hidden="true">
+  <img class="logo__mark" src="brand/monogram.svg" alt="" width="448" height="448" />
+  <p class="logo__name">Studio Monique Marques</p>
+</div>
+
+<!-- Cena 4: dissolve no creme -->
+<div class="veil" aria-hidden="true"></div>
+
+<button #skipBtn type="button" class="skip" (click)="skip()">Pular abertura</button>

@@ -1,0 +1,240 @@
+@use '../../../styles/tokens' as *;
+
+.hero {
+  position: relative;
+  // espaço para o corte diagonal da seção seguinte não cobrir o texto
+  padding-top: calc(var(--header-h) + clamp(0.5rem, 2vw, 1.5rem));
+  padding-bottom: calc(var(--slant) + clamp(2rem, 4vw, 3rem));
+  overflow: clip;
+}
+
+.hero__inner {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+
+  @include up($bp-lg) {
+    grid-template-columns: minmax(0, 1fr) clamp(320px, 34vw, 480px) minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: clamp(1.5rem, 3vw, 3rem);
+    justify-items: stretch;
+  }
+}
+
+// ---------- Nome gigante ----------
+.hero__giant {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  position: relative;
+  z-index: 0;
+  justify-self: center;
+  margin: 0;
+  font-weight: 400;
+  // 2 linhas no celular ("Monique" / "Marques"), 1 linha a partir do tablet. Os divisores
+  // vêm da largura real do texto em Jost (em "em"), para ocupar a largura do container.
+  font-size: calc(100cqi / 4.55);
+  line-height: 0.84;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-align: center;
+  white-space: nowrap;
+  user-select: none;
+  color: var(--c-rose);
+
+  span {
+    display: block;
+  }
+
+  @include up($bp-md) {
+    font-size: calc(100cqi / 9.25);
+
+    span {
+      display: inline;
+    }
+
+    span + span {
+      margin-left: 0.24em;
+    }
+  }
+
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    background: linear-gradient(180deg, #ecd6d0 8%, #c79591 55%, #9e5a63 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+// ---------- Foto (na frente do nome) ----------
+.hero__photo {
+  grid-row: 2;
+  position: relative;
+  z-index: 1;
+  width: min(80%, 360px);
+  aspect-ratio: 4 / 5;
+  // sobe por cima da metade de baixo das letras
+  margin-top: calc(100cqi / 4.55 * -0.36);
+  transition:
+    opacity 1s var(--ease),
+    transform 1.2s var(--ease);
+
+  img {
+    object-position: 56% 20%;
+  }
+
+  @include up($bp-md) {
+    width: min(52%, 360px);
+    margin-top: calc(100cqi / 9.25 * -0.3);
+  }
+
+  @include up($bp-lg) {
+    grid-column: 2;
+    grid-row: 1 / 3;
+    align-self: start;
+    width: 100%;
+    // começa na metade da altura das letras
+    margin-top: calc(100cqi / 9.25 * 0.42);
+  }
+}
+
+:host-context(html.intro-pending) .hero__photo {
+  opacity: 0;
+  transform: scale(1.03);
+  transition: none;
+}
+
+// ---------- Texto (esquerda) ----------
+.hero__copy {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+  width: 100%;
+  margin-top: 2rem;
+
+  @include up($bp-lg) {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.hero__title {
+  font-size: var(--t-hero);
+  line-height: 1.02;
+
+  // no desktop acompanha a largura da coluna lateral (cqi = largura da hero)
+  @include up($bp-lg) {
+    font-size: clamp(2.6rem, 4.3cqi, 4rem);
+  }
+
+  smm-scribble {
+    display: inline-block;
+  }
+}
+
+.hero__sub {
+  max-width: 26rem;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 1.5rem;
+  margin-top: 0.25rem;
+}
+
+// ---------- Lado direito: cidade + vídeo ----------
+.hero__side {
+  display: grid;
+  justify-items: start;
+  gap: 0.75rem;
+  width: 100%;
+  margin-top: 2rem;
+
+  @include up($bp-lg) {
+    grid-column: 3;
+    grid-row: 2;
+    align-self: end;
+    justify-items: end;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.filmcard {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  width: min(100%, 300px);
+  padding: 0.55rem 1.1rem 0.55rem 0.55rem;
+  text-align: left;
+  background: var(--c-white);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  box-shadow: 0 18px 40px -28px rgba(38, 28, 26, 0.45);
+  transition: border-color 0.25s var(--ease);
+
+  &:hover {
+    border-color: var(--c-ink);
+  }
+}
+
+.filmcard__thumb {
+  position: relative;
+  flex: none;
+  width: 64px;
+  height: 64px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--c-sand);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.filmcard__play {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--c-white);
+  background: rgba(38, 28, 26, 0.25);
+
+  smm-icon {
+    margin-left: 2px; // alinhamento óptico do triângulo
+  }
+}
+
+.filmcard__text {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.filmcard__title {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.filmcard__meta {
+  font-size: var(--t-tiny);
+  color: var(--c-text-2);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__photo {
+    transition-duration: 0.01ms;
+  }
+
+  :host-context(html.intro-pending) .hero__photo {
+    opacity: 1;
+    transform: none;
+  }
+}

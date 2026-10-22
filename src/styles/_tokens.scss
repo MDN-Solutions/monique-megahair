@@ -1,0 +1,59 @@
+// Design tokens — ver docs/DESIGN-SPEC.md
+// Breakpoints (mobile-first)
+$bp-sm: 640px;
+$bp-md: 768px;
+$bp-lg: 1024px;
+$bp-xl: 1280px;
+
+@mixin up($bp) {
+  @media (min-width: $bp) {
+    @content;
+  }
+}
+
+:root {
+  // Cores tiradas do próprio Studio (vídeo da inauguração): parede lilás, neon rosa,
+  // sacola e caixa da marca em pêssego/terracota, letreiro da fachada em magenta.
+  // O dourado fica só no monograma (é a cor da logo), não vira cor de interface.
+  --c-paper: #f6f0ea; // fundo base, creme rosado
+  --c-white: #fffdfb; // superfícies claras (cards, faixa de serviços)
+  --c-sand: #dccfc4; // faixa "greige" das seções de apoio
+  --c-blush: #f0e0d9; // rosé claro (tags, fundos suaves)
+  --c-rose: #b98583; // rosé médio, só decorativo (2,75:1, não usar em texto)
+  --c-berry: #8a3553; // magenta do letreiro, escurecido: destaques e traço à mão (6,84:1)
+  --c-cocoa: #4a3631; // botões escuros
+  --c-ink: #261c1a; // texto principal (14,7:1)
+  --c-text-2: #665249; // texto secundário (6,47:1 no creme, 4,80:1 no greige)
+  --c-night: #2b201d; // rodapé
+
+  --line: rgba(38, 28, 26, 0.14);
+  --line-strong: rgba(38, 28, 26, 0.32);
+
+  // Tipografia
+  --f-sans: 'Jost', 'Futura', 'Century Gothic', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --f-serif: 'Newsreader', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+
+  --t-hero: clamp(2.6rem, 1.6rem + 3.6vw, 4.6rem); // título serifado da hero
+  --t-h2: clamp(2rem, 1.35rem + 2.3vw, 3.4rem); // títulos finos (Jost 300)
+  --t-h3: clamp(1.35rem, 1.15rem + 0.6vw, 1.7rem);
+  --t-body: 1rem;
+  --t-small: 0.875rem;
+  --t-tiny: 0.8125rem;
+
+  // Espaço
+  --section-y: clamp(4.5rem, 8vw, 8rem);
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --container: 1240px;
+  --header-h: 72px;
+  --slant: clamp(28px, 4.5vw, 72px); // corte diagonal entre hero e "O Studio"
+
+  // Forma
+  --r-card: 22px;
+
+  // Movimento
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  @include up($bp-lg) {
+    --header-h: 84px;
+  }
+}

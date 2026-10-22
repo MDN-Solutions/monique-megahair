@@ -1,0 +1,65 @@
+<section id="servicos" class="services" aria-labelledby="services-title">
+  <div class="split split--flip">
+    <div class="split__media reveal" smmReveal>
+      @if (feature.image) {
+        <div class="photo services__photo">
+          <img [src]="feature.image.src" [alt]="feature.image.alt" width="864" height="1080" loading="lazy" decoding="async" />
+        </div>
+      }
+    </div>
+
+    <div class="split__text services__text reveal" smmReveal>
+      <h2 id="services-title" class="title services__title">{{ feature.title }}</h2>
+      <p class="services__desc text-2">{{ feature.description }}</p>
+
+      <!-- Card de tags (referência: "Scope of work" do GESTWŁOSY) -->
+      <div class="scope">
+        <h3 class="scope__head"><smm-icon name="arrow" style="--icon-size: 1rem" />{{ copy.cardTitle }}</h3>
+        <ul class="scope__list">
+          @for (d of differentials; track d; let i = $index) {
+            <li class="pill" [class.pill--soft]="i % 2 === 0" [class.pill--dark]="i % 2 === 1">{{ d }}</li>
+          }
+          @for (d of differentialTodos; track d) {
+            <li class="pill pill--todo">{{ d }}</li>
+          }
+        </ul>
+
+        @if (others.length > 0 || serviceTodos.length > 0) {
+          <h3 class="scope__head"><smm-icon name="arrow" style="--icon-size: 1rem" />{{ copy.othersTitle }}</h3>
+          @if (others.length > 0) {
+            <ul class="scope__rows">
+              @for (s of others; track s.id) {
+                <li>
+                  <a [href]="link(s)" [attr.target]="waExternal ? '_blank' : null" [attr.rel]="waExternal ? 'noopener' : null">
+                    <span class="scope__name">{{ s.title }}</span>
+                    <span class="scope__text text-2">{{ s.description }}</span>
+                  </a>
+                </li>
+              }
+            </ul>
+          }
+          @if (serviceTodos.length > 0) {
+            <ul class="scope__list">
+              @for (s of serviceTodos; track s) {
+                <li class="pill pill--todo">{{ s }}</li>
+              }
+            </ul>
+          }
+        }
+
+        @if (hasTodos) {
+          <p class="todo-note"><strong>Tracejado:</strong> ainda falta confirmar com o Studio.</p>
+        }
+      </div>
+
+      <a
+        class="btn btn--dark"
+        [href]="link(feature)"
+        [attr.target]="waExternal ? '_blank' : null"
+        [attr.rel]="waExternal ? 'noopener' : null"
+      >
+        Perguntar sobre {{ feature.title }}
+      </a>
+    </div>
+  </div>
+</section>

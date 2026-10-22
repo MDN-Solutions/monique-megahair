@@ -1,0 +1,215 @@
+@use '../../../styles/tokens' as *;
+
+:host {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  display: block;
+}
+
+.header {
+  position: relative;
+  transition:
+    background-color 0.3s var(--ease),
+    box-shadow 0.3s var(--ease);
+}
+
+:host(.is-scrolled) .header {
+  background: var(--c-paper);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+// Referência SHEAR: links à esquerda, marca no centro, ações à direita
+.header__bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  height: var(--header-h);
+
+  @include up($bp-lg) {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+}
+
+// ---------- Marca ----------
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  min-height: 44px;
+
+  @include up($bp-lg) {
+    grid-column: 2;
+    grid-row: 1;
+  }
+}
+
+.brand__mark {
+  width: 34px;
+  height: 34px;
+}
+
+.brand__name {
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  margin-right: -0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+// ---------- Navegação desktop ----------
+.nav {
+  display: none;
+
+  @include up($bp-lg) {
+    display: block;
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.nav__list {
+  display: flex;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease);
+  }
+
+  &:hover::after,
+  &[aria-current='true']::after {
+    transform: scaleX(1);
+  }
+}
+
+// ---------- Ações ----------
+.header__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+
+  @include up($bp-lg) {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+.header__icon {
+  display: inline-grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: background-color 0.25s var(--ease);
+
+  &:hover {
+    background: var(--c-blush);
+  }
+}
+
+.header__cta {
+  display: none;
+
+  @include up($bp-md) {
+    display: inline-flex;
+  }
+}
+
+.menu-btn {
+  @include up($bp-lg) {
+    display: none;
+  }
+}
+
+// ---------- Menu compacto ----------
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: calc(var(--header-h) + 2rem) var(--gutter) max(1.5rem, env(safe-area-inset-bottom));
+  background: var(--c-paper);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s var(--ease),
+    visibility 0s linear 0.3s;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  @include up($bp-lg) {
+    display: none;
+  }
+}
+
+.menu__nav li {
+  border-top: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.4s var(--ease);
+  transition-delay: calc(var(--i) * 50ms + 80ms);
+
+  &:last-child {
+    border-bottom: 1px solid var(--line);
+  }
+}
+
+.menu.is-open .menu__nav li {
+  opacity: 1;
+  transform: none;
+}
+
+.menu__nav a {
+  display: block;
+  padding: 0.9rem 0;
+  font-size: clamp(1.9rem, 8vw, 2.5rem);
+  font-weight: 300;
+  line-height: 1.15;
+}
+
+.menu__cta {
+  align-self: stretch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu__nav li {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+  }
+}

@@ -1,0 +1,45 @@
+@use '../../../styles/tokens' as *;
+
+// Faixa greige com o topo cortado na diagonal, cobrindo a base da hero (referência SHEAR)
+.about {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(var(--slant) * -1);
+  padding-top: calc(var(--slant) + var(--section-y) * 0.75);
+  padding-bottom: var(--section-y);
+  background: var(--c-sand);
+  clip-path: polygon(0 var(--slant), 100% 0, 100% 100%, 0 100%);
+}
+
+.about__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.25rem;
+}
+
+.about__text .title {
+  margin-bottom: 0.75rem;
+}
+
+.about__p {
+  max-width: 30rem;
+  font-size: 0.9375rem;
+  line-height: 1.75;
+}
+
+.about__btn {
+  margin-top: 1rem;
+}
+
+.about__photo {
+  aspect-ratio: 4 / 3;
+  background: var(--c-paper);
+
+  img {
+    object-position: 42% 40%;
+  }
+
+  @include up($bp-lg) {
+    aspect-ratio: 5 / 4;
+  }
+}

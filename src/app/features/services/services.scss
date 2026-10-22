@@ -1,0 +1,91 @@
+@use '../../../styles/tokens' as *;
+
+.services {
+  padding-block: var(--section-y);
+  background: var(--c-white);
+}
+
+.services__photo {
+  aspect-ratio: 4 / 5;
+  max-height: 86vh;
+
+  img {
+    object-position: 60% 30%;
+  }
+
+  @include up($bp-lg) {
+    aspect-ratio: 5 / 6;
+  }
+}
+
+.services__text {
+  display: grid;
+  justify-items: start;
+  gap: 1.5rem;
+}
+
+.services__title {
+  font-size: clamp(2.6rem, 1.6rem + 3.4vw, 4.6rem);
+  line-height: 1;
+}
+
+.services__desc {
+  max-width: 28rem;
+}
+
+// ---------- Card de tags ----------
+.scope {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+  max-width: 30rem;
+  padding: clamp(1.25rem, 3vw, 1.75rem);
+  background: var(--c-paper);
+  border-radius: var(--r-card);
+}
+
+.scope__head {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-self: start;
+  min-height: 34px;
+  padding: 0.3rem 0.9rem 0.3rem 0.7rem;
+  font-size: var(--t-tiny);
+  font-weight: 500;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.scope__head + .scope__list,
+.scope__head + .scope__rows {
+  margin-top: -0.25rem;
+}
+
+.scope__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.scope__rows {
+  display: grid;
+
+  li + li {
+    border-top: 1px solid var(--line);
+  }
+
+  a {
+    display: grid;
+    gap: 0.15rem;
+    padding: 0.75rem 0;
+  }
+}
+
+.scope__name {
+  font-weight: 500;
+}
+
+.scope__text {
+  font-size: var(--t-small);
+}

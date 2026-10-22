@@ -1,0 +1,49 @@
+<section id="contato" class="section contact" aria-labelledby="contact-title">
+  <div class="container contact__grid">
+    <div class="contact__info reveal" smmReveal>
+      <h2 id="contact-title" class="title contact__title">{{ copy.title }}</h2>
+
+      <dl class="contact__list">
+        @for (row of rows; track row.label) {
+          <div class="row">
+            <dt class="row__label">{{ row.label }}</dt>
+            <dd class="row__value">
+              @if (row.lines.length > 0) {
+                @for (line of row.lines; track line) {
+                  @if (row.href && $first) {
+                    <a class="row__link" [href]="row.href" [attr.target]="row.external ? '_blank' : null" [attr.rel]="row.external ? 'noopener' : null">{{ line }}</a>
+                  } @else {
+                    <span class="row__line">{{ line }}</span>
+                  }
+                }
+              } @else {
+                <span class="pill pill--todo">{{ row.todo }}</span>
+              }
+            </dd>
+          </div>
+        }
+      </dl>
+
+      @if (hasWa) {
+        <a class="btn btn--dark" [href]="wa" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
+      }
+    </div>
+
+    <div class="contact__map reveal" smmReveal>
+      @if (mapUrl) {
+        <iframe
+          class="map"
+          [src]="mapUrl"
+          title="Localização do Studio Monique Marques no mapa"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      } @else if (showPlaceholders) {
+        <div class="map map--ph">
+          <p class="todo-note"><strong>Placeholder:</strong> mapa do Google Maps (falta o link de incorporação).</p>
+        </div>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,66 @@
+<header class="header">
+  <div class="container header__bar">
+    <nav class="nav" aria-label="Principal">
+      <ul class="nav__list">
+        @for (item of nav; track item.id; let i = $index) {
+          <li class="enter" [style.--i]="i">
+            <a class="nav__link" [href]="'#' + item.id" [attr.aria-current]="active() === item.id ? 'true' : null">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <a class="brand enter" href="#inicio" aria-label="Studio Monique Marques, início" (click)="closeMenu()">
+      <img class="brand__mark" src="brand/monogram.svg" alt="" width="34" height="34" />
+      <span class="brand__name">Monique Marques</span>
+    </a>
+
+    <div class="header__actions">
+      @if (instagram) {
+        <a class="header__icon enter" style="--i: 4" [href]="instagram" target="_blank" rel="noopener" aria-label="Instagram do Studio">
+          <smm-icon name="instagram" style="--icon-size: 1.25rem" />
+        </a>
+      }
+      <a
+        class="btn btn--light btn--sm header__cta enter"
+        style="--i: 5"
+        [href]="wa"
+        [attr.target]="waExternal ? '_blank' : null"
+        [attr.rel]="waExternal ? 'noopener' : null"
+      >
+        Agendar horário
+      </a>
+      <button
+        type="button"
+        class="btn btn--line btn--sm menu-btn"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="menu"
+        (click)="toggleMenu()"
+      >
+        {{ menuOpen() ? 'Fechar' : 'Menu' }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu compacto (tablet e celular) -->
+  <div id="menu" class="menu" [class.is-open]="menuOpen()" [attr.inert]="menuOpen() ? null : ''">
+    <nav class="menu__nav" aria-label="Menu">
+      <ul>
+        @for (item of nav; track item.id; let i = $index) {
+          <li [style.--i]="i">
+            <a #firstLink [href]="'#' + item.id" (click)="closeMenu()">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+    <a
+      class="btn btn--dark menu__cta"
+      [href]="wa"
+      [attr.target]="waExternal ? '_blank' : null"
+      [attr.rel]="waExternal ? 'noopener' : null"
+      (click)="closeMenu()"
+    >
+      Agendar pelo WhatsApp
+    </a>
+  </div>
+</header>

@@ -97,6 +97,8 @@ Mesma lógica da v1 (vídeo real do corte da fita, uma vez por sessão, `?abertu
 
 Marcos do clipe: `FILM` em `opening.ts`.
 
+O vídeo começa com `play()` logo depois da marca, sem esperar `canplay`: o Safari do iPhone (e o Chrome em rede móvel) não baixa nada antes do `play()`, então esperar o `canplay` fazia a abertura ser pulada no celular. A cena do vídeo só aparece no evento `playing`; se ele não chegar em 8 s, a abertura encerra sozinha.
+
 ## 6. Acessibilidade e performance
 
 - axe-core (WCAG 2.1 AA + boas práticas): 0 violações em 1440px e 390px.
@@ -117,7 +119,7 @@ Marcos do clipe: `FILM` em `opening.ts`.
 | `images/studio/espelho.webp` | idem, 7,0 s | Por dentro do Studio |
 | `images/studio/caixa.webp` | idem, 22,8 s | Por dentro do Studio |
 | `images/studio/sacola.webp` | idem, 27,4 s | CTA final |
-| `og-image.jpg` | composição da hero (1200 × 630) | compartilhamento |
+| `og-image.jpg` | 1200 × 630: frame 36,90 s recortado (fundo removido com rembg / BiRefNet), por cima do nome gigante | compartilhamento |
 | `media/opening/*`, `media/film/*` | vídeo da inauguração | abertura e diálogo do vídeo |
 | `brand/*.svg` | logo dourada vetorizada | header, abertura, rodapé, favicon |
 

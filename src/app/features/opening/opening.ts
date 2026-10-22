@@ -21,7 +21,7 @@ type Phase = 'logo' | 'film' | 'veil' | 'fade';
 const FILM = { matchCut: 1.85, veil: 3.45 } as const;
 
 const LOGO_MS = 1400; // cena 1: marca sobre o creme
-const FILM_START_TIMEOUT_MS = 6500; // se o vídeo não iniciar até aqui, segue sem ele
+const FILM_START_TIMEOUT_MS = 8000; // se o vídeo não começar a tocar até aqui, segue sem ele
 const FILM_MAX_MS = 9000; // trava de segurança total depois que o filme começou
 const VEIL_MS = 650; // vídeo -> creme
 const FADE_MS = 700; // overlay -> página
@@ -66,7 +66,7 @@ export class Opening {
     : 'media/opening/opening-720';
 
   private logoDone = false;
-  private canPlay = false;
+  private started = false;
   private failed = false;
   private raf = 0;
   private readonly timers = new Set<ReturnType<typeof setTimeout>>();
@@ -99,11 +99,6 @@ export class Opening {
     });
   }
 
-  protected onCanPlay(): void {
-    this.canPlay = true;
-    this.tryStart();
-  }
-
   protected onVideoError(): void {
     this.failed = true;
     this.tryStart();
@@ -116,25 +111,30 @@ export class Opening {
     this.toVeil(true);
   }
 
+  /**
+   * Chama play() assim que a marca termina, sem esperar `canplay`: no iPhone (e no Chrome em
+   * rede móvel) o navegador não baixa nada do vídeo antes do play(), então `canplay` nunca
+   * chegaria e a abertura era pulada. A cena do vídeo só entra no evento `playing`.
+   */
   private tryStart(): void {
-    if (this.phase() !== 'logo' || !this.logoDone) return;
+    if (this.phase() !== 'logo' || !this.logoDone || this.started) return;
     if (this.failed) {
       this.toVeil();
       return;
     }
-    if (!this.canPlay) return; // espera o canplay (ou o timeout de segurança)
-
-    const video = this.videoRef().nativeElement;
-    video
-      .play()
-      .then(() => {
-        if (this.phase() !== 'logo') return;
-        this.phase.set('film');
-        this.played.set(true);
-        this.later(() => this.toVeil(), FILM_MAX_MS);
-        this.raf = requestAnimationFrame(this.tick);
-      })
+    this.started = true;
+    this.videoRef()
+      .nativeElement.play()
       .catch(() => this.toVeil()); // ex.: iOS em modo de baixa energia bloqueia autoplay
+  }
+
+  /** Primeiro quadro tocando de verdade: mostra o vídeo e sincroniza com o tempo dele. */
+  protected onPlaying(): void {
+    if (this.phase() !== 'logo') return;
+    this.phase.set('film');
+    this.played.set(true);
+    this.later(() => this.toVeil(), FILM_MAX_MS);
+    this.raf = requestAnimationFrame(this.tick);
   }
 
   /** Sincroniza efeitos ao tempo real do vídeo (mais preciso que timers). */

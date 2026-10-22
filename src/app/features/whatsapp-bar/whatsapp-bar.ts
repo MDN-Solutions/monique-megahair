@@ -16,13 +16,13 @@ import { Icon } from '../../shared/icon';
   },
   template: `
     <a
-      class="btn btn--primary bar"
+      class="btn btn--dark bar"
       [href]="wa"
       [attr.target]="external ? '_blank' : null"
       [attr.rel]="external ? 'noopener' : null"
       [attr.tabindex]="visible() ? null : -1"
     >
-      <smm-icon name="whatsapp" style="--icon-size: 1.4rem" />
+      <smm-icon name="whatsapp" style="--icon-size: 1.25rem" />
       Agendar pelo WhatsApp
     </a>
   `,
@@ -34,7 +34,7 @@ import { Icon } from '../../shared/icon';
       inset: auto 0 0 0;
       z-index: 90;
       padding: 0.75rem var(--gutter) max(0.75rem, env(safe-area-inset-bottom));
-      background: linear-gradient(180deg, transparent, rgba(250, 248, 243, 0.92) 40%);
+      background: linear-gradient(180deg, transparent, rgba(246, 240, 234, 0.94) 45%);
       transform: translateY(110%);
       transition: transform 0.5s var(--ease);
       pointer-events: none;
@@ -49,7 +49,7 @@ import { Icon } from '../../shared/icon';
     }
     .bar {
       width: 100%;
-      box-shadow: 0 14px 30px -14px rgba(36, 33, 29, 0.45);
+      min-height: 52px;
     }
   `,
 })

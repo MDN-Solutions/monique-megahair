@@ -9,7 +9,7 @@
   gap: clamp(2.5rem, 6vw, 5rem);
 
   @include up($bp-lg) {
-    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
     align-items: stretch;
   }
 }
@@ -17,70 +17,64 @@
 .contact__info {
   display: grid;
   align-content: start;
-  gap: clamp(1.75rem, 3vw, 2.5rem);
   justify-items: start;
+  gap: 2rem;
 }
 
 .contact__title {
-  margin-top: 1.5rem;
-  font-size: var(--t-h2);
-  line-height: 1.08;
+  font-size: clamp(2.4rem, 1.4rem + 4vw, 4.75rem);
+  line-height: 1;
 }
 
 .contact__list {
-  display: grid;
   width: 100%;
-  border-top: 1px solid var(--line-gold);
+  margin: 0;
 }
 
 .row {
   display: grid;
-  grid-template-columns: 2.25rem 1fr;
-  gap: 1.25rem;
-  padding: 1.35rem 0;
-  border-bottom: 1px solid var(--line);
-}
+  gap: 0.35rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--line);
 
-.row__icon {
-  color: var(--c-gold);
-  padding-top: 0.15rem;
-}
+  &:last-child {
+    border-bottom: 1px solid var(--line);
+  }
 
-.row__label {
-  margin-bottom: 0.2rem;
-  font-size: var(--t-eyebrow);
-  font-weight: 500;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--c-gold-text);
-}
-
-.row__value {
-  font-size: 1.0625rem;
-  line-height: 1.55;
-}
-
-.row__link {
-  display: inline-block;
-  background: linear-gradient(var(--c-gold), var(--c-gold)) 0 100% / 100% 1px no-repeat;
-  transition: background-size 0.4s var(--ease);
-
-  &:hover {
-    background-size: 35% 1px;
+  @include up($bp-sm) {
+    grid-template-columns: 9rem minmax(0, 1fr);
+    gap: 1rem;
+    align-items: baseline;
   }
 }
 
-// placeholder: informação ainda não fornecida pela cliente
-.row__todo {
-  display: inline-block;
-  padding: 0.15rem 0.6rem;
+.row__label {
   font-size: var(--t-small);
-  color: var(--c-gold-text);
-  border: 1px dashed var(--c-gold);
+  color: var(--c-text-2);
+}
+
+.row__value {
+  display: grid;
+  justify-items: start;
+  margin: 0;
+  font-size: 1.0625rem;
+  line-height: 1.5;
+}
+
+.row__link {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.25em;
+
+  &:hover {
+    color: var(--c-berry);
+  }
 }
 
 .contact__map {
-  min-height: 320px;
+  @include up($bp-lg) {
+    min-height: 360px;
+  }
 }
 
 .map {
@@ -89,37 +83,15 @@
   height: 100%;
   min-height: 360px;
   border: 0;
-  filter: grayscale(0.25) sepia(0.12);
 }
 
 .map--ph {
+  min-height: 160px;
   display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 0.75rem;
+  place-items: center;
+  padding: 1.5rem;
   text-align: center;
-  background: var(--c-blush);
-  border: 1px dashed var(--c-gold);
-  filter: none;
-
-  img {
-    width: 72px;
-    height: 72px;
-    opacity: 0.4;
-    margin-bottom: 0.75rem;
-  }
-
-  p {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--c-gold-text);
-  }
-
-  .map__todo {
-    letter-spacing: 0.04em;
-    text-transform: none;
-    font-size: var(--t-small);
-    color: var(--c-text-muted);
-  }
+  background: var(--c-paper);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--r-card);
 }

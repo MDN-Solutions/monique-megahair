@@ -1,49 +1,20 @@
-<section id="sobre" class="section about" aria-labelledby="about-title">
-  <div class="container about__grid">
-    <div class="about__copy">
-      <header class="reveal" smmReveal>
-        <p class="eyebrow">{{ about.eyebrow }}</p>
-        <h2 id="about-title" class="about__title">{{ about.title }}</h2>
-      </header>
-
-      <div class="about__text">
-        @for (p of about.paragraphs; track p; let i = $index) {
-          <p class="lead reveal" smmReveal [style.--i]="i + 1">{{ p }}</p>
-        }
-      </div>
-
-      <ul class="about__pillars reveal" smmReveal style="--i: 3" aria-label="Valores do Studio">
-        @for (pillar of about.pillars; track pillar) {
-          <li><span class="diamond" aria-hidden="true"></span>{{ pillar }}</li>
-        }
-      </ul>
-    </div>
-
-    <figure class="about__figure reveal" smmReveal style="--i: 1">
-      <div class="about__frame">
-        <img
-          [src]="about.image.src"
-          [alt]="about.image.alt"
-          width="1920"
-          height="1080"
-          loading="lazy"
-          decoding="async"
-        />
-        <button type="button" class="about__play" (click)="openFilm()">
-          <span class="about__play-icon"><smm-icon name="play" style="--icon-size: 1rem" /></span>
-          Assistir à inauguração
-        </button>
-      </div>
-      <figcaption>{{ about.caption }}</figcaption>
-    </figure>
-  </div>
-
-  <dialog #filmDialog class="film" aria-label="Vídeo da inauguração do Studio Monique Marques" (close)="onFilmClosed()" (click)="onDialogClick($event)">
-    <div class="film__inner">
-      <button type="button" class="film__close" (click)="closeFilm()" aria-label="Fechar vídeo">
-        <smm-icon name="close" style="--icon-size: 1.75rem" />
+<section id="sobre" class="about" aria-labelledby="about-title">
+  <div class="split">
+    <div class="split__text about__text reveal" smmReveal>
+      <h2 id="about-title" class="title"><strong>{{ about.titleStrong }}</strong> {{ about.title }}</h2>
+      @for (p of about.paragraphs; track p) {
+        <p class="about__p">{{ p }}</p>
+      }
+      <button type="button" class="btn btn--dark about__btn" (click)="openFilm()">
+        <smm-icon name="play" style="--icon-size: 0.8rem" />
+        Ver o vídeo da inauguração
       </button>
-      <video #filmVideo class="film__video" controls playsinline preload="none" [attr.poster]="film.poster"></video>
     </div>
-  </dialog>
+
+    <div class="split__media reveal" smmReveal>
+      <div class="photo about__photo">
+        <img [src]="about.image.src" [alt]="about.image.alt" width="1920" height="1080" loading="lazy" decoding="async" />
+      </div>
+    </div>
+  </div>
 </section>

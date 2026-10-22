@@ -1,176 +1,124 @@
 # Studio Monique Marques — Especificação de design
 
-> **Status do Figma:** o MCP do Figma não estava conectado na sessão de criação (aparece como "não instalado" no registro de conectores), então **não foi possível criar o arquivo no Figma**. Seguindo o plano alternativo do brief, esta spec traz tokens, componentes, storyboard da abertura e layouts por breakpoint, e a implementação em Angular segue exatamente o que está aqui. Para levar ao Figma depois: conectar o MCP do Figma e usar este documento + `src/styles/_tokens.scss` como fonte (cada token abaixo tem nome de variável CSS).
+> Versão 2. A primeira versão (marfim + dourado, arcos, títulos com "eyebrow" dourado em todas as seções) ficou com cara de template gerado. Esta versão parte de duas referências enviadas pela cliente/equipe (o site **SHEAR** e o case **GESTWŁOSY**) e, principalmente, do material real do Studio.
 
 ## 1. Conceito
 
-Luxo silencioso: marfim e branco como "papel", dourado só como acabamento (fios, ícones, detalhes de botão), tipografia editorial de alto contraste e muito espaço em branco. A marca já tem monograma **M** dourado em círculo; ele é o elemento-assinatura (abertura, header, favicon, rodapé).
+**Editorial, quente e com o Studio de verdade na tela.** Em vez de uma paleta genérica de "luxo", as cores, as fotos e os detalhes saem do vídeo da inauguração: a parede lilás, o neon rosa, a sacola e a caixa da marca em pêssego e terracota, o letreiro da fachada em magenta.
 
-Ideia visual recorrente: **arco** (referência à moldura do monograma e a portas de boutique). Fotos principais ficam em molduras em arco com um segundo arco em fio dourado deslocado atrás. Cantos retos em todo o resto (sem excesso de cards arredondados).
+O que mudou em relação à v1 (e por quê):
 
-Fonte das imagens: **todas reais**, extraídas do vídeo da inauguração enviado pela cliente. Nada gerado por IA.
+| v1 | v2 | Motivo |
+|---|---|---|
+| Rótulo dourado em caixa alta + fio antes de todo título | Sem rótulos; o título carrega a seção | O padrão "eyebrow + H2 + parágrafo + grade" repetido 7 vezes era o que mais denunciava o template |
+| Dourado como cor de interface | Dourado só no monograma (é a cor da logo) | Botões e ícones dourados sobre marfim são o clichê de "salão premium" |
+| Bodoni Moda em itálico dourado nas últimas palavras | Newsreader (serifa de leitura, tamanho óptico de display) + Jost fino | Referências: serifa calma do GESTWŁOSY e títulos finos com trecho em negrito do SHEAR |
+| Fotos em arco com fio dourado deslocado | Fotos com canto reto, sangrando até a borda da tela | Referência SHEAR |
+| Cards com monograma em marca d'água para conteúdo que falta | Tags tracejadas e avisos curtos de "Placeholder" | Os cards vazios ocupavam metade da página |
+| Abertura com íris dourada, brilho e varredura | Marca → vídeo real em fade → creme | O corte real da fita já é a cena; os efeitos competiam com ele |
+| Frases de efeito ("Seu cabelo. Sua essência. Sua melhor versão.") | Textos diretos, a linha da própria logo como título | Tríades e frases de impacto soam escritas por IA |
 
-## 2. Tokens
+## 2. Tokens (`src/styles/_tokens.scss`)
 
-### Cores (`--c-*`)
+### Cores
 
-| Token | Hex | Uso | Contraste |
+| Token | Hex | Origem / uso | Contraste |
 |---|---|---|---|
-| `--c-white` | `#FFFFFF` | superfícies de destaque | — |
-| `--c-ivory` | `#FAF8F3` | fundo base | — |
-| `--c-champagne` | `#E8D4B0` | fios, fundos suaves, hover | — |
-| `--c-gold` | `#C6A66B` | **só decorativo**: fios, ícones, bordas, botão primário | 2,18:1 sobre marfim (não usar para texto) |
-| `--c-gold-light` | `#E4CD9B` | brilho, hover do botão | — |
-| `--c-gold-text` | `#7A5A22` | texto dourado pequeno (eyebrows, links) | 5,97:1 sobre marfim (AA) |
-| `--c-ink` | `#24211D` | texto principal, rodapé | 15,1:1 |
-| `--c-muted` | `#77736D` | cor do brief, só para texto grande/decorativo | 4,44:1 (abaixo de AA para corpo) |
-| `--c-text-muted` | `#6A665F` | **variante acessível** do cinza para texto corrido | 5,38:1 (AA) |
-| `--c-blush` | `#F2E6DF` | toque de rosé vindo da decoração real do estúdio, usado só em placeholders e fundos de apoio | — |
+| `--c-paper` | `#F6F0EA` | creme rosado, fundo base | — |
+| `--c-white` | `#FFFDFB` | faixa de serviços, contato, cards | — |
+| `--c-sand` | `#DCCFC4` | faixa "greige" (O Studio, Por dentro do Studio) | — |
+| `--c-blush` | `#F0E0D9` | sacola da marca: CTA final, tags suaves | — |
+| `--c-rose` | `#B98583` | só decorativo (fallback do nome gigante) | 2,75:1, não usar em texto |
+| `--c-berry` | `#8A3553` | magenta do letreiro, escurecido: traço à mão, destaques | 6,84:1 no creme |
+| `--c-cocoa` | `#4A3631` | botões escuros (texto creme: 9,97:1) | — |
+| `--c-ink` | `#261C1A` | texto principal | 14,7:1 |
+| `--c-text-2` | `#665249` | texto secundário | 6,47:1 no creme, 4,80:1 no greige |
+| `--c-night` | `#2B201D` | rodapé | — |
 
-Botão primário: fundo `--c-gold`, texto `--c-ink` (6,92:1, AA).
+Nome gigante: degradê `#ECD6D0 → #C79591 → #9E5A63` (de cima para baixo), como no GESTWŁOSY. É decorativo (`aria-hidden`).
 
 ### Tipografia
 
-- **Display:** Bodoni Moda (variável; eixo óptico fixado em `opsz` 22 nos títulos/itálicos e 11 em textos pequenos, porque no automático os fios ficam finos demais em telas 1x), peso 400, italic para ênfase. Combina com o wordmark da marca (didone). Auto-hospedada, só subset latin.
-- **Texto/UI:** Jost (variável 300–600), geométrica como a linha "ESPECIALISTA EM MEGA HAIR" da logo.
+- **Jost** (variável 100–900, já existia): interface, corpo e títulos finos (peso 300) com trecho em negrito (600), no estilo do SHEAR. Também o nome gigante (400 na hero, 300 no rodapé). Combina com o "STUDIO" e o "ESPECIALISTA EM MEGA HAIR" da fachada, que são geométricos.
+- **Newsreader** (serifa): título da hero, CTA final e depoimentos. Arquivo `newsreader-latin-display.woff2` é uma instância fixa em `opsz 60`, pesos 300–500, subset latin (46 KB), gerada com fonttools a partir do `@fontsource-variable/newsreader` (licença OFL). Sem itálico de propósito.
+- Caixa alta só no menu (0.75rem, tracking 0.08em) e no nome da marca.
 
-| Estilo | Tamanho (fluido) | Linha | Extras |
-|---|---|---|---|
-| `display` (hero H1) | `clamp(2.75rem, 1.5rem + 5.6vw, 6.25rem)` | 1.02 | tracking −0.015em |
-| `h2` | `clamp(2.1rem, 1.3rem + 2.8vw, 3.9rem)` | 1.08 | |
-| `h3` | `clamp(1.5rem, 1.2rem + 0.9vw, 2rem)` | 1.2 | |
-| `lead` | `clamp(1.0625rem, 1rem + 0.35vw, 1.3rem)` | 1.65 | Jost 300–400 |
-| `body` | 1.0625rem | 1.7 | Jost 400 |
-| `small` | 0.875rem | 1.55 | |
-| `eyebrow` | 0.75rem | 1.4 | Jost 500, caixa alta, tracking 0.28em, `--c-gold-text` |
+| Estilo | Tamanho |
+|---|---|
+| Título da hero (serifa) | `--t-hero` no celular; `clamp(2.6rem, 4.3cqi, 4rem)` no desktop (acompanha a coluna) |
+| `.title` (Jost 300) | `--t-h2` = `clamp(2rem, 1.35rem + 2.3vw, 3.4rem)` |
+| Títulos de seção grandes (Mega Hair, Por dentro do Studio, Contato) | até 4.75rem |
+| Corpo | 1rem / 1.65 |
 
-### Espaço, forma, sombra, linhas
+### Forma, espaço, movimento
 
-- Escala (`--s-*`): 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 px. Respiro vertical entre seções: `clamp(5rem, 9vw, 9.5rem)`.
-- Container: 1240 px máx.; gutter `clamp(1.25rem, 4vw, 3rem)`.
-- Raio: 0 em tudo; **arco** (`border-radius: 999px 999px 0 0`) para fotos principais.
-- Sombra única e leve: `0 30px 60px -36px rgba(36,33,29,.35)`. Sem neon, sem sombras pesadas.
-- Fio: `1px solid rgba(198,166,107,.55)` (`--line-gold`) e `1px solid rgba(36,33,29,.12)` (`--line`).
-- Ornamento: losango de 6 px em dourado, usado como separador (CSS, não emoji).
+- Fotos: **canto reto**. Cards e tags: `--r-card` (22px) e pílula (999px).
+- Botões: pílula, 48px de altura, texto em caixa normal. `.btn--dark` (cacau), `.btn--light` (branco com fio), `.btn--line` (só fio).
+- Tags: `.pill`, `.pill--soft` (rosé), `.pill--dark` (preto), `.pill--todo` (tracejada = a confirmar).
+- Container 1240px, gutter `clamp(1.25rem, 4vw, 3rem)`, respiro de seção `clamp(4.5rem, 8vw, 8rem)`.
+- `--slant`: corte diagonal entre a hero e "O Studio" (`clip-path`), como no SHEAR.
+- Entradas: opacidade + 16px, 700ms, sem cascata em cada item. `prefers-reduced-motion` desliga tudo.
 
-### Movimento
+## 3. Componentes de assinatura
 
-- Easing padrão `cubic-bezier(.22,.61,.36,1)`; easing de "porta/iris" `cubic-bezier(.65,0,.25,1)`.
-- Entrada de seção: opacidade 0→1 + `translateY(28px→0)`, 900 ms, stagger 90–120 ms. Disparada por `IntersectionObserver` (uma vez).
-- Hover de botão: preenchimento sobe em 350 ms; sem escala exagerada.
-- `prefers-reduced-motion`: sem abertura, sem parallax, transições reduzidas a fade de 150 ms.
+- **Nome gigante** (`.hero__giant`, `.footer__giant`): "Monique Marques" de fora a fora. O tamanho usa unidades de container (`cqi`) divididas pela largura real do texto em Jost, então sempre ocupa a largura do container. Duas linhas no celular. A foto da hero fica na frente da metade de baixo das letras.
+- **Traço à mão** (`<smm-scribble>`): sublinhado duplo em magenta sob uma palavra ("Mega Hair", "horário?"), desenhado com `stroke-dashoffset` quando a hero entra ou quando o bloco aparece.
+- **Split com sangria** (`.split`, `.split--flip`): texto em 5 colunas e foto em 7, a foto vai até a borda da tela.
+- **Card de tags** (`.scope` em Serviços): pílulas alternando rosé e preto, como o "Scope of Work" do GESTWŁOSY. Itens não confirmados aparecem tracejados.
+- **Card do vídeo** (`.filmcard` na hero): miniatura do neon + "Assista à inauguração · 1:11", abre o diálogo do vídeo completo.
 
-## 3. Grid e breakpoints
-
-| Nome | Largura | Grid |
-|---|---|---|
-| mobile | < 640 | 4 colunas, gutter 20 |
-| tablet | 640–1023 | 8 colunas |
-| desktop | ≥ 1024 | 12 colunas, container 1240 |
-
-## 4. Componentes
-
-- **Botão primário** (`.btn--primary`): retângulo, fundo ouro, texto marfim-escuro, caixa alta 0.8125rem tracking .16em, altura 52 px (alvo de toque ≥ 48), seta fina à direita. Hover: fundo `--c-gold-light`, seta desloca 4 px. Foco: contorno 2 px `--c-ink` com offset 3 px.
-- **Botão secundário** (`.btn--ghost`): só texto + sublinhado dourado de 1 px que cresce no hover.
-- **Botão do header** (`.btn--outline`): fio dourado 1 px, texto `--c-ink`, preenche em champagne no hover.
-- **Eyebrow + título de seção** (`SectionHeading`): eyebrow dourado, fio curto de 48 px, H2 Bodoni.
-- **Moldura em arco** (`.arch`): foto com topo em arco e arco de fio dourado deslocado 18 px atrás; legenda opcional.
-- **Card de serviço**: imagem 4:5, título Bodoni, descrição curta, link "Agendar este serviço" (WhatsApp com mensagem pré-preenchida). Estado placeholder: borda tracejada dourada, fundo `--c-blush`, monograma em marca d'água, selo "A confirmar".
-- **Comparador antes/depois**: duas imagens sobrepostas, divisor vertical dourado com alça; arrasto por ponteiro e teclado (setas), `role="slider"`.
-- **Depoimento**: aspas tipográficas douradas (Bodoni), texto em italic, nome em caixa alta pequena.
-- **Ícones**: traço 1.25 px, 32 px, dourado, sem preenchimento; SVG inline.
-- **Header**: 84 px no topo (transparente); ao rolar, marfim 86% + `backdrop-filter: blur(14px)` + sombra de 1 px. Mobile: botão de menu abre painel em tela cheia com links em Bodoni.
-- **Barra WhatsApp (mobile)**: botão fixo na base após passar da hero.
-
-## 5. Abertura cinematográfica
-
-### Decisão técnica
-
-O vídeo da inauguração enviado pela cliente contém **o corte real da fita** (plano aberto 0:12–0:14 e close-up das tesouras diante da parede da marca em 0:16–0:18, corte em ≈0:16,8). Com um asset real, do próprio estúdio, o vídeo é mais convincente que qualquer fita 3D simulada.
-
-| Opção | Realismo | Peso | Risco | Decisão |
-|---|---|---|---|---|
-| Vídeo real editado (2,4 MB / 0,43 MB webm) | máximo, é o evento real | baixo | fita é **vermelha** no vídeo, não dourada | **escolhida** |
-| Three.js (fita + tesoura 3D) | alto, mas é simulação | +300–600 KB de JS | muito tempo de acerto físico | descartada |
-| CSS | baixo | mínimo | o brief proíbe | descartada |
-
-GSAP e Three.js **não foram adicionados**: a sequência tem poucos marcos e é conduzida por `currentTime` do vídeo + classes CSS.
-
-### Edição do clipe (ffmpeg, 4,4 s, sem áudio)
-
-1. Plano aberto 12,45–14,30 s (ela se aproxima da fita).
-2. Corte por continuidade para o close-up 16,43–18,05 s em **câmera lenta 0,6×** (interpolação de movimento), mostrando o corte.
-3. Grade leve: saturação −10%, contraste +3%, realce quente.
-
-### Storyboard
-
-| Tempo | Cena | O que acontece |
-|---|---|---|
-| 0,0–1,6 s | 1. Abertura | Fundo marfim com vinheta suave. O monograma dourado surge (fade + varredura de brilho de 900 ms). Em seguida, "STUDIO MONIQUE MARQUES" com tracking .42em. O vídeo pré-carrega por baixo. |
-| 1,6–2,9 s | 2. Iris | Um anel dourado de 1 px abre do centro (1,3 s) e revela o vídeo por dentro; o monograma some. O vídeo começa: plano aberto, ela diante da fita. |
-| clip 1,85 s | corte | Match cut para o close-up em câmera lenta. |
-| clip ≈2,42 s | 3. O corte | Instante exato em que a fita se parte: **brilho dourado** (radial champagne, 700 ms, `mix-blend-mode: screen`). As pontas reagem no próprio vídeo. |
-| clip 3,5 s | 4. Revelação | O vídeo dissolve para marfim (fadewhite 700 ms) e o overlay se desfaz. O logotipo do header entra (fade + tracking de .3em → .12em), as linhas do H1 sobem em máscara com stagger de 120 ms e a foto em arco se revela de baixo para cima (clip-path 1,2 s). Botões por último. |
-
-Duração total ≈ 5,9 s. O botão **Pular abertura** existe desde o primeiro quadro; `Esc` também pula.
-
-### Regras de robustez
-
-- Roda uma vez por sessão (`sessionStorage`). `?abertura` na URL força rever.
-- Não roda com `prefers-reduced-motion`, `saveData` ou conexão 2G; nesses casos só aparece o conteúdo.
-- Falha de vídeo (erro, `play()` rejeitado, sem codec, 6 s sem iniciar): a abertura encerra sozinha e o site aparece.
-- Enquanto toca, o conteúdo fica `inert` e o scroll travado; ao terminar, o foco vai para o conteúdo.
-- Mobile: usa o arquivo 720p; vídeo preenche a tela com recorte central (`object-position` ajustado por cena).
-
-## 6. Seções (resumo de layout)
-
-**Hero** — desktop: 2 colunas assimétricas (texto 6/12, foto em arco 5/12 com sangria à direita). Mobile: texto primeiro (H1, subtítulo, CTAs visíveis na primeira tela), foto em arco abaixo.
+## 4. Seções
 
 ```
-┌──────────────────────────────────────────────┐
-│ [M] STUDIO MONIQUE MARQUES   Início Sobre … [Agendar] │
-│                                              │
-│  ── ESPECIALISTA EM MEGA HAIR        ╭────╮  │
-│  Seu cabelo.                         │    │  │
-│  Sua essência.                       │foto│  │
-│  *Sua melhor versão.*                │arco│  │
-│  Mega Hair de alto padrão…           ╰────╯  │
-│  [Agendar pelo WhatsApp]  Conhecer o estúdio │
-└──────────────────────────────────────────────┘
+Header    links à esquerda · monograma + MONIQUE MARQUES no centro · Instagram + "Agendar horário" à direita
+Hero      creme · MONIQUE MARQUES gigante · foto na frente · título serifado à esquerda · card do vídeo à direita
+O Studio  greige, topo na diagonal · título Jost fino com "Studio Monique Marques:" em negrito · foto sangrando à direita
+Mega Hair branco · foto sangrando à esquerda · título grande · card de tags · botão
+Por dentro do Studio  greige · título centralizado · 4 fotos do espaço (rolagem lateral no celular)
+Antes e depois  creme · comparador (placeholder até ter fotos reais)
+Clientes  creme · depoimentos reais (placeholder até ter)
+CTA       rosé · "Vamos marcar o seu horário?" com traço à mão · foto da sacola da marca
+Contato   branco · lista WhatsApp / Instagram / Endereço / Horários · mapa
+Rodapé    noite · links · MONIQUE MARQUES gigante · direitos
 ```
 
-**Sobre** — foto larga 16:9 da parede da marca (legenda "Inauguração do Studio" + botão "Assistir à inauguração" que abre o filme em `<dialog>`), texto e três pilares abaixo/ao lado.
+Mobile: barra fixa "Agendar pelo WhatsApp" depois da hero; menu em tela cheia com links grandes em Jost 300.
 
-**Serviços** — grade de 3 colunas (2 no tablet, 1 com scroll-snap no mobile). Um serviço confirmado (Mega Hair); demais são placeholders configuráveis.
+## 5. Abertura
 
-**Resultados** — comparador antes/depois + grade de fotos. Sem fotos reais fornecidas: aparece placeholder identificado (ou a seção some quando `showPlaceholders = false`).
+Mesma lógica da v1 (vídeo real do corte da fita, uma vez por sessão, `?abertura` para rever, pulável, não roda com movimento reduzido / economia de dados / 2G, falha de vídeo encerra sozinha). O que saiu: íris dourada, anel, brilho no corte e varredura no monograma.
 
-**Diferenciais** — 4 colunas com ícone de fio dourado; separadores verticais em fio.
+| Tempo | O que acontece |
+|---|---|
+| 0–1,4 s | Monograma e "Studio Monique Marques" sobre o creme (fade de 900 ms) |
+| 1,4 s | Vídeo entra em fade (600 ms): plano aberto, ela diante da fita |
+| clip 1,85 s | Corte para o close-up das tesouras (no celular, reenquadra em `30% 50%`) |
+| clip 3,45 s | Dissolve no creme (650 ms) e a hero entra |
 
-**Depoimentos** — três colunas (carrossel com scroll-snap no mobile), aspas em Bodoni.
+Marcos do clipe: `FILM` em `opening.ts`.
 
-**CTA final** — fundo marfim, foto em arco à esquerda, mensagem e botão à direita.
+## 6. Acessibilidade e performance
 
-**Contato e rodapé** — lista (WhatsApp, Instagram, endereço, horários) + mapa; rodapé escuro `--c-ink` com lockup dourado, navegação e direitos.
+- axe-core (WCAG 2.1 AA + boas práticas): 0 violações em 1440px e 390px.
+- Nome gigante e traço à mão são `aria-hidden`; o título da hero é texto real ("Especialista em Mega Hair").
+- Rolagem lateral das fotos no celular é focável (`tabindex="0"`) para quem navega pelo teclado.
+- Fontes: 2 arquivos (Jost 26 KB + Newsreader 46 KB), ambos pré-carregados. A v1 tinha 3 (≈125 KB).
+- Fotos novas do espaço: 576–600 × 720, 11–24 KB cada (webp).
 
-## 7. Acessibilidade e performance
-
-- Contraste AA em todos os textos (ver tabela de cores). Dourado `#C6A66B` nunca é cor de texto.
-- Navegação por teclado completa, foco visível, `skip link`, landmarks (`header`, `main`, `footer`, `nav`).
-- Imagens com `alt` descritivo; decorativas com `alt=""`. `loading="lazy"` e `decoding="async"` abaixo da dobra; imagem da hero com `fetchpriority="high"`.
-- Fontes self-hosted (3 arquivos woff2, ≈125 KB), `font-display: swap`, preload das duas usadas na primeira dobra.
-- Sem dependências de runtime além do Angular.
-
-## 8. Inventário de assets (todos reais)
+## 7. Inventário de imagens (todas reais)
 
 | Arquivo | Origem | Uso |
 |---|---|---|
-| `media/opening/*` | vídeo da inauguração, 12,45–14,30 s + 16,43–18,05 s | abertura |
-| `media/film/inauguracao-720.mp4` | vídeo da inauguração completo (71 s), 720p | modal "Assistir à inauguração" |
-| `images/hero-portrait.webp` | frame 37,25 s | hero |
-| `images/about-wide.webp` | frame 36,90 s | Sobre |
-| `images/cta-portrait.webp` | frame 14,65 s (logo parcial da parede removido) | CTA final |
-| `images/mega-hair.webp` | frame 22,0 s (recorte) | card Mega Hair |
-| `brand/*.svg` | PDF da logo (versão dourada), vetorizado | header, abertura, rodapé, favicon |
+| `images/hero-portrait.webp` | frame 37,25 s do vídeo original | hero |
+| `images/about-wide.webp` | frame 36,90 s | O Studio |
+| `images/mega-hair.webp` | frame 22,0 s | Mega Hair |
+| `images/studio/neon.webp` | `media/film/inauguracao-720.mp4`, 4,2 s | Por dentro do Studio, card do vídeo |
+| `images/studio/lavatorios.webp` | idem, 5,2 s | Por dentro do Studio |
+| `images/studio/espelho.webp` | idem, 7,0 s | Por dentro do Studio |
+| `images/studio/caixa.webp` | idem, 22,8 s | Por dentro do Studio |
+| `images/studio/sacola.webp` | idem, 27,4 s | CTA final |
+| `og-image.jpg` | composição da hero (1200 × 630) | compartilhamento |
+| `media/opening/*`, `media/film/*` | vídeo da inauguração | abertura e diálogo do vídeo |
+| `brand/*.svg` | logo dourada vetorizada | header, abertura, rodapé, favicon |
 
-Os frames passam por uma correção de cor que dessatura o roxo/magenta da parede para conversar com a paleta marfim e dourada (cabelo e pele não são alterados).
+As fotos novas vêm do arquivo 720p; por isso aparecem em tamanho médio (até ~300 px de largura no desktop). Se a cliente tiver o vídeo original em 1080p ou fotos do espaço, vale trocar.

@@ -2,40 +2,32 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Reveal } from '../../core/reveal';
 import { SITE } from '../../core/site.config';
 import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
+import { Scribble } from '../../shared/scribble';
 
 @Component({
   selector: 'smm-final-cta',
-  imports: [Reveal],
+  imports: [Reveal, Scribble],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="cta" aria-labelledby="cta-title">
       <div class="container cta__inner">
-        <div class="cta__media reveal" smmReveal>
-          <div class="arch">
-            <div class="arch__media">
-              <img [src]="cta.image.src" [alt]="cta.image.alt" width="864" height="1080" loading="lazy" decoding="async" />
-            </div>
-          </div>
+        <div class="cta__copy reveal" smmReveal>
+          <h2 id="cta-title" class="cta__title serif">
+            {{ cta.title }} <smm-scribble>{{ cta.highlight }}</smm-scribble>
+          </h2>
+          <p class="cta__text text-2">{{ cta.text }}</p>
+          <a
+            class="btn btn--dark"
+            [href]="wa"
+            [attr.target]="waExternal ? '_blank' : null"
+            [attr.rel]="waExternal ? 'noopener' : null"
+          >
+            {{ cta.button }}
+          </a>
         </div>
 
-        <div class="cta__copy">
-          <h2 id="cta-title" class="cta__title reveal" smmReveal>
-            {{ lead }} <em class="gold">{{ accent }}</em>
-          </h2>
-          <p class="lead reveal" smmReveal style="--i: 1">{{ cta.text }}</p>
-          <div class="reveal" smmReveal style="--i: 2">
-            <a
-              class="btn btn--primary"
-              [href]="wa"
-              [attr.target]="waExternal ? '_blank' : null"
-              [attr.rel]="waExternal ? 'noopener' : null"
-            >
-              {{ cta.button }}
-              <svg class="btn__arrow" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-                <path d="M0 5h16M12 1l4 4-4 4" />
-              </svg>
-            </a>
-          </div>
+        <div class="photo cta__photo reveal" smmReveal>
+          <img [src]="cta.image.src" [alt]="cta.image.alt" width="576" height="720" loading="lazy" decoding="async" />
         </div>
       </div>
     </section>
@@ -44,56 +36,36 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
     @use '../../../styles/tokens' as *;
 
     .cta {
-      position: relative;
-      overflow: clip;
       padding-block: var(--section-y);
-      background: var(--c-ivory);
-      border-top: 1px solid var(--line-gold);
-
-      // monograma gigante e quase invisível, como marca d'água de papel de luxo
-      &::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        right: -10%;
-        width: min(70vw, 760px);
-        aspect-ratio: 1;
-        transform: translateY(-50%);
-        background: url('/brand/monogram.svg') center / contain no-repeat;
-        opacity: 0.07;
-        pointer-events: none;
-      }
+      background: var(--c-blush);
     }
     .cta__inner {
-      position: relative;
       display: grid;
       gap: clamp(2.5rem, 6vw, 5rem);
       align-items: center;
 
-      @include up($bp-lg) {
-        grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
-      }
-    }
-    .cta__media .arch {
-      width: min(100%, 420px);
-      margin-inline: auto;
-
-      @include up($bp-lg) {
-        width: min(100%, 460px);
+      @include up($bp-md) {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
       }
     }
     .cta__copy {
       display: grid;
       justify-items: start;
-      gap: clamp(1.25rem, 2.4vw, 2rem);
+      gap: 1.5rem;
     }
     .cta__title {
-      font-size: clamp(2.4rem, 1.4rem + 3.8vw, 4.75rem);
-      line-height: 1.05;
-      letter-spacing: -0.015em;
+      font-size: clamp(2.6rem, 1.5rem + 4.6vw, 5.75rem);
+      line-height: 1.02;
     }
-    .cta__copy .lead {
-      max-width: 32rem;
+    .cta__text {
+      max-width: 28rem;
+      margin-top: 0.5rem;
+    }
+    .cta__photo {
+      aspect-ratio: 4 / 5;
+      width: min(100%, 420px);
+      justify-self: end;
+      background: var(--c-paper);
     }
   `,
 })
@@ -101,9 +73,4 @@ export class FinalCta {
   protected readonly cta = SITE.finalCta;
   protected readonly wa = whatsappUrl();
   protected readonly waExternal = hasWhatsapp();
-
-  /** Destaca em itálico dourado as duas últimas palavras do título. */
-  private readonly words = SITE.finalCta.title.split(' ');
-  protected readonly lead = this.words.slice(0, -2).join(' ');
-  protected readonly accent = this.words.slice(-2).join(' ');
 }

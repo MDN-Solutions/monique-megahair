@@ -1,69 +1,49 @@
 @use '../../../styles/tokens' as *;
 
-.results__head {
-  display: grid;
-  gap: 1.5rem;
-  max-width: 42rem;
-  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
-}
-
-.results__title {
-  font-size: var(--t-h2);
-  line-height: 1.08;
-}
-
 .results__grid {
   display: grid;
   gap: clamp(2rem, 4vw, 3.5rem);
 
-  @include up($bp-md) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  @include up($bp-lg) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     align-items: start;
   }
 }
 
-.results__item {
+.results__head {
   display: grid;
   gap: 1rem;
+  max-width: 26rem;
+
+  @include up($bp-lg) {
+    position: sticky;
+    top: calc(var(--header-h) + 2rem);
+  }
+}
+
+.results__demo {
+  width: min(100%, 520px);
+
+  @include up($bp-lg) {
+    justify-self: end;
+  }
+}
+
+.results__list {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.5rem);
+
+  @include up($bp-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .results__photo {
   aspect-ratio: 4 / 5;
-  overflow: hidden;
-  background: var(--c-champagne);
-  box-shadow: var(--shadow);
-
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
 }
 
-.results__ph {
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 1.25rem;
-  aspect-ratio: 4 / 5;
-  background: var(--c-blush);
-  border: 1px dashed var(--c-gold);
-
-  img {
-    width: 80px;
-    height: 80px;
-    opacity: 0.4;
-  }
-
-  p {
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--c-gold-text);
-  }
-}
-
-.results__note {
+.results__caption {
+  margin-top: 0.75rem;
   font-size: var(--t-small);
-  color: var(--c-text-muted);
+  color: var(--c-text-2);
 }

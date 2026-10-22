@@ -1,13 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { inject } from '@angular/core';
 import { Reveal } from '../../core/reveal';
 import { SITE } from '../../core/site.config';
 import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
-import { Icon, IconName } from '../../shared/icon';
 
 interface Row {
-  icon: IconName;
   label: string;
   /** conteúdo real (vazio = ainda não informado) */
   lines: string[];
@@ -28,7 +25,7 @@ function formatPhone(raw: string): string {
 
 @Component({
   selector: 'smm-contact',
-  imports: [Reveal, Icon],
+  imports: [Reveal],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -48,34 +45,30 @@ export class Contact {
 
     const all: Row[] = [
       {
-        icon: 'whatsapp',
         label: 'WhatsApp',
         lines: c.whatsapp ? [formatPhone(c.whatsapp)] : [],
         href: this.hasWa ? this.wa : undefined,
         external: true,
-        todo: 'Informar o número do WhatsApp do estúdio',
+        todo: 'Falta o número do WhatsApp',
       },
       {
-        icon: 'instagram',
         label: 'Instagram',
         lines: c.instagram ? [`@${c.instagram}`] : [],
         href: c.instagram ? `https://instagram.com/${c.instagram}` : undefined,
         external: true,
-        todo: 'Informar o usuário do Instagram',
+        todo: 'Falta o @ do Instagram',
       },
       {
-        icon: 'pin',
         label: 'Endereço',
         lines: c.addressLines,
         href: c.mapLink || undefined,
         external: true,
-        todo: 'Informar o endereço completo',
+        todo: 'Falta o endereço',
       },
       {
-        icon: 'clock',
-        label: 'Horário de atendimento',
+        label: 'Horários',
         lines: c.hours.map((h) => `${h.days}: ${h.time}`),
-        todo: 'Informar dias e horários de atendimento',
+        todo: 'Faltam os dias e horários',
       },
     ];
 

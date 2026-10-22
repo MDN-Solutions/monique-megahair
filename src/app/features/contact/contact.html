@@ -1,46 +1,35 @@
 <section id="contato" class="section contact" aria-labelledby="contact-title">
   <div class="container contact__grid">
-    <div class="contact__info">
-      <header class="reveal" smmReveal>
-        <p class="eyebrow">{{ copy.eyebrow }}</p>
-        <h2 id="contact-title" class="contact__title">{{ copy.title }}</h2>
-      </header>
+    <div class="contact__info reveal" smmReveal>
+      <h2 id="contact-title" class="title contact__title">{{ copy.title }}</h2>
 
-      <ul class="contact__list">
-        @for (row of rows; track row.label; let i = $index) {
-          <li class="row reveal" smmReveal [style.--i]="i + 1" [class.row--ph]="row.lines.length === 0">
-            <span class="row__icon"><smm-icon [name]="row.icon" style="--icon-size: 1.6rem" /></span>
-            <div class="row__body">
-              <p class="row__label">{{ row.label }}</p>
+      <dl class="contact__list">
+        @for (row of rows; track row.label) {
+          <div class="row">
+            <dt class="row__label">{{ row.label }}</dt>
+            <dd class="row__value">
               @if (row.lines.length > 0) {
                 @for (line of row.lines; track line) {
                   @if (row.href && $first) {
-                    <a class="row__value row__link" [href]="row.href" [attr.target]="row.external ? '_blank' : null" [attr.rel]="row.external ? 'noopener' : null">{{ line }}</a>
+                    <a class="row__link" [href]="row.href" [attr.target]="row.external ? '_blank' : null" [attr.rel]="row.external ? 'noopener' : null">{{ line }}</a>
                   } @else {
-                    <p class="row__value">{{ line }}</p>
+                    <span class="row__line">{{ line }}</span>
                   }
                 }
               } @else {
-                <p class="row__value row__todo">{{ row.todo }}</p>
+                <span class="pill pill--todo">{{ row.todo }}</span>
               }
-            </div>
-          </li>
+            </dd>
+          </div>
         }
-      </ul>
+      </dl>
 
       @if (hasWa) {
-        <div class="reveal" smmReveal>
-          <a class="btn btn--primary" [href]="wa" target="_blank" rel="noopener">
-            Agendar pelo WhatsApp
-            <svg class="btn__arrow" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-              <path d="M0 5h16M12 1l4 4-4 4" />
-            </svg>
-          </a>
-        </div>
+        <a class="btn btn--dark" [href]="wa" target="_blank" rel="noopener">Agendar pelo WhatsApp</a>
       }
     </div>
 
-    <div class="contact__map reveal" smmReveal style="--i: 2">
+    <div class="contact__map reveal" smmReveal>
       @if (mapUrl) {
         <iframe
           class="map"
@@ -52,9 +41,7 @@
         ></iframe>
       } @else if (showPlaceholders) {
         <div class="map map--ph">
-          <img src="brand/monogram.svg" alt="" width="96" height="96" loading="lazy" />
-          <p>Mapa de localização</p>
-          <p class="map__todo">Informar o link de incorporação do Google Maps</p>
+          <p class="todo-note"><strong>Placeholder:</strong> mapa do Google Maps (falta o link de incorporação).</p>
         </div>
       }
     </div>

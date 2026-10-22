@@ -1,0 +1,122 @@
+@use '../../../styles/tokens' as *;
+
+.hero {
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem));
+  padding-bottom: clamp(3.5rem, 7vw, 6.5rem);
+  overflow: clip;
+}
+
+// Luz suave de estúdio atrás da foto
+.hero__glow {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(52% 48% at 82% 34%, rgba(232, 212, 176, 0.6), transparent 70%),
+    radial-gradient(40% 36% at 6% 92%, rgba(242, 230, 223, 0.7), transparent 70%);
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4rem);
+
+  @include up($bp-lg) {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+  }
+}
+
+.hero__copy {
+  display: grid;
+  justify-items: start;
+  gap: clamp(1.25rem, 2.4vw, 2rem);
+}
+
+.hero__title {
+  font-size: var(--t-display);
+  line-height: 1.04;
+  letter-spacing: -0.018em;
+}
+
+// Cada linha sobe de dentro de uma máscara (revelação editorial)
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.hero__line-in {
+  display: inline-block;
+  transition: transform 1.15s var(--ease);
+  transition-delay: calc(var(--i, 0) * 130ms + 120ms);
+}
+
+:host-context(html.intro-pending) .hero__line-in {
+  transform: translateY(112%);
+  transition: none;
+}
+
+.hero__sub {
+  max-width: 34rem;
+}
+
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 2rem;
+  margin-top: 0.5rem;
+}
+
+// ---------- Foto em arco ----------
+.hero__media {
+  @include up($bp-lg) {
+    // a foto "sangra" um pouco para a direita, composição assimétrica
+    margin-right: clamp(-3rem, -2vw, 0rem);
+  }
+}
+
+.hero__media .arch {
+  width: min(100%, 440px);
+
+  @include up($bp-lg) {
+    width: min(100%, 500px);
+    margin-inline: auto 0;
+  }
+}
+
+.hero__frame {
+  clip-path: inset(0 0 0 0);
+  transition: clip-path 1.5s var(--ease-door) 0.2s;
+
+  img {
+    object-position: 58% 18%;
+  }
+}
+
+:host-context(html.intro-pending) .hero__frame {
+  clip-path: inset(100% 0 0 0);
+  transition: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__line-in,
+  .hero__frame {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+  }
+
+  :host-context(html.intro-pending) .hero__line-in {
+    transform: none;
+  }
+
+  :host-context(html.intro-pending) .hero__frame {
+    clip-path: inset(0 0 0 0);
+  }
+}

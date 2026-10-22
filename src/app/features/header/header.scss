@@ -1,0 +1,212 @@
+@use '../../../styles/tokens' as *;
+
+:host {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 100;
+  display: block;
+}
+
+.header {
+  position: relative;
+  transition:
+    background-color 0.4s var(--ease),
+    box-shadow 0.4s var(--ease),
+    backdrop-filter 0.4s var(--ease);
+}
+
+:host(.is-scrolled) .header {
+  background: rgba(250, 248, 243, 0.86);
+  -webkit-backdrop-filter: blur(14px) saturate(1.1);
+  backdrop-filter: blur(14px) saturate(1.1);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.header__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  height: var(--header-h);
+  position: relative;
+  z-index: 2;
+}
+
+// ---------- Logotipo ----------
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  min-height: 44px;
+}
+
+.brand__mark {
+  width: 44px;
+  height: 44px;
+}
+
+.brand__text {
+  display: grid;
+  line-height: 1;
+}
+
+.brand__top {
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+  text-transform: uppercase;
+  color: var(--c-gold-text);
+}
+
+.brand__name {
+  margin-top: 0.4rem;
+  font-family: var(--f-display);
+  font-variation-settings: 'opsz' 11;
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+// ---------- Navegação desktop ----------
+.nav {
+  display: none;
+
+  @include up($bp-lg) {
+    display: block;
+    margin-inline: auto;
+  }
+}
+
+.nav__list {
+  display: flex;
+  gap: clamp(1.25rem, 2.6vw, 2.75rem);
+}
+
+.nav__link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 8px;
+    height: 1px;
+    background: var(--c-gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.45s var(--ease);
+  }
+
+  &:hover::after,
+  &[aria-current='true']::after {
+    transform: scaleX(1);
+  }
+}
+
+// ---------- Ações ----------
+.header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header__cta {
+  display: none;
+
+  @include up($bp-md) {
+    display: inline-flex;
+  }
+}
+
+.menu-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+
+  @include up($bp-lg) {
+    display: none;
+  }
+}
+
+// ---------- Menu compacto ----------
+.menu {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2.5rem;
+  padding: calc(var(--header-h) + 1rem) var(--gutter) max(2rem, env(safe-area-inset-bottom));
+  background: var(--c-ivory);
+  background-image: radial-gradient(60% 40% at 80% 10%, rgba(232, 212, 176, 0.5), transparent 70%);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-12px);
+  transition:
+    opacity 0.4s var(--ease),
+    transform 0.5s var(--ease),
+    visibility 0s linear 0.5s;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+
+  @include up($bp-lg) {
+    display: none;
+  }
+}
+
+.menu__nav ul {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.menu__nav li {
+  border-bottom: 1px solid var(--line);
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 0.5s var(--ease),
+    transform 0.5s var(--ease);
+  transition-delay: calc(var(--i) * 60ms + 120ms);
+}
+
+.menu.is-open .menu__nav li {
+  opacity: 1;
+  transform: none;
+}
+
+.menu__nav a {
+  display: block;
+  padding: 0.85rem 0;
+  font-family: var(--f-display);
+  font-variation-settings: 'opsz' 22;
+  font-size: clamp(2rem, 8vw, 2.75rem);
+  line-height: 1.1;
+}
+
+.menu__cta {
+  align-self: stretch;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu,
+  .menu__nav li {
+    transition-duration: 0.01ms;
+    transition-delay: 0s;
+  }
+}

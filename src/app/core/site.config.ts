@@ -1,0 +1,238 @@
+/**
+ * Conteúdo e dados editáveis do site.
+ *
+ * Regra: nada aqui é inventado. O que não foi informado pela cliente fica como
+ * PENDENTE (campo vazio) ou em uma lista de *placeholders* separada, que só
+ * aparece quando `showPlaceholders` é true.
+ *
+ * Antes de publicar:
+ *   1. preencher os campos PENDENTE em `contact`;
+ *   2. trocar os placeholders por conteúdo real (ou deixar as listas vazias);
+ *   3. colocar `showPlaceholders: false`.
+ */
+
+import type { IconName } from '../shared/icon';
+
+export interface ImageRef {
+  src: string;
+  alt: string;
+}
+
+export interface Service {
+  id: string;
+  title: string;
+  description: string;
+  tag?: string;
+  image?: ImageRef;
+}
+
+export interface Differential {
+  icon: IconName;
+  title: string;
+  text: string;
+}
+
+export interface Testimonial {
+  quote: string;
+  name: string;
+  detail?: string;
+}
+
+export type ResultItem =
+  | { kind: 'before-after'; before: ImageRef; after: ImageRef; caption?: string }
+  | { kind: 'photo'; image: ImageRef; caption?: string };
+
+export interface OpeningHours {
+  days: string;
+  time: string;
+}
+
+export const SITE = {
+  name: 'Studio Monique Marques',
+  tagline: 'Especialista em Mega Hair',
+
+  /** true = mostra blocos "A confirmar" para o time ver o que falta. Colocar false para publicar. */
+  showPlaceholders: true,
+
+  contact: {
+    /** PENDENTE — WhatsApp do estúdio: DDI + DDD + número, só dígitos. Ex.: '5581900000000' */
+    whatsapp: '',
+    whatsappMessage:
+      'Olá! Vim pelo site do Studio Monique Marques e gostaria de agendar um horário.',
+    /** PENDENTE — usuário do Instagram, sem @ */
+    instagram: '',
+    /** PENDENTE — endereço completo, em linhas */
+    addressLines: [] as string[],
+    /** PENDENTE — URL de incorporação do Google Maps (Compartilhar > Incorporar um mapa > src) */
+    mapEmbedUrl: '',
+    /** PENDENTE — link "Como chegar" (Google Maps / Waze) */
+    mapLink: '',
+    /** PENDENTE — horários de atendimento */
+    hours: [] as OpeningHours[],
+  },
+
+  hero: {
+    eyebrow: 'Especialista em Mega Hair',
+    lines: ['Seu cabelo.', 'Sua essência.'],
+    accentLine: 'Sua melhor versão.',
+    subtitle:
+      'Mega Hair de alto padrão, acabamento natural e atendimento personalizado para realçar a sua beleza.',
+    image: {
+      src: 'images/hero-portrait.webp',
+      alt: 'Mulher sorrindo com cabelo longo, loiro e ondulado, ao lado de árvore de Natal decorada no Studio Monique Marques',
+    } satisfies ImageRef,
+  },
+
+  about: {
+    eyebrow: 'O Studio',
+    title: 'Beleza natural, com cuidado em cada detalhe.',
+    paragraphs: [
+      'O Studio Monique Marques é especializado em Mega Hair. O propósito é simples: realçar a sua beleza de forma natural, com acabamento refinado e um atendimento pensado para você.',
+      'Cada cliente é única. Por isso, o cuidado começa na atenção ao que você deseja e ao que valoriza o seu estilo. Quando o cabelo está bonito, a autoestima aparece junto.',
+    ],
+    pillars: ['Beleza natural', 'Autoestima', 'Atendimento personalizado', 'Cuidado com cada cliente'],
+    image: {
+      src: 'images/about-wide.webp',
+      alt: 'Mulher de cabelo longo e loiro sorrindo no Studio Monique Marques, com o monograma da marca na parede ao fundo',
+    } satisfies ImageRef,
+    caption: 'Inauguração do Studio Monique Marques',
+  },
+
+  services: {
+    eyebrow: 'Serviços e especialidades',
+    title: 'Mega Hair do jeito que o seu cabelo pede.',
+    intro:
+      'A especialidade do Studio é o Mega Hair. Fale com a gente para escolher a melhor opção para o seu cabelo e o seu estilo.',
+  },
+
+  results: {
+    eyebrow: 'Resultados',
+    title: 'Resultados reais, em detalhe.',
+    intro: 'Fotografias reais de clientes do Studio.',
+  },
+
+  differentials: {
+    eyebrow: 'Diferenciais',
+    title: 'Um cuidado que você percebe.',
+  },
+
+  testimonials: {
+    eyebrow: 'Depoimentos',
+    title: 'O que dizem as clientes.',
+  },
+
+  finalCta: {
+    title: 'Sua próxima transformação começa aqui.',
+    text: 'Entre em contato com o Studio Monique Marques e descubra a melhor opção para você.',
+    button: 'Falar com o estúdio',
+    image: {
+      src: 'images/cta-portrait.webp',
+      alt: 'Mulher sorrindo com cabelo longo, loiro e ondulado, sentada no Studio Monique Marques',
+    } satisfies ImageRef,
+  },
+
+  contactSection: {
+    eyebrow: 'Contato',
+    title: 'Vamos conversar sobre o seu cabelo.',
+  },
+
+  film: {
+    src: 'media/film/inauguracao-720.mp4',
+    poster: 'media/film/film-poster.webp',
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Conteúdo CONFIRMADO
+// ---------------------------------------------------------------------------
+
+/** Serviços confirmados. O logo da marca diz "Especialista em Mega Hair". */
+export const SERVICES: Service[] = [
+  {
+    id: 'mega-hair',
+    title: 'Mega Hair',
+    tag: 'Especialidade',
+    description:
+      'Volume e comprimento com acabamento natural, pensados para o seu cabelo e para o seu estilo.',
+    image: {
+      src: 'images/mega-hair.webp',
+      alt: 'Mulher rindo, de cabelo longo e loiro, abraçada a uma cliente no Studio Monique Marques',
+    },
+  },
+];
+
+/** Diferenciais citados no próprio texto do brief ("acabamento natural e atendimento personalizado"). */
+export const DIFFERENTIALS: Differential[] = [
+  {
+    icon: 'sparkle',
+    title: 'Atendimento personalizado',
+    text: 'Cada cliente é atendida de forma individual, com atenção ao seu estilo e ao resultado que deseja.',
+  },
+  {
+    icon: 'strand',
+    title: 'Acabamento natural',
+    text: 'Mega Hair com resultado discreto e elegante, que valoriza a sua beleza.',
+  },
+];
+
+/** Resultados reais (antes/depois ou fotos). VAZIO: nenhuma foto de resultado foi fornecida ainda. */
+export const RESULTS: ResultItem[] = [];
+
+/** Depoimentos reais ou autorizados. VAZIO: nenhum foi fornecido ainda. */
+export const TESTIMONIALS: Testimonial[] = [];
+
+// ---------------------------------------------------------------------------
+// PLACEHOLDERS — aparecem só com `showPlaceholders: true`
+// ---------------------------------------------------------------------------
+
+export const SERVICE_PLACEHOLDERS: Service[] = [
+  {
+    id: 'ph-tecnica',
+    title: 'Técnica de aplicação',
+    tag: 'A confirmar',
+    description: 'Cadastrar as técnicas de Mega Hair que o estúdio realmente oferece.',
+  },
+  {
+    id: 'ph-tipos',
+    title: 'Tipos de cabelo',
+    tag: 'A confirmar',
+    description: 'Cadastrar os tipos de cabelo atendidos (liso, ondulado, cacheado etc.).',
+  },
+  {
+    id: 'ph-manutencao',
+    title: 'Manutenção e cuidados',
+    tag: 'A confirmar',
+    description: 'Confirmar se o estúdio faz manutenção e orientação de cuidados.',
+  },
+];
+
+export const DIFFERENTIAL_PLACEHOLDERS: Differential[] = [
+  {
+    icon: 'selection',
+    title: 'Escolha do cabelo',
+    text: 'A confirmar com a profissional: orientação na escolha do cabelo ideal.',
+  },
+  {
+    icon: 'droplet',
+    title: 'Orientação de manutenção',
+    text: 'A confirmar com a profissional: orientação para manter o resultado.',
+  },
+];
+
+export const TESTIMONIAL_PLACEHOLDERS: Testimonial[] = [
+  {
+    quote: 'Depoimento real da cliente, a ser fornecido ou autorizado por ela.',
+    name: 'Nome da cliente',
+    detail: 'Placeholder',
+  },
+  {
+    quote: 'Depoimento real da cliente, a ser fornecido ou autorizado por ela.',
+    name: 'Nome da cliente',
+    detail: 'Placeholder',
+  },
+  {
+    quote: 'Depoimento real da cliente, a ser fornecido ou autorizado por ela.',
+    name: 'Nome da cliente',
+    detail: 'Placeholder',
+  },
+];

@@ -1,0 +1,65 @@
+<header class="header">
+  <div class="container header__bar">
+    <a class="brand enter" style="--i: 0" href="#inicio" (click)="closeMenu()">
+      <img class="brand__mark" src="brand/monogram.svg" alt="" width="44" height="44" />
+      <span class="brand__text">
+        <span class="brand__top">Studio</span>
+        <span class="brand__name">Monique Marques</span>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Principal">
+      <ul class="nav__list">
+        @for (item of nav; track item.id; let i = $index) {
+          <li class="enter" [style.--i]="i + 1">
+            <a class="nav__link" [href]="'#' + item.id" [attr.aria-current]="active() === item.id ? 'true' : null">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+
+    <div class="header__actions">
+      <a
+        class="btn btn--outline header__cta enter"
+        style="--i: 6"
+        [href]="wa"
+        [attr.target]="waExternal ? '_blank' : null"
+        [attr.rel]="waExternal ? 'noopener' : null"
+      >
+        Agendar pelo WhatsApp
+      </a>
+      <button
+        type="button"
+        class="menu-btn"
+        [attr.aria-expanded]="menuOpen()"
+        aria-controls="menu"
+        [attr.aria-label]="menuOpen() ? 'Fechar menu' : 'Abrir menu'"
+        (click)="toggleMenu()"
+      >
+        <smm-icon [name]="menuOpen() ? 'close' : 'menu'" style="--icon-size: 1.75rem" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Menu compacto (tablet e celular) -->
+  <div id="menu" class="menu" [class.is-open]="menuOpen()" [attr.inert]="menuOpen() ? null : ''">
+    <nav class="menu__nav" aria-label="Menu">
+      <ul>
+        @for (item of nav; track item.id; let i = $index) {
+          <li [style.--i]="i">
+            <a #firstLink [href]="'#' + item.id" (click)="closeMenu()">{{ item.label }}</a>
+          </li>
+        }
+      </ul>
+    </nav>
+    <a
+      class="btn btn--primary menu__cta"
+      [href]="wa"
+      [attr.target]="waExternal ? '_blank' : null"
+      [attr.rel]="waExternal ? 'noopener' : null"
+      (click)="closeMenu()"
+    >
+      Agendar pelo WhatsApp
+    </a>
+  </div>
+</header>

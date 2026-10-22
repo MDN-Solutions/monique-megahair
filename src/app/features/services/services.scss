@@ -1,0 +1,169 @@
+@use '../../../styles/tokens' as *;
+
+.services {
+  // faixa de marfim mais clara separando do bloco anterior
+  background: linear-gradient(180deg, var(--c-ivory) 0%, var(--c-white) 18%, var(--c-white) 82%, var(--c-ivory) 100%);
+}
+
+.services__head {
+  display: grid;
+  gap: 1.5rem;
+  max-width: 46rem;
+  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.services__title {
+  font-size: var(--t-h2);
+  line-height: 1.08;
+}
+
+.services__intro {
+  max-width: 36rem;
+}
+
+.services__grid {
+  display: grid;
+  gap: clamp(1.5rem, 2.5vw, 2.25rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+}
+
+// Mobile: carrossel horizontal com snap, para não alongar a página
+@media (max-width: #{$bp-md - 1px}) {
+  .services__grid {
+    display: flex;
+    gap: 1rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .card {
+    flex: 0 0 min(78vw, 320px);
+    scroll-snap-align: start;
+  }
+
+  .services__grid[data-count='1'] .card {
+    flex-basis: 100%;
+  }
+}
+
+.card {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  background: var(--c-ivory);
+  border: 1px solid var(--line);
+  transition:
+    transform 0.5s var(--ease),
+    box-shadow 0.5s var(--ease),
+    border-color 0.5s var(--ease);
+
+  &:hover {
+    border-color: var(--line-gold);
+    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+  }
+}
+
+.card__media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--c-champagne);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s var(--ease);
+  }
+}
+
+.card:hover .card__media img:not(.card__mono) {
+  transform: scale(1.04);
+}
+
+.card__body {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+  padding: 1.5rem 1.5rem 1.25rem;
+}
+
+.card__tag {
+  font-size: var(--t-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--c-gold-text);
+}
+
+.card__title {
+  font-size: var(--t-h3);
+  line-height: 1.15;
+}
+
+.card__text {
+  font-size: 0.975rem;
+  line-height: 1.6;
+  color: var(--c-text-muted);
+}
+
+.card__link {
+  justify-self: start;
+  margin-top: 0.5rem;
+}
+
+// ---------- Placeholder (conteúdo a confirmar) ----------
+.card--ph {
+  background: var(--c-blush);
+  border: 1px dashed var(--c-gold);
+
+  &:hover {
+    box-shadow: none;
+    transform: none;
+  }
+
+  .card__media {
+    display: grid;
+    place-items: center;
+    background: transparent;
+    aspect-ratio: 4 / 3;
+  }
+
+  .card__mono {
+    width: 34%;
+    height: auto;
+    opacity: 0.35;
+  }
+}
+
+// ---------- Variante com um único serviço: card em destaque horizontal ----------
+.services__grid[data-count='1'] {
+  display: block;
+
+  .card {
+    grid-template-rows: none;
+    grid-template-columns: 1fr;
+    max-width: 980px;
+
+    @include up($bp-md) {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    }
+  }
+
+  .card__body {
+    align-content: center;
+    padding: clamp(1.5rem, 4vw, 3.5rem);
+  }
+
+  .card__title {
+    font-size: var(--t-h2);
+  }
+}

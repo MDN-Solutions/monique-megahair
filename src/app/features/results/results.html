@@ -1,0 +1,44 @@
+@if (visible) {
+  <section id="resultados" class="section results" aria-labelledby="results-title">
+    <div class="container">
+      <header class="results__head reveal" smmReveal>
+        <p class="eyebrow">{{ copy.eyebrow }}</p>
+        <h2 id="results-title" class="results__title">{{ copy.title }}</h2>
+        <p class="lead">{{ copy.intro }}</p>
+      </header>
+
+      @if (showPlaceholder) {
+        <div class="results__grid">
+          <div class="results__item reveal" smmReveal>
+            <smm-before-after />
+            <p class="results__note">Placeholder: comparação antes e depois com fotos reais da cliente.</p>
+          </div>
+          <div class="results__item reveal" smmReveal style="--i: 1">
+            <div class="results__ph" aria-hidden="false">
+              <img src="brand/monogram.svg" alt="" width="120" height="120" loading="lazy" />
+              <p>Galeria de fotos reais</p>
+            </div>
+            <p class="results__note">Placeholder: fotografias reais fornecidas ou autorizadas pela cliente.</p>
+          </div>
+        </div>
+      } @else {
+        <div class="results__grid">
+          @for (item of items; track $index; let i = $index) {
+            <figure class="results__item reveal" smmReveal [style.--i]="i">
+              @if (item.kind === 'before-after') {
+                <smm-before-after [before]="item.before" [after]="item.after" />
+              } @else {
+                <div class="results__photo">
+                  <img [src]="item.image.src" [alt]="item.image.alt" loading="lazy" decoding="async" />
+                </div>
+              }
+              @if (item.caption) {
+                <figcaption class="results__note">{{ item.caption }}</figcaption>
+              }
+            </figure>
+          }
+        </div>
+      }
+    </div>
+  </section>
+}

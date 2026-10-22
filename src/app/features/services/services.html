@@ -1,0 +1,40 @@
+<section id="servicos" class="section services" aria-labelledby="services-title">
+  <div class="container">
+    <header class="services__head reveal" smmReveal>
+      <p class="eyebrow">{{ copy.eyebrow }}</p>
+      <h2 id="services-title" class="services__title">{{ copy.title }}</h2>
+      <p class="lead services__intro">{{ copy.intro }}</p>
+    </header>
+
+    <ul class="services__grid" [attr.data-count]="items.length">
+      @for (s of items; track s.id; let i = $index) {
+        <li class="card reveal" smmReveal [style.--i]="i" [class.card--ph]="isPlaceholder(s)">
+          <div class="card__media">
+            @if (s.image) {
+              <img [src]="s.image.src" [alt]="s.image.alt" width="864" height="1080" loading="lazy" decoding="async" />
+            } @else {
+              <img class="card__mono" src="brand/monogram.svg" alt="" width="120" height="120" loading="lazy" />
+            }
+          </div>
+          <div class="card__body">
+            @if (s.tag) {
+              <p class="card__tag">{{ s.tag }}</p>
+            }
+            <h3 class="card__title">{{ s.title }}</h3>
+            <p class="card__text">{{ s.description }}</p>
+            @if (!isPlaceholder(s)) {
+              <a
+                class="btn btn--ghost card__link"
+                [href]="link(s)"
+                [attr.target]="waExternal ? '_blank' : null"
+                [attr.rel]="waExternal ? 'noopener' : null"
+              >
+                Agendar este serviço
+              </a>
+            }
+          </div>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

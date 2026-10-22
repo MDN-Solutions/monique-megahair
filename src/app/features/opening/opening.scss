@@ -1,0 +1,277 @@
+// Abertura cinematográfica — ver docs/DESIGN-SPEC.md §5
+// --r = raio da íris que revela o vídeo (registrado para poder ser animado por transition)
+@property --r {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
+:host {
+  --r: 0px;
+  --veil-t: 750ms;
+  --fade-t: 800ms;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: block;
+  overflow: hidden;
+  background: var(--c-ivory);
+  // marfim com luz suave, como um estúdio de fotografia
+  background-image: radial-gradient(70% 60% at 50% 42%, #fffefb 0%, var(--c-ivory) 55%, #f3efe6 100%);
+  transition:
+    --r 1.4s var(--ease-door),
+    opacity var(--fade-t) ease;
+}
+
+:host(.is-quick) {
+  --veil-t: 320ms;
+  --fade-t: 350ms;
+}
+
+:host(.is-played) {
+  --r: 150vmax;
+}
+
+:host(.is-fade) {
+  opacity: 0;
+  pointer-events: none;
+}
+
+// ---------- Vídeo (revelado pela íris) ----------
+.stage {
+  position: absolute;
+  inset: 0;
+  clip-path: circle(var(--r) at 50% 50%);
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: #1b1815;
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120% 95% at 50% 46%, transparent 52%, rgba(36, 33, 29, 0.38) 100%);
+  pointer-events: none;
+}
+
+// Brilho dourado no instante do corte: discreto, em tela ("screen")
+.flash {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background:
+    radial-gradient(46% 42% at 44% 56%, rgba(255, 251, 236, 0.95), rgba(232, 212, 176, 0.5) 38%, transparent 72%),
+    linear-gradient(105deg, transparent 38%, rgba(228, 205, 155, 0.55) 50%, transparent 62%);
+  background-size: 100% 100%, 260% 100%;
+  background-position: 0 0, 130% 0;
+}
+
+:host(.is-flash) .flash {
+  animation: flash 0.85s ease-out;
+}
+
+@keyframes flash {
+  0% {
+    opacity: 0;
+    background-position: 0 0, 130% 0;
+  }
+  16% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    background-position: 0 0, -30% 0;
+  }
+}
+
+// Anel dourado que acompanha a borda da íris
+.ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: calc(var(--r) * 2);
+  height: calc(var(--r) * 2);
+  transform: translate(-50%, -50%);
+  border: 1px solid var(--c-gold);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+
+:host(.is-film) .ring {
+  animation: ring 1.4s var(--ease-door) forwards;
+}
+
+@keyframes ring {
+  0% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+// ---------- Cena 1: marca ----------
+.logo {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  transition:
+    opacity 0.55s ease,
+    transform 0.9s var(--ease);
+}
+
+:host(.is-played) .logo {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+.logo__mark {
+  position: relative;
+  width: clamp(150px, 24vmin, 240px);
+  aspect-ratio: 1;
+
+  img {
+    width: 100%;
+    height: 100%;
+    clip-path: inset(100% 0 0 0);
+    animation: mark-in 1.1s var(--ease) 0.15s forwards;
+  }
+}
+
+@keyframes mark-in {
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+// varredura de brilho, recortada no formato do monograma
+.logo__sheen {
+  position: absolute;
+  inset: 0;
+  -webkit-mask: url('/brand/monogram.svg') center / contain no-repeat;
+  mask: url('/brand/monogram.svg') center / contain no-repeat;
+  background: linear-gradient(110deg, transparent 38%, rgba(255, 255, 255, 0.95) 50%, transparent 62%);
+  background-size: 260% 100%;
+  background-position: 135% 0;
+  animation: sheen 1.3s ease-in-out 0.8s forwards;
+}
+
+@keyframes sheen {
+  to {
+    background-position: -35% 0;
+  }
+}
+
+.logo__rule {
+  width: 3.5rem;
+  height: 1px;
+  background: var(--c-gold);
+  transform: scaleX(0);
+  animation: rule 0.8s var(--ease) 0.8s forwards;
+}
+
+@keyframes rule {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.logo__name {
+  margin: 0;
+  font-family: var(--f-display);
+  font-variation-settings: 'opsz' 11;
+  font-size: clamp(0.78rem, 0.7rem + 0.4vw, 1rem);
+  letter-spacing: 0.42em;
+  margin-right: -0.42em; // compensa o tracking final para centralizar
+  text-transform: uppercase;
+  color: var(--c-gold-text);
+  opacity: 0;
+  animation: name-in 0.9s var(--ease) 0.95s forwards;
+}
+
+@keyframes name-in {
+  from {
+    opacity: 0;
+    letter-spacing: 0.6em;
+  }
+  to {
+    opacity: 1;
+    letter-spacing: 0.42em;
+  }
+}
+
+// ---------- Cena 4: dissolve ----------
+.veil {
+  position: absolute;
+  inset: 0;
+  background: var(--c-ivory);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--veil-t) cubic-bezier(0.4, 0, 0.9, 0.5);
+}
+
+:host(.is-veil) .veil {
+  opacity: 1;
+}
+
+// ---------- Botão pular ----------
+.skip {
+  position: absolute;
+  z-index: 5;
+  right: var(--gutter);
+  bottom: max(1.5rem, env(safe-area-inset-bottom));
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
+  min-height: 44px;
+  padding: 0 1.2rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--c-ink);
+  background: rgba(250, 248, 243, 0.9);
+  border: 1px solid var(--c-gold);
+  backdrop-filter: blur(6px);
+  transition:
+    background-color 0.3s ease,
+    opacity 0.4s ease;
+
+  &:hover {
+    background: var(--c-champagne);
+  }
+
+  // anel em dois tons: legível tanto sobre o marfim quanto sobre o vídeo escuro
+  &:focus-visible {
+    outline: 2px solid var(--c-ink);
+    outline-offset: 0;
+    box-shadow: 0 0 0 4px var(--c-ivory);
+  }
+}
+
+:host(.is-veil) .skip {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    display: none;
+  }
+}

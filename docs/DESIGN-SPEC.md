@@ -117,7 +117,7 @@ Marcos do clipe: `FILM` em `opening.ts`.
 | `images/studio/espelho.webp` | idem, 7,0 s | Por dentro do Studio |
 | `images/studio/caixa.webp` | idem, 22,8 s | Por dentro do Studio |
 | `images/studio/sacola.webp` | idem, 27,4 s | CTA final |
-| `og-image.jpg` | 1200 × 630: frame 36,90 s recortado (fundo removido com rembg / BiRefNet), por cima do nome gigante | compartilhamento |
+| `og-image.jpg` | 1200 × 630: frame 37,25 s (a foto da hero) recortado, com o braço saindo pela borda esquerda (fundo removido com rembg / BiRefNet), por cima do nome gigante | compartilhamento |
 | `media/opening/*`, `media/film/*` | vídeo da inauguração | abertura e diálogo do vídeo |
 | `brand/*.svg` | logo dourada vetorizada | header, abertura, rodapé, favicon |
 

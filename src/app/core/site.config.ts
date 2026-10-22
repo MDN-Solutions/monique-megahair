@@ -72,9 +72,10 @@ export const SITE = {
     title: 'Especialista em',
     highlight: 'Mega Hair',
     subtitle: 'Mega Hair de alto padrão, com acabamento natural e atendimento personalizado.',
+    /** Recorte sem fundo (PNG com transparência em webp): a foto fica por cima do nome gigante. */
     image: {
-      src: 'images/hero-portrait.webp',
-      alt: 'Mulher sorrindo com cabelo longo, loiro e ondulado, no Studio Monique Marques',
+      src: 'images/hero-cutout.webp',
+      alt: 'Mulher sorrindo, com cabelo longo, loiro e ondulado caindo sobre os ombros',
     } satisfies ImageRef,
   },
 

@@ -10,7 +10,7 @@
     disableremoteplayback
     poster="media/opening/opening-poster.webp"
     [style.object-position]="scene() === 'close' ? '30% 50%' : '50% 50%'"
-    (canplay)="onCanPlay()"
+    (playing)="onPlaying()"
   >
     <source [src]="base + '.mp4'" type="video/mp4" />
     <source [src]="base + '.webm'" type="video/webm" (error)="onVideoError()" />

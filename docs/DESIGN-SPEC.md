@@ -97,6 +97,8 @@ Mesma lógica da v1 (vídeo real do corte da fita, uma vez por sessão, `?abertu
 
 Marcos do clipe: `FILM` em `opening.ts`.
 
+O vídeo começa com `play()` logo depois da marca, sem esperar `canplay`: o Safari do iPhone (e o Chrome em rede móvel) não baixa nada antes do `play()`, então esperar o `canplay` fazia a abertura ser pulada no celular. A cena do vídeo só aparece no evento `playing`; se ele não chegar em 8 s, a abertura encerra sozinha.
+
 ## 6. Acessibilidade e performance
 
 - axe-core (WCAG 2.1 AA + boas práticas): 0 violações em 1440px e 390px.

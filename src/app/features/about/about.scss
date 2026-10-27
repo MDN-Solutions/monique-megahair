@@ -167,3 +167,32 @@ figcaption {
   height: 48px;
   color: var(--c-ivory);
 }
+
+// fios dourados decorativos (aria-hidden), atrás do conteúdo
+.deco {
+  position: absolute;
+  z-index: 0;
+  display: none;
+  height: 70%;
+  width: 150px;
+
+  @include up($bp-lg) {
+    display: block;
+  }
+
+  &--right {
+    right: calc(50% - 50vw + 1rem);
+    transform: scaleX(-1);
+  }
+  &--left {
+    left: calc(50% - 50vw + 1rem);
+  }
+}
+
+.about {
+  overflow-x: clip;
+}
+.about__grid {
+  position: relative;
+  z-index: 1;
+}

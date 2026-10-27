@@ -1,3 +1,4 @@
+import { Strands } from '../../shared/strands';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Reveal } from '../../core/reveal';
 import { SITE } from '../../core/site.config';
@@ -5,10 +6,11 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
 
 @Component({
   selector: 'smm-final-cta',
-  imports: [Reveal],
+  imports: [Reveal, Strands],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <section class="cta" aria-labelledby="cta-title">
+      <smm-strands class="deco deco--left" style="top: 10%" />
       <div class="container cta__inner">
         <div class="cta__media reveal" smmReveal>
           <div class="arch">
@@ -43,12 +45,28 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
   styles: `
     @use '../../../styles/tokens' as *;
 
+    .deco {
+      position: absolute;
+      z-index: 0;
+      display: none;
+      height: 80%;
+      width: 200px;
+      left: calc(50% - 50vw + 1rem);
+
+      @include up($bp-lg) {
+        display: block;
+      }
+    }
     .cta {
+      position: relative;
+      overflow-x: clip;
       padding-block: var(--section-y);
       background: var(--c-ivory);
       border-top: 1px solid var(--line-gold);
     }
     .cta__inner {
+      position: relative;
+      z-index: 1;
       display: grid;
       gap: clamp(2rem, 5vw, 4.5rem);
       align-items: end;

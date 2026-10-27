@@ -1,3 +1,4 @@
+import { Strands } from '../../shared/strands';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Reveal } from '../../core/reveal';
 import { RESULTS, SITE } from '../../core/site.config';
@@ -5,7 +6,7 @@ import { BeforeAfter } from '../../shared/before-after';
 
 @Component({
   selector: 'smm-results',
-  imports: [Reveal, BeforeAfter],
+  imports: [Reveal, BeforeAfter, Strands],
   templateUrl: './results.html',
   styleUrl: './results.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

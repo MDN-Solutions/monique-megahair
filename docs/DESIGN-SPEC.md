@@ -168,7 +168,7 @@ Duração total ≈ 5,9 s. O botão **Pular abertura** existe desde o primeiro q
 | `media/opening/*` | vídeo da inauguração, 12,45–14,30 s + 16,43–18,05 s | abertura |
 | `media/film/inauguracao-720.mp4` | vídeo da inauguração completo (71 s), 720p | modal "Assistir à inauguração" |
 | `images/hero-portrait.webp` | frame 37,25 s | hero |
-| `images/about-wide.webp` | frame 36,90 s | Sobre |
+| `images/about-photo.webp` | foto fornecida pelo cliente | Sobre |
 | `images/cta-portrait.webp` | frame 14,65 s (logo parcial da parede removido) | CTA final |
 | `images/mega-hair.webp` | frame 22,0 s (recorte) | card Mega Hair |
 | `brand/*.svg` | PDF da logo (versão dourada), vetorizado | header, abertura, rodapé, favicon |

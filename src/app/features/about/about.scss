@@ -51,7 +51,7 @@
 
 .about__frame {
   position: relative;
-  aspect-ratio: 16 / 11;
+  aspect-ratio: 1 / 1;
   background: var(--c-champagne);
   box-shadow: var(--shadow);
 
@@ -68,7 +68,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: 32% 40%;
+    object-position: 50% 40%;
   }
 }
 

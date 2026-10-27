@@ -61,7 +61,7 @@ import type { ImageRef } from '../core/site.config';
     }
     .ba {
       position: relative;
-      aspect-ratio: 10 / 17;
+      aspect-ratio: 3 / 5;
       overflow: hidden;
       user-select: none;
       touch-action: pan-y;
@@ -87,6 +87,7 @@ import type { ImageRef } from '../core/site.config';
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: 50% 0;
       pointer-events: none;
     }
     .ba__ph {

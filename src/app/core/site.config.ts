@@ -92,10 +92,10 @@ export const SITE = {
     ],
     pillars: ['Beleza natural', 'Autoestima', 'Atendimento personalizado', 'Cuidado com cada cliente'],
     image: {
-      src: 'images/about-wide.webp',
-      alt: 'Mulher de cabelo longo e loiro sorrindo no Studio Monique Marques, com o monograma da marca na parede ao fundo',
+      src: 'images/about-photo.webp',
+      alt: 'Mulher sorrindo, de cabelo longo e loiro, diante do logotipo dourado do Studio Monique Marques na parede',
     } satisfies ImageRef,
-    caption: 'Inauguração do Studio Monique Marques',
+    caption: 'Studio Monique Marques',
   },
 
   services: {
@@ -127,7 +127,7 @@ export const SITE = {
     button: 'Falar com o estúdio',
     image: {
       src: 'images/cta-portrait.webp',
-      alt: 'Retrato de mulher sorrindo, com cabelo longo, loiro e ondulado',
+      alt: 'Monique de perfil, com cabelo longo, liso e loiro, diante do logotipo dourado do Studio',
     } satisfies ImageRef,
   },
 
@@ -246,14 +246,6 @@ export const RESULTS: ResultItem[] = [
       alt: 'Depois: a mesma mulher com cabelo preto, liso e longo após o Mega Hair, sorrindo, diante da mesma parede de rosas',
     },
     caption: 'Antes e depois de Mega Hair. Arraste o divisor para comparar.',
-  },
-  {
-    kind: 'photo',
-    image: {
-      src: 'images/results/monique-perfil.webp',
-      alt: 'Monique de perfil, com cabelo longo e liso em tons de loiro, diante do logotipo dourado do Studio',
-    },
-    caption: 'Monique Marques no Studio.',
   },
 ];
 

@@ -1,3 +1,4 @@
+import { Strands } from '../../shared/strands';
 import { ChangeDetectionStrategy, Component, ElementRef, effect, inject, untracked, viewChild } from '@angular/core';
 import { FilmService } from '../../core/film.service';
 import { SITE } from '../../core/site.config';
@@ -6,7 +7,7 @@ import { Icon } from '../../shared/icon';
 
 @Component({
   selector: 'smm-about',
-  imports: [Reveal, Icon],
+  imports: [Reveal, Icon, Strands],
   templateUrl: './about.html',
   styleUrl: './about.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

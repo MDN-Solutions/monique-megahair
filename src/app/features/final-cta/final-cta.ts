@@ -46,7 +46,7 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
     .cta {
       padding-block: var(--section-y);
       background: var(--c-ivory);
-      border-top: 2px solid var(--c-ink);
+      border-top: 1px solid var(--line);
     }
     .cta__inner {
       display: grid;
@@ -66,8 +66,8 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
       gap: clamp(1.5rem, 2.6vw, 2.25rem);
     }
     .cta__title {
-      font-size: clamp(1.65rem, 0.5rem + 5.4vw, 4.75rem);
-      line-height: 0.95;
+      font-size: var(--t-h2);
+      line-height: 1.15;
     }
     .cta__copy .lead {
       max-width: 30rem;

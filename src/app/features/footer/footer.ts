@@ -21,8 +21,6 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
         </nav>
       </div>
 
-      <p class="footer__name" aria-hidden="true">Monique Marques</p>
-
       <div class="container">
         <div class="footer__legal">
           <p>&copy; {{ year }} {{ site.name }}. Todos os direitos reservados.</p>
@@ -36,8 +34,8 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
 
     .footer {
       padding-top: clamp(3rem, 6vw, 5rem);
-      color: var(--c-ivory);
-      background: var(--c-ink);
+      color: var(--c-ink);
+      background: #f6f6f4;
     }
     .footer__grid {
       display: grid;
@@ -61,10 +59,9 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
     }
     .footer__tag {
       font-size: 0.6875rem;
-      font-weight: 600;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: rgba(245, 243, 238, 0.7);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--c-text-muted);
     }
     // nome em escala editorial, tinta sólida, uma linha; decorativo (aria-hidden)
     .footer__name {
@@ -96,15 +93,13 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
       display: inline-flex;
       align-items: center;
       min-height: 44px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--c-ivory);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      color: var(--c-ink);
       transition: color 0.3s var(--ease);
 
       &:hover {
-        color: var(--c-gold);
+        color: var(--c-gold-text);
       }
     }
     .footer__legal {
@@ -114,15 +109,15 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
       justify-content: space-between;
       gap: 0.5rem 2rem;
       padding-block: 1.25rem max(1.25rem, env(safe-area-inset-bottom));
-      border-top: 1px solid rgba(245, 243, 238, 0.22);
+      border-top: 1px solid var(--line);
       font-size: var(--t-small);
-      color: rgba(245, 243, 238, 0.7);
+      color: var(--c-text-muted);
     }
     .footer__top {
       display: inline-flex;
       align-items: center;
       min-height: 44px;
-      color: var(--c-ivory);
+      color: var(--c-ink);
     }
   `,
 })

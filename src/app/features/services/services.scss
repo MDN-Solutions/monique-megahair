@@ -46,6 +46,7 @@
 
 .card__media {
   position: relative;
+  border-radius: var(--radius);
   aspect-ratio: 4 / 5;
   overflow: hidden;
   background: var(--c-champagne);

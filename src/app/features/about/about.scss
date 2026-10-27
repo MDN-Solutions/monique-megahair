@@ -25,15 +25,13 @@
   @include up($bp-lg) {
     grid-column: 2;
     grid-row: 1;
-    position: sticky;
-    top: calc(var(--header-h) + 2rem);
   }
 }
 
 .about__title {
   margin-top: 1.5rem;
-  font-size: clamp(1.75rem, 1rem + 2.6vw, 3.25rem);
-  line-height: 0.98;
+  font-size: var(--t-h2);
+  line-height: 1.15;
 }
 
 .about__text {
@@ -43,7 +41,7 @@
 
 .about__pillars {
   counter-reset: pillar;
-  border-top: 2px solid var(--c-ink);
+  border-top: 1px solid var(--line);
 
   li {
     counter-increment: pillar;
@@ -53,22 +51,16 @@
     min-height: 52px;
     padding: 0.9rem 0;
     border-bottom: 1px solid var(--line);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-
-    &::before {
-      content: counter(pillar, decimal-leading-zero);
-      font-variant-numeric: tabular-nums;
-      color: var(--c-text-muted);
-    }
+    font-size: 1rem;
+    font-weight: 500;
   }
 }
 
 .about__frame {
   position: relative;
   aspect-ratio: 4 / 5;
+  border-radius: var(--radius);
+  overflow: hidden;
   background: var(--c-champagne);
 
   img {

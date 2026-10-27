@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FilmService } from '../../core/film.service';
 import { SITE } from '../../core/site.config';
 import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
 
@@ -10,6 +11,8 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
 })
 export class Hero {
   protected readonly hero = SITE.hero;
+  protected readonly film = SITE.film;
+  protected readonly filmService = inject(FilmService);
   protected readonly wa = whatsappUrl();
   protected readonly waExternal = hasWhatsapp();
 }

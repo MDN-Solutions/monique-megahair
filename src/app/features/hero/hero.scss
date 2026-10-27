@@ -6,7 +6,7 @@
   align-items: center;
   min-height: 100svh;
   padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem));
-  padding-bottom: clamp(3.5rem, 7vw, 6.5rem);
+  padding-bottom: clamp(5rem, 11vw, 9rem);
   overflow: clip;
 }
 
@@ -76,6 +76,7 @@
 
 // ---------- Foto em arco ----------
 .hero__media {
+  position: relative;
   @include up($bp-lg) {
     // a foto "sangra" um pouco para a direita, composição assimétrica
     margin-right: clamp(-3rem, -2vw, 0rem);
@@ -119,4 +120,89 @@
   :host-context(html.intro-pending) .hero__frame {
     clip-path: inset(0 0 0 0);
   }
+}
+
+// ---------- Nome em escala gigante (identidade, sangrando pela base da seção) ----------
+.hero__name {
+  position: absolute;
+  z-index: 0;
+  left: 0;
+  right: 0;
+  bottom: -0.06em;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 0.28em;
+  font-family: var(--f-display);
+  font-variation-settings: 'opsz' 22;
+  // cabe em uma linha dentro da largura útil, em qualquer tela
+  font-size: min(8.3vw, 7.4rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+  // dourado suave: dá camada à composição sem competir com o título
+  background: linear-gradient(180deg, rgba(198, 166, 107, 0.42), rgba(228, 205, 155, 0.14));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero__inner {
+  z-index: 1;
+}
+
+// ---------- Cartão "Assista à inauguração" ----------
+.hero__film {
+  position: absolute;
+  left: 0;
+  bottom: 1.25rem;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  max-width: calc(100% - 1rem);
+  padding: 0.5rem 1.1rem 0.5rem 0.5rem;
+  text-align: left;
+  background: rgba(250, 248, 243, 0.94);
+  border: 1px solid var(--line-gold);
+  backdrop-filter: blur(6px);
+  transition:
+    border-color 0.35s var(--ease),
+    transform 0.35s var(--ease);
+
+  &:hover {
+    border-color: var(--c-gold);
+    transform: translateY(-2px);
+  }
+
+  img {
+    width: 48px;
+    height: 56px;
+    object-fit: cover;
+  }
+
+  @include up($bp-lg) {
+    left: -2.5rem;
+    bottom: 2.5rem;
+  }
+}
+
+.hero__film-text {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.hero__film-title {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.hero__film-meta {
+  font-size: var(--t-small);
+  color: var(--c-text-muted);
 }

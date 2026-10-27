@@ -1,5 +1,6 @@
 <section id="inicio" class="hero" aria-labelledby="hero-title">
   <div class="hero__glow" aria-hidden="true"></div>
+  <p class="hero__name enter" style="--i: 1" aria-hidden="true"><span>Monique</span> <span>Marques</span></p>
 
   <div class="container hero__inner">
     <div class="hero__copy">
@@ -44,6 +45,13 @@
             decoding="async"
           />
         </div>
+        <button type="button" class="hero__film enter" style="--i: 6" (click)="filmService.open()">
+          <img [src]="film.thumb" alt="" width="600" height="720" loading="lazy" decoding="async" />
+          <span class="hero__film-text">
+            <span class="hero__film-title">Assista à inauguração</span>
+            <span class="hero__film-meta">Vídeo · {{ film.duration }}</span>
+          </span>
+        </button>
       </div>
     </div>
   </div>

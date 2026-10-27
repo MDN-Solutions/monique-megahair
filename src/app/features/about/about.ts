@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, ElementRef, viewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, effect, inject, untracked, viewChild } from '@angular/core';
+import { FilmService } from '../../core/film.service';
 import { SITE } from '../../core/site.config';
 import { Reveal } from '../../core/reveal';
 import { Icon } from '../../shared/icon';
@@ -13,6 +14,15 @@ import { Icon } from '../../shared/icon';
 export class About {
   protected readonly about = SITE.about;
   protected readonly film = SITE.film;
+
+  private readonly filmService = inject(FilmService);
+
+  constructor() {
+    // a hero também oferece "Assistir à inauguração"; o diálogo fica aqui
+    effect(() => {
+      if (this.filmService.requested() > 0) untracked(() => this.openFilm());
+    });
+  }
 
   private readonly dialog = viewChild.required<ElementRef<HTMLDialogElement>>('filmDialog');
   private readonly video = viewChild.required<ElementRef<HTMLVideoElement>>('filmVideo');

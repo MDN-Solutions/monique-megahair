@@ -10,12 +10,13 @@ import { Hero } from './features/hero/hero';
 import { Opening } from './features/opening/opening';
 import { Results } from './features/results/results';
 import { Services } from './features/services/services';
+import { Studio } from './features/studio/studio';
 import { Testimonials } from './features/testimonials/testimonials';
 import { WhatsappBar } from './features/whatsapp-bar/whatsapp-bar';
 
 @Component({
   selector: 'app-root',
-  imports: [Opening, Header, Hero, About, Services, Results, Differentials, Testimonials, FinalCta, Contact, Footer, WhatsappBar],
+  imports: [Opening, Header, Hero, About, Services, Studio, Results, Differentials, Testimonials, FinalCta, Contact, Footer, WhatsappBar],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (intro.active()) {
@@ -30,6 +31,7 @@ import { WhatsappBar } from './features/whatsapp-bar/whatsapp-bar';
         <smm-hero />
         <smm-about />
         <smm-services />
+        <smm-studio />
         <smm-results />
         <smm-differentials />
         <smm-testimonials />

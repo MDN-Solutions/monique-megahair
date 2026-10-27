@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, effect, inject, signal, viewChild } from '@angular/core';
-import { RESULTS, SITE } from '../../core/site.config';
+import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
 import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
 import { Icon } from '../../shared/icon';
 
@@ -38,7 +38,7 @@ export class Header {
     { id: 'sobre', label: 'Sobre' },
     { id: 'servicos', label: 'Serviços' },
     ...(RESULTS.length > 0 || SITE.showPlaceholders ? [{ id: 'resultados', label: 'Resultados' }] : []),
-    { id: 'contato', label: 'Contato' },
+    ...(HAS_CONTACT ? [{ id: 'contato', label: 'Contato' }] : []),
   ];
 
   constructor() {

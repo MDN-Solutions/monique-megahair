@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RESULTS, SITE } from '../../core/site.config';
+import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
 
 @Component({
   selector: 'smm-footer',
@@ -9,7 +9,7 @@ import { RESULTS, SITE } from '../../core/site.config';
       <div class="container footer__grid">
         <div class="footer__brand">
           <img src="brand/monogram.svg" alt="" width="84" height="84" loading="lazy" />
-          <img class="footer__wordmark" src="brand/wordmark.svg" alt="Studio Monique Marques, especialista em Mega Hair" width="300" height="78" loading="lazy" />
+          <p class="footer__tag">{{ site.tagline }}</p>
         </div>
 
         <nav class="footer__nav" aria-label="Rodapé">
@@ -20,6 +20,8 @@ import { RESULTS, SITE } from '../../core/site.config';
           </ul>
         </nav>
       </div>
+
+      <p class="footer__name" aria-hidden="true">Monique Marques</p>
 
       <div class="container">
         <div class="footer__legal">
@@ -53,9 +55,31 @@ import { RESULTS, SITE } from '../../core/site.config';
       justify-items: start;
       gap: 1.5rem;
     }
-    .footer__wordmark {
-      width: min(300px, 78vw);
-      height: auto;
+    .footer__tag {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--c-champagne);
+    }
+    // nome em escala gigante: elemento de identidade, decorativo (aria-hidden)
+    .footer__name {
+      margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+      padding-inline: var(--gutter);
+      font-family: var(--f-display);
+      font-variation-settings: 'opsz' 22;
+      font-size: clamp(1.7rem, 8.4vw, 8.5rem);
+      line-height: 1;
+      letter-spacing: -0.015em;
+      text-align: center;
+      text-transform: uppercase;
+      white-space: nowrap;
+      overflow: hidden;
+      background: linear-gradient(180deg, var(--c-gold-light), var(--c-gold) 55%, #8f7238);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      user-select: none;
     }
     .footer__nav ul {
       display: flex;
@@ -109,6 +133,6 @@ export class Footer {
     { id: 'sobre', label: 'Sobre' },
     { id: 'servicos', label: 'Serviços' },
     ...(RESULTS.length > 0 || SITE.showPlaceholders ? [{ id: 'resultados', label: 'Resultados' }] : []),
-    { id: 'contato', label: 'Contato' },
+    ...(HAS_CONTACT ? [{ id: 'contato', label: 'Contato' }] : []),
   ];
 }

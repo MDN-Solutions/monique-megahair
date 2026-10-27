@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { inject } from '@angular/core';
 import { Reveal } from '../../core/reveal';
-import { SITE } from '../../core/site.config';
+import { HAS_CONTACT, SITE } from '../../core/site.config';
 import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
 import { Icon, IconName } from '../../shared/icon';
 
@@ -38,6 +38,7 @@ export class Contact {
   protected readonly wa = whatsappUrl();
   protected readonly hasWa = hasWhatsapp();
   protected readonly showPlaceholders = SITE.showPlaceholders;
+  protected readonly visible = HAS_CONTACT;
 
   protected readonly rows: Row[];
   protected readonly mapUrl: SafeResourceUrl | null;

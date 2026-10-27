@@ -11,6 +11,8 @@ import { Icon } from '../../shared/icon';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    role: 'complementary',
+    'aria-label': 'Agendamento rápido',
     '[class.is-visible]': 'visible()',
     '(window:scroll)': 'onScroll()',
   },

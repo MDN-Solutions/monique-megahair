@@ -52,7 +52,7 @@ export const SITE = {
   tagline: 'Especialista em Mega Hair',
 
   /** true = mostra blocos "A confirmar" para o time ver o que falta. Colocar false para publicar. */
-  showPlaceholders: true,
+  showPlaceholders: false,
 
   contact: {
     /** PENDENTE — WhatsApp do estúdio: DDI + DDD + número, só dígitos. Ex.: '5581900000000' */
@@ -136,11 +136,69 @@ export const SITE = {
     title: 'Vamos conversar sobre o seu cabelo.',
   },
 
+  studio: {
+    eyebrow: 'O espaço',
+    title: 'Por dentro do Studio',
+    text: 'Imagens feitas no dia da inauguração.',
+  },
+
   film: {
     src: 'media/film/inauguracao-720.mp4',
     poster: 'media/film/film-poster.webp',
+    /** miniatura do card "Assistir à inauguração" (hero) */
+    thumb: 'images/studio/neon.webp',
+    duration: '1:11',
   },
 };
+
+/** Fotos reais do espaço, extraídas do vídeo da inauguração (600 px de largura). */
+export interface StudioPhoto extends ImageRef {
+  caption: string;
+  width: number;
+  height: number;
+}
+export const STUDIO_PHOTOS: StudioPhoto[] = [
+  {
+    src: 'images/studio/neon.webp',
+    alt: 'Letreiro em neon rosa com o monograma M e o nome Studio Monique Marques, sobre parede lilás',
+    caption: 'O neon da marca',
+    width: 600,
+    height: 720,
+  },
+  {
+    src: 'images/studio/lavatorios.webp',
+    alt: 'Lavatório de cabelo preto ao lado de um arranjo de flores brancas no salão',
+    caption: 'Lavatórios',
+    width: 600,
+    height: 720,
+  },
+  {
+    src: 'images/studio/espelho.webp',
+    alt: 'Espelho com lâmpadas em volta, sobre bancada clara, visto entre folhagens',
+    caption: 'Espelho com iluminação',
+    width: 600,
+    height: 720,
+  },
+  {
+    src: 'images/studio/caixa.webp',
+    alt: 'Caixa cor de terracota com o monograma e o nome do Studio Monique Marques em dourado',
+    caption: 'A caixa da marca',
+    width: 600,
+    height: 720,
+  },
+  {
+    src: 'images/studio/sacola.webp',
+    alt: 'Sacola rosada com o monograma do Studio Monique Marques e uma corrente dourada pendurada',
+    caption: 'A sacola da marca',
+    width: 576,
+    height: 720,
+  },
+];
+
+/** Há algum dado de contato real (ou placeholders ligados)? Sem isso a seção Contato não é exibida. */
+export const HAS_CONTACT =
+  SITE.showPlaceholders ||
+  !!(SITE.contact.whatsapp || SITE.contact.instagram || SITE.contact.addressLines.length || SITE.contact.mapEmbedUrl || SITE.contact.hours.length);
 
 // ---------------------------------------------------------------------------
 // Conteúdo CONFIRMADO

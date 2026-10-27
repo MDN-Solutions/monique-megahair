@@ -92,10 +92,10 @@ export const SITE = {
     ],
     pillars: ['Beleza natural', 'Autoestima', 'Atendimento personalizado', 'Cuidado com cada cliente'],
     image: {
-      src: 'images/about-wide.webp',
-      alt: 'Mulher de cabelo longo e loiro sorrindo no Studio Monique Marques, com o monograma da marca na parede ao fundo',
+      src: 'images/about-photo.webp',
+      alt: 'Mulher sorrindo, de cabelo longo e loiro, diante do logotipo dourado do Studio Monique Marques na parede',
     } satisfies ImageRef,
-    caption: 'Inauguração do Studio Monique Marques',
+    caption: 'Studio Monique Marques',
   },
 
   services: {

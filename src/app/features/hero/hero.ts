@@ -12,7 +12,6 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
 export class Hero {
   protected readonly hero = SITE.hero;
   protected readonly film = SITE.film;
-  protected readonly lines = [...SITE.hero.lines, SITE.hero.accentLine];
   protected readonly filmService = inject(FilmService);
   protected readonly wa = whatsappUrl();
   protected readonly waExternal = hasWhatsapp();

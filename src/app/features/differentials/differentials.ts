@@ -46,7 +46,7 @@ import { Icon } from '../../shared/icon';
     .diff__list {
       display: grid;
       gap: 0;
-      border-top: 1px solid var(--line);
+      border-top: 1px solid var(--line-gold);
 
       // tablet: 2 colunas (evita um 4º item sozinho na segunda linha); desktop: uma coluna por item
       @include up($bp-md) {
@@ -87,7 +87,7 @@ import { Icon } from '../../shared/icon';
       }
     }
     .diff__icon {
-      color: var(--c-ink);
+      color: var(--c-gold);
     }
     .diff__name {
       font-size: var(--t-h3);

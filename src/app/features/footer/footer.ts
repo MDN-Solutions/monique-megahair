@@ -35,39 +35,34 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
     @use '../../../styles/tokens' as *;
 
     .footer {
-      padding-top: clamp(3rem, 6vw, 5rem);
-      color: var(--c-ink);
-      background: var(--c-ivory);
-      border-top: 1px solid var(--line);
+      padding-top: clamp(3.5rem, 7vw, 6rem);
+      color: var(--c-ivory);
+      background: var(--c-ink);
     }
     .footer__grid {
       display: grid;
-      gap: 2.5rem;
-      align-items: end;
+      gap: 3rem;
+      align-items: center;
       padding-bottom: clamp(2.5rem, 5vw, 4rem);
 
       @include up($bp-md) {
         grid-template-columns: 1fr auto;
+        align-items: end;
       }
     }
     .footer__brand {
       display: grid;
       justify-items: start;
-      gap: 1.25rem;
-
-      img {
-        width: 56px;
-        height: 56px;
-      }
+      gap: 1.5rem;
     }
     .footer__tag {
-      font-size: 0.6875rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      letter-spacing: 0.26em;
+      letter-spacing: 0.28em;
       text-transform: uppercase;
-      color: var(--c-text-muted);
+      color: var(--c-champagne);
     }
-    // nome em escala editorial, em tinta sólida; decorativo (aria-hidden)
+    // nome em escala gigante: elemento de identidade, decorativo (aria-hidden)
     .footer__name {
       margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
       padding-inline: var(--gutter);
@@ -80,7 +75,10 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
       text-transform: uppercase;
       white-space: nowrap;
       overflow: hidden;
-      color: var(--c-ink);
+      background: linear-gradient(180deg, var(--c-gold-light), var(--c-gold) 55%, #8f7238);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
       user-select: none;
     }
     .footer__nav ul {
@@ -89,6 +87,7 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
       gap: 0.25rem 2rem;
 
       @include up($bp-md) {
+        gap: 0.25rem 2.5rem;
         justify-content: flex-end;
       }
     }
@@ -96,15 +95,15 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
       display: inline-flex;
       align-items: center;
       min-height: 44px;
-      font-size: 0.75rem;
+      font-size: 0.8125rem;
       font-weight: 500;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      color: var(--c-ink);
+      color: var(--c-champagne);
       transition: color 0.3s var(--ease);
 
       &:hover {
-        color: var(--c-gold-text);
+        color: var(--c-white);
       }
     }
     .footer__legal {
@@ -113,16 +112,16 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem 2rem;
-      padding-block: 1.25rem max(1.25rem, env(safe-area-inset-bottom));
-      border-top: 1px solid var(--line);
+      padding-block: 1.5rem max(1.5rem, env(safe-area-inset-bottom));
+      border-top: 1px solid rgba(232, 212, 176, 0.22);
       font-size: var(--t-small);
-      color: var(--c-text-muted);
+      color: #c9c3b8;
     }
     .footer__top {
       display: inline-flex;
       align-items: center;
       min-height: 44px;
-      color: var(--c-ink);
+      color: var(--c-champagne);
     }
   `,
 })

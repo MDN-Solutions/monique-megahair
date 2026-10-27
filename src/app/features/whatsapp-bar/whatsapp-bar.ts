@@ -11,18 +11,20 @@ import { Icon } from '../../shared/icon';
   imports: [Icon],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    role: 'complementary',
+    'aria-label': 'Agendamento rápido',
     '[class.is-visible]': 'visible()',
     '(window:scroll)': 'onScroll()',
   },
   template: `
     <a
-      class="btn btn--dark bar"
+      class="btn btn--primary bar"
       [href]="wa"
       [attr.target]="external ? '_blank' : null"
       [attr.rel]="external ? 'noopener' : null"
       [attr.tabindex]="visible() ? null : -1"
     >
-      <smm-icon name="whatsapp" style="--icon-size: 1.25rem" />
+      <smm-icon name="whatsapp" style="--icon-size: 1.4rem" />
       Agendar pelo WhatsApp
     </a>
   `,
@@ -34,7 +36,7 @@ import { Icon } from '../../shared/icon';
       inset: auto 0 0 0;
       z-index: 90;
       padding: 0.75rem var(--gutter) max(0.75rem, env(safe-area-inset-bottom));
-      background: linear-gradient(180deg, transparent, rgba(246, 240, 234, 0.94) 45%);
+      background: linear-gradient(180deg, transparent, rgba(250, 248, 243, 0.92) 40%);
       transform: translateY(110%);
       transition: transform 0.5s var(--ease);
       pointer-events: none;
@@ -49,7 +51,7 @@ import { Icon } from '../../shared/icon';
     }
     .bar {
       width: 100%;
-      min-height: 52px;
+      box-shadow: 0 14px 30px -14px rgba(36, 33, 29, 0.45);
     }
   `,
 })

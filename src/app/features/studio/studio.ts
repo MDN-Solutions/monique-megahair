@@ -2,92 +2,126 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Reveal } from '../../core/reveal';
 import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
 
-/** Fotos reais do espaço (frames do vídeo da inauguração). Referência: faixa "Our Treatments" do SHEAR. */
+/** "Por dentro do Studio": fotos reais do espaço, em composição assimétrica (uma destaque + quatro apoio). */
 @Component({
   selector: 'smm-studio',
   imports: [Reveal],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (photos.length > 0) {
-      <section id="espaco" class="section studio" aria-labelledby="studio-title">
+      <section id="studio" class="section studio" aria-labelledby="studio-title">
         <div class="container">
           <header class="studio__head reveal" smmReveal>
-            <h2 id="studio-title" class="title studio__title">{{ copy.title }}</h2>
-            <p class="text-2">{{ copy.text }}</p>
+            <p class="eyebrow">{{ copy.eyebrow }}</p>
+            <h2 id="studio-title" class="studio__title">{{ copy.title }}</h2>
+            <p class="lead studio__text">{{ copy.text }}</p>
           </header>
-        </div>
 
-        <!-- no celular a fileira rola na horizontal: tabindex deixa rolar pelo teclado -->
-        <ul class="studio__row reveal" smmReveal tabindex="0" aria-label="Fotos do Studio">
-          @for (p of photos; track p.src) {
-            <li>
-              <figure>
-                <div class="photo studio__photo">
-                  <img [src]="p.src" [alt]="p.alt" width="600" height="720" loading="lazy" decoding="async" />
+          <div class="studio__grid">
+            @for (p of photos; track p.src; let i = $index) {
+              <figure class="shot reveal" [class.shot--lead]="i === 0" smmReveal [style.--i]="i">
+                <div class="shot__frame">
+                  <img [src]="p.src" [alt]="p.alt" [attr.width]="p.width" [attr.height]="p.height" loading="lazy" decoding="async" />
                 </div>
-                <figcaption>{{ p.caption }}</figcaption>
+                <figcaption class="shot__cap">{{ p.caption }}</figcaption>
               </figure>
-            </li>
-          }
-        </ul>
+            }
+          </div>
+        </div>
       </section>
     }
   `,
   styles: `
     @use '../../../styles/tokens' as *;
 
-    .studio {
-      background: var(--c-sand);
-    }
     .studio__head {
       display: grid;
-      justify-items: center;
-      gap: 1rem;
+      gap: 1.25rem;
+      max-width: 40rem;
       margin-bottom: clamp(2.5rem, 5vw, 4rem);
-      text-align: center;
     }
     .studio__title {
-      font-size: clamp(2.4rem, 1.4rem + 4vw, 4.75rem);
-      line-height: 1.02;
+      font-size: var(--t-h2);
+      line-height: 1.08;
     }
-    // celular: rolagem lateral com snap; tablet: 2 colunas; desktop: 4
-    .studio__row {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: min(72vw, 300px);
-      gap: 0.75rem;
-      padding-inline: var(--gutter);
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scroll-padding-inline: var(--gutter);
-      scrollbar-width: none;
 
-      &::-webkit-scrollbar {
-        display: none;
-      }
-      li {
-        scroll-snap-align: start;
-      }
+    // mobile: destaque em largura total e quatro apoios em 2 colunas;
+    // a partir do tablet: destaque à esquerda e 2x2 à direita, alturas equivalentes
+    .studio__grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
 
       @include up($bp-md) {
-        grid-auto-flow: row;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 1rem;
-        max-width: calc(var(--container) + var(--gutter) * 2);
-        margin-inline: auto;
-        overflow: visible;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.25rem;
       }
       @include up($bp-lg) {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 1.5rem;
       }
     }
-    .studio__photo {
-      aspect-ratio: 5 / 6;
-      background: var(--c-paper);
+    .shot {
+      position: relative;
+      margin: 0;
+
+      &--lead {
+        grid-column: 1 / -1;
+
+        @include up($bp-md) {
+          grid-column: 1 / span 2;
+          grid-row: 1 / span 2;
+        }
+      }
     }
-    figcaption {
-      margin-top: 0.75rem;
-      font-size: var(--t-small);
+    .shot__frame {
+      position: relative;
+      height: 100%;
+      aspect-ratio: 5 / 6;
+      overflow: hidden;
+      background: var(--c-champagne);
+    }
+    .shot--lead .shot__frame {
+      @include up($bp-md) {
+        aspect-ratio: auto;
+      }
+    }
+    .shot img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 1.2s var(--ease);
+    }
+    .shot:hover img {
+      transform: scale(1.04);
+    }
+    .shot__frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 58%, rgba(36, 33, 29, 0.62));
+      pointer-events: none;
+    }
+    .shot__cap {
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: 0.9rem;
+      z-index: 1;
+      font-size: 0.6875rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-ivory);
+    }
+    // destaque: legenda no topo, para não cobrir a escrita do neon
+    .shot--lead .shot__frame::after {
+      background: linear-gradient(0deg, transparent 80%, rgba(36, 33, 29, 0.6));
+    }
+    .shot--lead .shot__cap {
+      left: 1.5rem;
+      top: 1.25rem;
+      bottom: auto;
+      font-size: 0.75rem;
     }
   `,
 })

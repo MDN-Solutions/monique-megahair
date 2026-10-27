@@ -1,10 +1,13 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { inject } from '@angular/core';
 import { Reveal } from '../../core/reveal';
-import { SITE } from '../../core/site.config';
+import { HAS_CONTACT, SITE } from '../../core/site.config';
 import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
+import { Icon, IconName } from '../../shared/icon';
 
 interface Row {
+  icon: IconName;
   label: string;
   /** conteúdo real (vazio = ainda não informado) */
   lines: string[];
@@ -25,7 +28,7 @@ function formatPhone(raw: string): string {
 
 @Component({
   selector: 'smm-contact',
-  imports: [Reveal],
+  imports: [Reveal, Icon],
   templateUrl: './contact.html',
   styleUrl: './contact.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,6 +38,7 @@ export class Contact {
   protected readonly wa = whatsappUrl();
   protected readonly hasWa = hasWhatsapp();
   protected readonly showPlaceholders = SITE.showPlaceholders;
+  protected readonly visible = HAS_CONTACT;
 
   protected readonly rows: Row[];
   protected readonly mapUrl: SafeResourceUrl | null;
@@ -45,30 +49,34 @@ export class Contact {
 
     const all: Row[] = [
       {
+        icon: 'whatsapp',
         label: 'WhatsApp',
         lines: c.whatsapp ? [formatPhone(c.whatsapp)] : [],
         href: this.hasWa ? this.wa : undefined,
         external: true,
-        todo: 'Falta o número do WhatsApp',
+        todo: 'Informar o número do WhatsApp do estúdio',
       },
       {
+        icon: 'instagram',
         label: 'Instagram',
         lines: c.instagram ? [`@${c.instagram}`] : [],
         href: c.instagram ? `https://instagram.com/${c.instagram}` : undefined,
         external: true,
-        todo: 'Falta o @ do Instagram',
+        todo: 'Informar o usuário do Instagram',
       },
       {
+        icon: 'pin',
         label: 'Endereço',
         lines: c.addressLines,
         href: c.mapLink || undefined,
         external: true,
-        todo: 'Falta o endereço',
+        todo: 'Informar o endereço completo',
       },
       {
-        label: 'Horários',
+        icon: 'clock',
+        label: 'Horário de atendimento',
         lines: c.hours.map((h) => `${h.days}: ${h.time}`),
-        todo: 'Faltam os dias e horários',
+        todo: 'Informar dias e horários de atendimento',
       },
     ];
 

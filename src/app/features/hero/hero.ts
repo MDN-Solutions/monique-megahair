@@ -15,4 +15,6 @@ export class Hero {
   protected readonly filmService = inject(FilmService);
   protected readonly wa = whatsappUrl();
   protected readonly waExternal = hasWhatsapp();
+  protected readonly strips = [0, 1, 2, 3, 4, 5, 6];
+  protected readonly lines = [...SITE.hero.lines, SITE.hero.accentLine];
 }

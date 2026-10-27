@@ -125,7 +125,7 @@ import type { ImageRef } from '../core/site.config';
       font-weight: 500;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      background: rgba(250, 248, 243, 0.92);
+      background: rgba(245, 243, 238, 0.94);
       pointer-events: none;
     }
     .ba__tag {
@@ -151,8 +151,8 @@ import type { ImageRef } from '../core/site.config';
       transform: translate(-50%, -50%) scale(1.12);
     }
     @keyframes ba-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(198, 166, 107, 0.55); }
-      50% { box-shadow: 0 0 0 12px rgba(198, 166, 107, 0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+      50% { box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
     }
     @media (prefers-reduced-motion: reduce) {
       .ba__grip { animation: none; }
@@ -183,8 +183,8 @@ import type { ImageRef } from '../core/site.config';
       bottom: 0;
       left: 50%;
       width: 1px;
-      background: var(--c-gold);
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
+      background: var(--c-white);
+      box-shadow: 0 0 0 1px rgba(18, 17, 16, 0.12);
     }
     .ba__grip {
       position: absolute;
@@ -196,9 +196,9 @@ import type { ImageRef } from '../core/site.config';
       height: 44px;
       transform: translate(-50%, -50%);
       color: var(--c-ink);
-      background: var(--c-gold);
+      background: var(--c-white);
       border-radius: 50%;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+      box-shadow: 0 2px 10px rgba(18, 17, 16, 0.25);
     }
     .ba__handle:focus-visible .ba__grip {
       outline: 2px solid var(--c-ink);

@@ -9,9 +9,9 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (photos.length > 0) {
-      <section id="studio" class="section studio" aria-labelledby="studio-title">
+      <section id="studio" class="section studio on-dark" aria-labelledby="studio-title">
         <div class="container">
-          <header class="studio__head reveal" smmReveal>
+          <header class="sec-head reveal" smmReveal>
             <p class="eyebrow">{{ copy.eyebrow }}</p>
             <h2 id="studio-title" class="studio__title">{{ copy.title }}</h2>
             <p class="lead studio__text">{{ copy.text }}</p>
@@ -33,17 +33,6 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
   `,
   styles: `
     @use '../../../styles/tokens' as *;
-
-    .studio__head {
-      display: grid;
-      gap: 1.25rem;
-      max-width: 40rem;
-      margin-bottom: clamp(2.5rem, 5vw, 4rem);
-    }
-    .studio__title {
-      font-size: var(--t-h2);
-      line-height: 1.08;
-    }
 
     // mobile: destaque em largura total e quatro apoios em 2 colunas;
     // a partir do tablet: destaque à esquerda e 2x2 à direita, alturas equivalentes
@@ -78,7 +67,7 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
       height: 100%;
       aspect-ratio: 5 / 6;
       overflow: hidden;
-      background: var(--c-champagne);
+      background: #1d1c1a;
     }
     .shot--lead .shot__frame {
       @include up($bp-md) {
@@ -98,7 +87,7 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, transparent 58%, rgba(36, 33, 29, 0.62));
+      background: linear-gradient(180deg, transparent 58%, rgba(18, 17, 16, 0.7));
       pointer-events: none;
     }
     .shot__cap {
@@ -115,7 +104,7 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
     }
     // destaque: legenda no topo, para não cobrir a escrita do neon
     .shot--lead .shot__frame::after {
-      background: linear-gradient(0deg, transparent 80%, rgba(36, 33, 29, 0.6));
+      background: linear-gradient(0deg, transparent 80%, rgba(18, 17, 16, 0.65));
     }
     .shot--lead .shot__cap {
       left: 1.5rem;

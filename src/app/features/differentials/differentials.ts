@@ -10,7 +10,7 @@ import { Icon } from '../../shared/icon';
   template: `
     <section id="diferenciais" class="section diff" aria-labelledby="diff-title">
       <div class="container">
-        <header class="diff__head reveal" smmReveal>
+        <header class="sec-head reveal" smmReveal>
           <p class="eyebrow">{{ copy.eyebrow }}</p>
           <h2 id="diff-title" class="diff__title">{{ copy.title }}</h2>
         </header>
@@ -33,20 +33,10 @@ import { Icon } from '../../shared/icon';
   styles: `
     @use '../../../styles/tokens' as *;
 
-    .diff__head {
-      display: grid;
-      gap: 1.5rem;
-      max-width: 40rem;
-      margin-bottom: clamp(2.5rem, 5vw, 4rem);
-    }
-    .diff__title {
-      font-size: var(--t-h2);
-      line-height: 1.08;
-    }
     .diff__list {
       display: grid;
       gap: 0;
-      border-top: 1px solid var(--line-gold);
+      border-top: 2px solid var(--c-ink);
 
       // tablet: 2 colunas (evita um 4º item sozinho na segunda linha); desktop: uma coluna por item
       @include up($bp-md) {
@@ -87,11 +77,11 @@ import { Icon } from '../../shared/icon';
       }
     }
     .diff__icon {
-      color: var(--c-gold);
+      color: var(--c-ink);
     }
     .diff__name {
       font-size: var(--t-h3);
-      line-height: 1.2;
+      line-height: 1.1;
     }
     .diff__text {
       font-size: 0.975rem;

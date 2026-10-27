@@ -90,8 +90,7 @@
   min-height: 44px;
   font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.04em;
 
   &::after {
     content: '';
@@ -193,11 +192,8 @@
   display: block;
   padding: 0.85rem 0;
   font-family: var(--f-display);
-  font-weight: 800;
-  font-variation-settings: 'wdth' 118;
-  text-transform: uppercase;
-  letter-spacing: -0.02em;
-  font-size: clamp(2rem, 8vw, 2.75rem);
+  font-weight: 500;
+  font-size: clamp(1.75rem, 7vw, 2.25rem);
   line-height: 1.1;
 }
 

@@ -63,6 +63,7 @@ import type { ImageRef } from '../core/site.config';
       position: relative;
       aspect-ratio: 3 / 5;
       overflow: hidden;
+      border-radius: var(--radius);
       user-select: none;
       touch-action: pan-y;
       cursor: ew-resize;

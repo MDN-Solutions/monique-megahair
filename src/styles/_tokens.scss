@@ -14,12 +14,12 @@ $bp-xl: 1280px;
 :root {
   // Cores da marca (paleta do brief)
   --c-white: #ffffff;
-  --c-ivory: #f5f3ee;
-  --c-champagne: #e6e1d7;
+  --c-ivory: #ffffff;
+  --c-champagne: #eeeeec;
   --c-gold: #b8995e;
   --c-gold-light: #e4cd9b;
   --c-muted: #77736d;
-  --c-ink: #121110;
+  --c-ink: #1f1f1f;
 
   // Variantes acessíveis (contraste AA sobre marfim)
   --c-gold-text: #7a5a22; // 5,97:1 — texto dourado pequeno
@@ -30,13 +30,13 @@ $bp-xl: 1280px;
   --line-gold: rgba(18, 17, 16, 0.18);
 
   // Tipografia
-  --f-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-display: 'Jost', 'Helvetica Neue', Arial, sans-serif;
   --f-serif: 'Bodoni Moda', 'Didot', Georgia, serif; // só para o logotipo
   --f-body: 'Jost', 'Futura', 'Century Gothic', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --t-display: clamp(2.4rem, 0.9rem + 4.6vw, 5.5rem);
-  --t-h2: clamp(2rem, 0.9rem + 3.9vw, 4.75rem);
-  --t-h3: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
+  --t-display: clamp(2.25rem, 1.4rem + 2.6vw, 3.75rem);
+  --t-h2: clamp(1.75rem, 1.2rem + 1.6vw, 2.5rem);
+  --t-h3: clamp(1.2rem, 1.05rem + 0.5vw, 1.4rem);
   --t-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.3rem);
   --t-body: 1.0625rem;
   --t-small: 0.875rem;
@@ -55,8 +55,9 @@ $bp-xl: 1280px;
   --s-32: 8rem;
   --section-y: clamp(5rem, 9vw, 9.5rem);
   --gutter: clamp(1.25rem, 4vw, 3rem);
-  --container: 1360px;
+  --container: 1180px;
   --header-h: 76px;
+  --radius: 10px;
 
   // Forma e sombra
   --shadow: none;

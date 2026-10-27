@@ -9,7 +9,7 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (photos.length > 0) {
-      <section id="studio" class="section studio on-dark" aria-labelledby="studio-title">
+      <section id="studio" class="section studio" aria-labelledby="studio-title">
         <div class="container">
           <header class="sec-head reveal" smmReveal>
             <p class="eyebrow">{{ copy.eyebrow }}</p>
@@ -67,7 +67,8 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
       height: 100%;
       aspect-ratio: 5 / 6;
       overflow: hidden;
-      background: #1d1c1a;
+      border-radius: var(--radius);
+      background: var(--c-champagne);
     }
     .shot--lead .shot__frame {
       @include up($bp-md) {

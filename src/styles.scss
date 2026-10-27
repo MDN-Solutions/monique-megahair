@@ -77,20 +77,10 @@ h1,
 h2,
 h3 {
   font-family: var(--f-display);
-  font-weight: 800;
-  line-height: 0.95;
-  letter-spacing: -0.025em;
-  text-transform: uppercase;
-  text-wrap: balance;
-  // largura expandida: assinatura tipográfica do site
-  font-variation-settings: 'wdth' 118;
-}
-
-h3 {
-  font-weight: 700;
-  line-height: 1.05;
+  font-weight: 500;
+  line-height: 1.15;
   letter-spacing: -0.01em;
-  font-variation-settings: 'wdth' 108;
+  text-wrap: balance;
 }
 
 :focus-visible {
@@ -144,21 +134,11 @@ h3 {
 }
 
 .eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.7rem;
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--c-ink);
-
-  &::before {
-    content: '';
-    width: 0.55rem;
-    height: 0.55rem;
-    background: var(--c-gold);
-  }
+  color: var(--c-text-muted);
 }
 
 .lead {
@@ -197,12 +177,12 @@ em.gold,
   align-items: center;
   justify-content: center;
   gap: 0.85rem;
-  min-height: 52px;
-  padding: 0 1.8rem;
-  font-size: 0.8125rem;
+  min-height: 50px;
+  padding: 0 1.6rem;
+  border-radius: 6px;
+  font-size: 0.9375rem;
   font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
   line-height: 1;
   color: var(--btn-fg);
   background: var(--btn-bg);
@@ -233,25 +213,10 @@ em.gold,
   --btn-fg: var(--c-white);
   --btn-bd: var(--c-ink);
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: -1;
-    background: var(--c-gold);
-    transform: translateX(-101%);
-    transition: transform 0.5s var(--ease);
-  }
-
   &:hover,
   &:focus-visible {
-    --btn-fg: var(--c-ink);
-    --btn-bd: var(--c-gold);
-  }
-
-  &:hover::before,
-  &:focus-visible::before {
-    transform: translateX(0);
+    --btn-bg: #3a3a3a;
+    --btn-bd: #3a3a3a;
   }
 }
 
@@ -270,7 +235,8 @@ em.gold,
 .btn--ghost {
   min-height: 44px;
   padding: 0 0.1rem;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.02em;
+  border-radius: 0;
 
   &::after {
     content: '';
@@ -301,6 +267,7 @@ em.gold,
   position: relative;
   aspect-ratio: 4 / 5;
   overflow: hidden;
+  border-radius: var(--radius);
   background: var(--c-champagne);
 
   img {
@@ -358,29 +325,15 @@ html.intro-pending .enter {
   }
 }
 
-// ---------- Cabeçalho de seção: filete grosso + rótulo à esquerda, título à direita ----------
+// ---------- Cabeçalho de seção ----------
 .sec-head {
   display: grid;
-  gap: 1.25rem 3rem;
-  padding-top: 1.25rem;
-  margin-bottom: clamp(2.5rem, 5vw, 4.5rem);
-  border-top: 2px solid currentColor;
-
-  @include up($bp-lg) {
-    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
-    align-items: start;
-
-    > :not(.eyebrow) {
-      grid-column: 2;
-    }
-  }
+  gap: 0.9rem;
+  max-width: 40rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
 
   > h2 {
     font-size: var(--t-h2);
-  }
-
-  > .lead {
-    max-width: 34rem;
   }
 }
 

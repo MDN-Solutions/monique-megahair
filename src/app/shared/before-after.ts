@@ -152,8 +152,8 @@ import type { ImageRef } from '../core/site.config';
       transform: translate(-50%, -50%) scale(1.12);
     }
     @keyframes ba-pulse {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
-      50% { box-shadow: 0 0 0 12px rgba(255, 255, 255, 0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(194, 163, 106, 0.6); }
+      50% { box-shadow: 0 0 0 12px rgba(194, 163, 106, 0); }
     }
     @media (prefers-reduced-motion: reduce) {
       .ba__grip { animation: none; }
@@ -199,7 +199,7 @@ import type { ImageRef } from '../core/site.config';
       color: var(--c-ink);
       background: var(--c-white);
       border-radius: 50%;
-      box-shadow: 0 2px 10px rgba(18, 17, 16, 0.25);
+      box-shadow: 0 0 0 2px var(--c-gold), 0 2px 10px rgba(18, 17, 16, 0.25);
     }
     .ba__handle:focus-visible .ba__grip {
       outline: 2px solid var(--c-ink);

@@ -36,6 +36,9 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
 
     // mobile: destaque em largura total e quatro apoios em 2 colunas;
     // a partir do tablet: destaque à esquerda e 2x2 à direita, alturas equivalentes
+    .studio {
+      background: #faf7f0;
+    }
     .studio__grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));

@@ -2,8 +2,7 @@
 
 .services {
   // faixa de marfim mais clara separando do bloco anterior
-  background: var(--c-white);
-  border-top: 1px solid var(--line);
+  background: linear-gradient(180deg, var(--c-ivory) 0%, var(--c-white) 18%, var(--c-white) 82%, var(--c-ivory) 100%);
 }
 
 .services__head {
@@ -58,7 +57,18 @@
 .card {
   display: grid;
   grid-template-rows: auto 1fr;
-  background: transparent;
+  background: var(--c-ivory);
+  border: 1px solid var(--line);
+  transition:
+    transform 0.5s var(--ease),
+    box-shadow 0.5s var(--ease),
+    border-color 0.5s var(--ease);
+
+  &:hover {
+    border-color: var(--line-gold);
+    box-shadow: var(--shadow);
+    transform: translateY(-4px);
+  }
 }
 
 .card__media {
@@ -91,7 +101,7 @@
   font-weight: 500;
   letter-spacing: 0.24em;
   text-transform: uppercase;
-  color: var(--c-text-muted);
+  color: var(--c-gold-text);
 }
 
 .card__title {

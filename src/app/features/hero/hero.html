@@ -1,36 +1,58 @@
 <section id="inicio" class="hero" aria-labelledby="hero-title">
-  <div class="hero__copy">
-    <p class="eyebrow enter" style="--i: 0">{{ hero.eyebrow }}</p>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <p class="hero__name enter" style="--i: 1" aria-hidden="true"><span>Monique</span> <span>Marques</span></p>
 
-    <h1 id="hero-title" class="hero__title">
-      @for (line of lines; track line; let i = $index) {
-        <span class="hero__line"><span class="hero__line-in" [style.--i]="i">{{ line }}</span></span>
-      }
-    </h1>
+  <div class="container hero__inner">
+    <div class="hero__copy">
+      <p class="eyebrow enter" style="--i: 0">{{ hero.eyebrow }}</p>
 
-    <p class="hero__sub enter" style="--i: 4">{{ hero.subtitle }}</p>
+      <h1 id="hero-title" class="hero__title">
+        @for (line of hero.lines; track line; let i = $index) {
+          <span class="hero__line"><span class="hero__line-in" [style.--i]="i">{{ line }}</span></span>
+        }
+        <span class="hero__line">
+          <span class="hero__line-in gold" [style.--i]="hero.lines.length">{{ hero.accentLine }}</span>
+        </span>
+      </h1>
 
-    <div class="hero__cta enter" style="--i: 5">
-      <a
-        class="btn btn--primary"
-        [href]="wa"
-        [attr.target]="waExternal ? '_blank' : null"
-        [attr.rel]="waExternal ? 'noopener' : null"
-      >
-        Agendar pelo WhatsApp
-        <svg class="btn__arrow" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-          <path d="M0 5h16M12 1l4 4-4 4" />
-        </svg>
-      </a>
-      <button type="button" class="btn btn--ghost" (click)="filmService.open()">
-        Assistir à inauguração <span class="hero__dur">{{ film.duration }}</span>
-      </button>
+      <p class="lead hero__sub enter" style="--i: 4">{{ hero.subtitle }}</p>
+
+      <div class="hero__cta enter" style="--i: 5">
+        <a
+          class="btn btn--primary"
+          [href]="wa"
+          [attr.target]="waExternal ? '_blank' : null"
+          [attr.rel]="waExternal ? 'noopener' : null"
+        >
+          Agendar pelo WhatsApp
+          <svg class="btn__arrow" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
+            <path d="M0 5h16M12 1l4 4-4 4" />
+          </svg>
+        </a>
+        <a class="btn btn--ghost" href="#sobre">Conhecer o estúdio</a>
+      </div>
     </div>
-  </div>
 
-  <div class="hero__media enter" style="--i: 2">
-    <div class="hero__frame">
-      <img [src]="hero.image.src" [alt]="hero.image.alt" width="1000" height="1500" fetchpriority="high" decoding="async" />
+    <div class="hero__media">
+      <div class="arch enter" style="--i: 2">
+        <div class="arch__media hero__frame">
+          <img
+            [src]="hero.image.src"
+            [alt]="hero.image.alt"
+            width="900"
+            height="1125"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+        <button type="button" class="hero__film enter" style="--i: 6" (click)="filmService.open()">
+          <img [src]="film.thumb" alt="" width="600" height="720" loading="lazy" decoding="async" />
+          <span class="hero__film-text">
+            <span class="hero__film-title">Assista à inauguração</span>
+            <span class="hero__film-meta">Vídeo · {{ film.duration }}</span>
+          </span>
+        </button>
+      </div>
     </div>
   </div>
 </section>

@@ -78,8 +78,8 @@ export const SITE = {
     subtitle:
       'Mega Hair de alto padrão, acabamento natural e atendimento personalizado para realçar a sua beleza.',
     image: {
-      src: 'images/hero-profile.webp',
-      alt: 'Monique de perfil, com cabelo longo, liso e loiro, diante do logotipo dourado do Studio Monique Marques',
+      src: 'images/cta-portrait.webp',
+      alt: 'Monique de perfil, com cabelo longo, liso e loiro, diante do logotipo dourado do Studio',
     } satisfies ImageRef,
   },
 
@@ -126,8 +126,8 @@ export const SITE = {
     text: 'Entre em contato com o Studio Monique Marques e descubra a melhor opção para você.',
     button: 'Falar com o estúdio',
     image: {
-      src: 'images/cta-portrait.webp',
-      alt: 'Monique de perfil, com cabelo longo, liso e loiro, diante do logotipo dourado do Studio',
+      src: 'images/hero-portrait.webp',
+      alt: 'Monique sorrindo, com cabelo longo, loiro e ondulado, diante de uma parede de mármore rosa',
     } satisfies ImageRef,
   },
 

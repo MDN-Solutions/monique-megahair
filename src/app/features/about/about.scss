@@ -31,7 +31,7 @@
   display: grid;
   gap: 0.35rem 2rem;
   padding-top: 1.5rem;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--line-gold);
 
   @include up($bp-sm) {
     grid-template-columns: 1fr 1fr;
@@ -53,6 +53,16 @@
   position: relative;
   aspect-ratio: 1 / 1;
   background: var(--c-champagne);
+  box-shadow: var(--shadow);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border: 1px solid var(--line-gold);
+    transform: translate(14px, 14px);
+  }
 
   img {
     width: 100%;
@@ -76,7 +86,7 @@
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--c-ink);
-  background: rgba(252, 251, 249, 0.94);
+  background: rgba(250, 248, 243, 0.92);
   -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   transition:
@@ -93,9 +103,8 @@
   place-items: center;
   width: 34px;
   height: 34px;
-  color: var(--c-white);
-  background: var(--c-ink);
-  color: var(--c-white);
+  color: var(--c-ink);
+  background: var(--c-gold);
   border-radius: 50%;
 
   smm-icon {

@@ -48,7 +48,21 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
       overflow: clip;
       padding-block: var(--section-y);
       background: var(--c-ivory);
-      border-top: 1px solid var(--line);
+      border-top: 1px solid var(--line-gold);
+
+      // monograma gigante e quase invisível, como marca d'água de papel de luxo
+      &::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        right: -10%;
+        width: min(70vw, 760px);
+        aspect-ratio: 1;
+        transform: translateY(-50%);
+        background: url('/brand/monogram.svg') center / contain no-repeat;
+        opacity: 0.07;
+        pointer-events: none;
+      }
     }
     .cta__inner {
       position: relative;
@@ -74,7 +88,7 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
       gap: clamp(1.25rem, 2.4vw, 2rem);
     }
     .cta__title {
-      font-size: clamp(2rem, 1.2rem + 3vw, 3.75rem);
+      font-size: clamp(2.4rem, 1.4rem + 3.8vw, 4.75rem);
       line-height: 1.05;
       letter-spacing: -0.015em;
     }

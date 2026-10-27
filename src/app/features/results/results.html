@@ -29,7 +29,7 @@
                 <smm-before-after [before]="item.before" [after]="item.after" />
               } @else {
                 <div class="results__photo">
-                  <img [src]="item.image.src" [alt]="item.image.alt" loading="lazy" decoding="async" />
+                  <img [src]="item.image.src" [alt]="item.image.alt" width="800" height="1360" loading="lazy" decoding="async" />
                 </div>
               }
               @if (item.caption) {

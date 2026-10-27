@@ -1,5 +1,4 @@
 <section id="inicio" class="hero" aria-labelledby="hero-title">
-  <div class="hero__glow" aria-hidden="true"></div>
   <p class="hero__name enter" style="--i: 1" aria-hidden="true"><span>Monique</span> <span>Marques</span></p>
 
   <div class="container hero__inner">
@@ -31,28 +30,21 @@
         </a>
         <a class="btn btn--ghost" href="#sobre">Conhecer o estúdio</a>
       </div>
+
+      <button type="button" class="hero__film enter" style="--i: 6" (click)="filmService.open()">
+        <img [src]="film.thumb" alt="" width="600" height="720" loading="lazy" decoding="async" />
+        <span class="hero__film-text">
+          <span class="hero__film-title">Assista à inauguração</span>
+          <span class="hero__film-meta">Vídeo · {{ film.duration }}</span>
+        </span>
+      </button>
     </div>
 
-    <div class="hero__media">
-      <div class="arch enter" style="--i: 2">
-        <div class="arch__media hero__frame">
-          <img
-            [src]="hero.image.src"
-            [alt]="hero.image.alt"
-            width="900"
-            height="1125"
-            fetchpriority="high"
-            decoding="async"
-          />
-        </div>
-        <button type="button" class="hero__film enter" style="--i: 6" (click)="filmService.open()">
-          <img [src]="film.thumb" alt="" width="600" height="720" loading="lazy" decoding="async" />
-          <span class="hero__film-text">
-            <span class="hero__film-title">Assista à inauguração</span>
-            <span class="hero__film-meta">Vídeo · {{ film.duration }}</span>
-          </span>
-        </button>
-      </div>
+  </div>
+
+  <div class="hero__media enter" style="--i: 2">
+    <div class="hero__frame">
+      <img [src]="hero.image.src" [alt]="hero.image.alt" width="1000" height="1500" fetchpriority="high" decoding="async" />
     </div>
   </div>
 </section>

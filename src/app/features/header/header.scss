@@ -16,7 +16,7 @@
 }
 
 :host(.is-scrolled) .header {
-  background: rgba(250, 248, 243, 0.86);
+  background: rgba(245, 243, 238, 0.9);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   backdrop-filter: blur(14px) saturate(1.1);
   box-shadow: 0 1px 0 var(--line);
@@ -55,12 +55,12 @@
   font-weight: 500;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: var(--c-gold-text);
+  color: var(--c-ink);
 }
 
 .brand__name {
   margin-top: 0.4rem;
-  font-family: var(--f-display);
+  font-family: var(--f-serif);
   font-variation-settings: 'opsz' 11;
   font-size: 1.1rem;
   letter-spacing: 0.1em;
@@ -149,7 +149,6 @@
   gap: 2.5rem;
   padding: calc(var(--header-h) + 1rem) var(--gutter) max(2rem, env(safe-area-inset-bottom));
   background: var(--c-ivory);
-  background-image: radial-gradient(60% 40% at 80% 10%, rgba(232, 212, 176, 0.5), transparent 70%);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-12px);
@@ -194,7 +193,10 @@
   display: block;
   padding: 0.85rem 0;
   font-family: var(--f-display);
-  font-variation-settings: 'opsz' 22;
+  font-weight: 800;
+  font-variation-settings: 'wdth' 118;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
   font-size: clamp(2rem, 8vw, 2.75rem);
   line-height: 1.1;
 }

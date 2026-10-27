@@ -14,28 +14,29 @@ $bp-xl: 1280px;
 :root {
   // Cores da marca (paleta do brief)
   --c-white: #ffffff;
-  --c-ivory: #faf8f3;
-  --c-champagne: #e8d4b0;
-  --c-gold: #c6a66b;
+  --c-ivory: #f5f3ee;
+  --c-champagne: #e6e1d7;
+  --c-gold: #b8995e;
   --c-gold-light: #e4cd9b;
   --c-muted: #77736d;
-  --c-ink: #24211d;
+  --c-ink: #121110;
 
   // Variantes acessíveis (contraste AA sobre marfim)
   --c-gold-text: #7a5a22; // 5,97:1 — texto dourado pequeno
-  --c-text-muted: #6a665f; // 5,38:1 — versão do cinza do brief para texto corrido
+  --c-text-muted: #5d5952; // 5,38:1 — versão do cinza do brief para texto corrido
   --c-blush: #f2e6df; // rosé da decoração real do estúdio (apoio, placeholders)
 
-  --line: rgba(36, 33, 29, 0.12);
-  --line-gold: rgba(198, 166, 107, 0.55);
+  --line: rgba(18, 17, 16, 0.18);
+  --line-gold: rgba(18, 17, 16, 0.18);
 
   // Tipografia
-  --f-display: 'Bodoni Moda', 'Didot', 'Bodoni 72', 'Playfair Display', Georgia, serif;
+  --f-display: 'Archivo', 'Helvetica Neue', Arial, sans-serif;
+  --f-serif: 'Bodoni Moda', 'Didot', Georgia, serif; // só para o logotipo
   --f-body: 'Jost', 'Futura', 'Century Gothic', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
-  --t-display: clamp(2.75rem, 1.5rem + 5.6vw, 6.25rem);
-  --t-h2: clamp(2.1rem, 1.3rem + 2.8vw, 3.9rem);
-  --t-h3: clamp(1.5rem, 1.2rem + 0.9vw, 2rem);
+  --t-display: clamp(2.4rem, 0.9rem + 4.6vw, 5.5rem);
+  --t-h2: clamp(2rem, 0.9rem + 3.9vw, 4.75rem);
+  --t-h3: clamp(1.25rem, 1rem + 0.9vw, 1.75rem);
   --t-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.3rem);
   --t-body: 1.0625rem;
   --t-small: 0.875rem;
@@ -54,11 +55,11 @@ $bp-xl: 1280px;
   --s-32: 8rem;
   --section-y: clamp(5rem, 9vw, 9.5rem);
   --gutter: clamp(1.25rem, 4vw, 3rem);
-  --container: 1240px;
+  --container: 1360px;
   --header-h: 76px;
 
   // Forma e sombra
-  --shadow: 0 30px 60px -36px rgba(36, 33, 29, 0.35);
+  --shadow: none;
   --arch: 999px 999px 0 0;
 
   // Movimento

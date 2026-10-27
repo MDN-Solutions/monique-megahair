@@ -1,60 +1,45 @@
 @use '../../../styles/tokens' as *;
 
 .hero {
-  position: relative;
   display: grid;
-  align-items: center;
-  min-height: 100svh;
-  padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem));
-  padding-bottom: clamp(5rem, 11vw, 9rem);
-  overflow: clip;
-}
-
-// Luz suave de estúdio atrás da foto
-.hero__glow {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(52% 48% at 82% 34%, rgba(232, 212, 176, 0.6), transparent 70%),
-    radial-gradient(40% 36% at 6% 92%, rgba(242, 230, 223, 0.7), transparent 70%);
-}
-
-.hero__inner {
-  position: relative;
-  display: grid;
-  gap: clamp(2.5rem, 6vw, 4rem);
+  gap: 2.5rem;
+  padding: calc(var(--header-h) + 1.5rem) var(--gutter) clamp(3rem, 6vw, 5rem);
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin-inline: auto;
 
   @include up($bp-lg) {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
-    align-items: center;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    align-items: end;
+    gap: clamp(2rem, 5vw, 5rem);
+    min-height: 100svh;
+    padding-bottom: clamp(2rem, 4vw, 3.5rem);
   }
 }
 
 .hero__copy {
   display: grid;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
   justify-items: start;
-  gap: clamp(1.25rem, 2.4vw, 2rem);
 }
 
 .hero__title {
-  font-size: var(--t-display);
-  line-height: 1.04;
-  letter-spacing: -0.018em;
+  font-size: clamp(2.1rem, 0.6rem + 3.5vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.03em;
 }
 
-// Cada linha sobe de dentro de uma máscara (revelação editorial)
+// Cada linha sobe de dentro de uma máscara
 .hero__line {
   display: block;
   overflow: hidden;
-  padding-bottom: 0.12em;
-  margin-bottom: -0.12em;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
 .hero__line-in {
   display: inline-block;
-  transition: transform 1.15s var(--ease);
-  transition-delay: calc(var(--i, 0) * 130ms + 120ms);
+  transition: transform 1.1s var(--ease);
+  transition-delay: calc(var(--i, 0) * 120ms + 150ms);
 }
 
 :host-context(html.intro-pending) .hero__line-in {
@@ -62,147 +47,125 @@
   transition: none;
 }
 
+.hero__foot {
+  display: grid;
+  gap: 1.75rem;
+  width: 100%;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
 .hero__sub {
-  max-width: 34rem;
+  max-width: 26rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--c-text-muted);
 }
 
 .hero__cta {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.75rem 2rem;
-  margin-top: 0.5rem;
+  gap: 0.5rem 2rem;
 }
 
-// ---------- Foto em arco ----------
+.hero__dur {
+  margin-left: 0.35rem;
+  color: var(--c-text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// ---------- Faixas ----------
 .hero__media {
   position: relative;
+  width: 100%;
+  max-width: 640px;
+  justify-self: center;
+
   @include up($bp-lg) {
-    // a foto "sangra" um pouco para a direita, composição assimétrica
-    margin-right: clamp(-3rem, -2vw, 0rem);
+    justify-self: end;
   }
 }
 
-.hero__media .arch {
-  width: min(100%, 440px);
-
+.strips {
+  --n: 7;
+  --gap: 6px;
+  display: grid;
+  grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+  gap: var(--gap);
+  aspect-ratio: 4 / 5; // mesma proporção da foto: as faixas se juntam sem distorcer
+  // altura limitada à tela no desktop, mantendo a proporção
   @include up($bp-lg) {
-    width: min(100%, 500px);
+    max-height: calc(100svh - var(--header-h) - 3rem);
     margin-inline: auto 0;
   }
 }
 
-.hero__frame {
+.strip {
+  display: block;
+  background-image: var(--img);
+  background-repeat: no-repeat;
+  background-size: calc(var(--n) * 100% + (var(--n) - 1) * var(--gap)) 100%;
+  background-position: calc(var(--k) / (var(--n) - 1) * 100%) 0;
+  background-color: var(--c-champagne);
+  transform: translateY(0);
+  transition:
+    transform 0.7s var(--ease),
+    clip-path 1.2s var(--ease-door);
   clip-path: inset(0 0 0 0);
-  transition: clip-path 1.5s var(--ease-door) 0.2s;
+  transition-delay: calc(var(--k) * 70ms), calc(var(--k) * 90ms + 200ms);
+}
 
-  img {
-    object-position: 50% 22%;
+// entrada: cada faixa "cai" de cima, em cascata
+:host-context(html.intro-pending) .strip {
+  clip-path: inset(0 0 100% 0);
+  transition: none;
+}
+
+// onda ao passar o mouse: a faixa sobe e as vizinhas acompanham
+@media (hover: hover) {
+  .strip:hover {
+    transform: translateY(-18px);
+    transition-delay: 0s;
+  }
+  .strip:hover + .strip,
+  .strip:has(+ .strip:hover) {
+    transform: translateY(-8px);
+    transition-delay: 0s;
   }
 }
 
-:host-context(html.intro-pending) .hero__frame {
-  clip-path: inset(100% 0 0 0);
-  transition: none;
+.hero__side {
+  display: none;
+
+  @include up($bp-lg) {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: calc(100% + 1rem);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--c-text-muted);
+    white-space: nowrap;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero__line-in,
-  .hero__frame {
-    transition-duration: 0.01ms;
-    transition-delay: 0s;
+  .strip {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
   }
 
   :host-context(html.intro-pending) .hero__line-in {
     transform: none;
   }
 
-  :host-context(html.intro-pending) .hero__frame {
+  :host-context(html.intro-pending) .strip {
     clip-path: inset(0 0 0 0);
   }
-}
-
-// ---------- Nome em escala gigante (identidade, sangrando pela base da seção) ----------
-.hero__name {
-  position: absolute;
-  z-index: 0;
-  left: 0;
-  right: 0;
-  bottom: -0.06em;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  gap: 0.28em;
-  font-family: var(--f-display);
-  font-variation-settings: 'opsz' 22;
-  // cabe em uma linha dentro da largura útil, em qualquer tela
-  font-size: min(8.3vw, 7.4rem);
-  line-height: 1;
-  letter-spacing: -0.015em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  pointer-events: none;
-  user-select: none;
-  // dourado suave: dá camada à composição sem competir com o título
-  background: linear-gradient(180deg, rgba(198, 166, 107, 0.42), rgba(228, 205, 155, 0.14));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.hero__inner {
-  z-index: 1;
-}
-
-// ---------- Cartão "Assista à inauguração" ----------
-.hero__film {
-  position: absolute;
-  left: 0;
-  bottom: 1.25rem;
-  z-index: 2;
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  max-width: calc(100% - 1rem);
-  padding: 0.5rem 1.1rem 0.5rem 0.5rem;
-  text-align: left;
-  background: rgba(250, 248, 243, 0.94);
-  border: 1px solid var(--line-gold);
-  backdrop-filter: blur(6px);
-  transition:
-    border-color 0.35s var(--ease),
-    transform 0.35s var(--ease);
-
-  &:hover {
-    border-color: var(--c-gold);
-    transform: translateY(-2px);
-  }
-
-  img {
-    width: 48px;
-    height: 56px;
-    object-fit: cover;
-  }
-
-  @include up($bp-lg) {
-    left: -2.5rem;
-    bottom: 2.5rem;
-  }
-}
-
-.hero__film-text {
-  display: grid;
-  gap: 0.2rem;
-}
-
-.hero__film-title {
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-
-.hero__film-meta {
-  font-size: var(--t-small);
-  color: var(--c-text-muted);
 }

@@ -78,7 +78,7 @@ export const SITE = {
     subtitle:
       'Mega Hair de alto padrão, acabamento natural e atendimento personalizado para realçar a sua beleza.',
     image: {
-      src: 'images/cta-portrait.webp',
+      src: 'images/hero-strips.webp',
       alt: 'Monique de perfil, com cabelo longo, liso e loiro, diante do logotipo dourado do Studio',
     } satisfies ImageRef,
   },

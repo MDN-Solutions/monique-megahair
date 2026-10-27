@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, ElementRef, afterNextRender, inject, input, signal } from '@angular/core';
 import type { ImageRef } from '../core/site.config';
 
 /**
@@ -8,7 +8,7 @@ import type { ImageRef } from '../core/site.config';
 @Component({
   selector: 'smm-before-after',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[style.--pos]': "pos() + '%'" },
+  host: { '[style.--pos]': "pos() + '%'", '[class.is-dragging]': 'active()', '[class.is-hinted]': 'hinted()' },
   template: `
     <div
       class="ba"
@@ -34,8 +34,8 @@ import type { ImageRef } from '../core/site.config';
         }
       </div>
 
-      <span class="ba__tag ba__tag--before">Antes</span>
-      <span class="ba__tag ba__tag--after">Depois</span>
+      <span class="ba__tag ba__tag--before" [class.is-dim]="pos() < 22">Antes</span>
+      <span class="ba__tag ba__tag--after" [class.is-dim]="pos() > 78">Depois</span>
 
       <button
         type="button"
@@ -61,7 +61,7 @@ import type { ImageRef } from '../core/site.config';
     }
     .ba {
       position: relative;
-      aspect-ratio: 4 / 5;
+      aspect-ratio: 10 / 17;
       overflow: hidden;
       user-select: none;
       touch-action: pan-y;
@@ -72,6 +72,13 @@ import type { ImageRef } from '../core/site.config';
     .ba__layer {
       position: absolute;
       inset: 0;
+    }
+    .ba__layer img {
+      transform: scale(1.02);
+      transition: transform 1.2s var(--ease);
+    }
+    .ba:hover .ba__layer img {
+      transform: scale(1.06);
     }
     .ba__layer--before {
       clip-path: inset(0 calc(100% - var(--pos)) 0 0);
@@ -120,6 +127,38 @@ import type { ImageRef } from '../core/site.config';
       background: rgba(250, 248, 243, 0.92);
       pointer-events: none;
     }
+    .ba__tag {
+      transition: opacity 0.3s var(--ease);
+    }
+    .ba__tag.is-dim {
+      opacity: 0;
+    }
+    :host(:not(.is-dragging)) .ba__handle,
+    :host(:not(.is-dragging)) .ba__layer--before {
+      transition: left 0.45s var(--ease), clip-path 0.45s var(--ease);
+    }
+    :host(.is-hinted) .ba__handle,
+    :host(.is-hinted) .ba__layer--before {
+      transition: none !important;
+    }
+    .ba__grip {
+      animation: ba-pulse 2.6s ease-in-out infinite;
+    }
+    :host(.is-dragging) .ba__grip,
+    :host(.is-hinted) .ba__grip {
+      animation: none;
+      transform: translate(-50%, -50%) scale(1.12);
+    }
+    @keyframes ba-pulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(198, 166, 107, 0.55); }
+      50% { box-shadow: 0 0 0 12px rgba(198, 166, 107, 0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .ba__grip { animation: none; }
+      .ba__layer img, .ba:hover .ba__layer img { transform: none; transition: none; }
+      :host(:not(.is-dragging)) .ba__handle,
+      :host(:not(.is-dragging)) .ba__layer--before { transition: none; }
+    }
     .ba__tag--before {
       left: 1rem;
     }
@@ -148,7 +187,7 @@ import type { ImageRef } from '../core/site.config';
     }
     .ba__grip {
       position: absolute;
-      top: 50%;
+      top: 38%;
       left: 50%;
       display: grid;
       place-items: center;
@@ -171,11 +210,63 @@ export class BeforeAfter {
   readonly after = input<ImageRef | null>(null);
 
   protected readonly pos = signal(50);
+  protected readonly active = signal(false);
+  protected readonly hinted = signal(false);
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
   private dragging = false;
+  private touched = false;
+  private raf = 0;
+
+  constructor() {
+    const destroyRef = inject(DestroyRef);
+    afterNextRender(() => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+      const io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting && !this.touched) {
+            io.disconnect();
+            this.sweep();
+          }
+        },
+        { threshold: 0.6 },
+      );
+      io.observe(this.host);
+      destroyRef.onDestroy(() => {
+        io.disconnect();
+        cancelAnimationFrame(this.raf);
+      });
+    });
+  }
+
+  /** Convite visual: o divisor percorre a foto uma vez ao entrar na tela. Cancelado por qualquer interação. */
+  private sweep(): void {
+    this.hinted.set(true);
+    const start = performance.now();
+    const D = 2600;
+    const tick = (now: number): void => {
+      if (this.touched) return;
+      const t = Math.min(1, (now - start) / D);
+      const wave = Math.sin(t * Math.PI * 2);
+      this.pos.set(Math.round((50 + wave * 38) * 10) / 10);
+      if (t < 1) this.raf = requestAnimationFrame(tick);
+      else {
+        this.pos.set(50);
+        this.hinted.set(false);
+      }
+    };
+    this.raf = requestAnimationFrame(tick);
+  }
+
+  private interact(): void {
+    this.touched = true;
+    cancelAnimationFrame(this.raf);
+    this.hinted.set(false);
+  }
 
   protected down(e: PointerEvent): void {
+    this.interact();
     this.dragging = true;
+    this.active.set(true);
     (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
     this.update(e.clientX);
   }
@@ -186,10 +277,12 @@ export class BeforeAfter {
 
   protected up(e: PointerEvent): void {
     this.dragging = false;
+    this.active.set(false);
     (e.currentTarget as HTMLElement).releasePointerCapture?.(e.pointerId);
   }
 
   protected key(e: KeyboardEvent): void {
+    this.interact();
     const step = e.shiftKey ? 10 : 4;
     if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') this.set(this.pos() - step);
     else if (e.key === 'ArrowRight' || e.key === 'ArrowUp') this.set(this.pos() + step);

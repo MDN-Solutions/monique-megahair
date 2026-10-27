@@ -108,7 +108,7 @@ export const SITE = {
   results: {
     eyebrow: 'Resultados',
     title: 'Resultados reais, em detalhe.',
-    intro: 'Fotografias reais de clientes do Studio.',
+    intro: 'Fotografias reais do Studio. Arraste e compare o antes e o depois.',
   },
 
   differentials: {
@@ -234,7 +234,28 @@ export const DIFFERENTIALS: Differential[] = [
 ];
 
 /** Resultados reais (antes/depois ou fotos). VAZIO: nenhuma foto de resultado foi fornecida ainda. */
-export const RESULTS: ResultItem[] = [];
+export const RESULTS: ResultItem[] = [
+  {
+    kind: 'before-after',
+    before: {
+      src: 'images/results/antes.webp',
+      alt: 'Antes: mulher de cabelo castanho-escuro na altura dos ombros, de blusa canelada laranja, diante de uma parede de rosas',
+    },
+    after: {
+      src: 'images/results/depois.webp',
+      alt: 'Depois: a mesma mulher com cabelo preto, liso e longo após o Mega Hair, sorrindo, diante da mesma parede de rosas',
+    },
+    caption: 'Antes e depois de Mega Hair. Arraste o divisor para comparar.',
+  },
+  {
+    kind: 'photo',
+    image: {
+      src: 'images/results/monique-perfil.webp',
+      alt: 'Monique de perfil, com cabelo longo e liso em tons de loiro, diante do logotipo dourado do Studio',
+    },
+    caption: 'Monique Marques no Studio.',
+  },
+];
 
 /** Depoimentos reais ou autorizados. VAZIO: nenhum foi fornecido ainda. */
 export const TESTIMONIALS: Testimonial[] = [];

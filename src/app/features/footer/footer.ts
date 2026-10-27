@@ -35,7 +35,8 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
     .footer {
       padding-top: clamp(3rem, 6vw, 5rem);
       color: var(--c-ink);
-      background: #f6f6f4;
+      background: #faf7f0;
+      border-top: 1px solid var(--line-gold);
     }
     .footer__grid {
       display: grid;
@@ -109,7 +110,7 @@ import { HAS_CONTACT, RESULTS, SITE } from '../../core/site.config';
       justify-content: space-between;
       gap: 0.5rem 2rem;
       padding-block: 1.25rem max(1.25rem, env(safe-area-inset-bottom));
-      border-top: 1px solid var(--line);
+      border-top: 1px solid var(--line-gold);
       font-size: var(--t-small);
       color: var(--c-text-muted);
     }

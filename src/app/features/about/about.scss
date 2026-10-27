@@ -41,7 +41,7 @@
 
 .about__pillars {
   counter-reset: pillar;
-  border-top: 1px solid var(--line);
+  border-top: 1px solid var(--line-gold);
 
   li {
     counter-increment: pillar;
@@ -50,9 +50,18 @@
     gap: 1.25rem;
     min-height: 52px;
     padding: 0.9rem 0;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 1px solid var(--line-gold);
     font-size: 1rem;
     font-weight: 500;
+
+    &::before {
+      content: '';
+      flex: none;
+      width: 6px;
+      height: 6px;
+      background: var(--c-gold);
+      transform: rotate(45deg) translateY(-1px);
+    }
   }
 }
 
@@ -62,6 +71,8 @@
   border-radius: var(--radius);
   overflow: hidden;
   background: var(--c-champagne);
+  outline: 1px solid var(--line-gold);
+  outline-offset: 8px;
 
   img {
     width: 100%;

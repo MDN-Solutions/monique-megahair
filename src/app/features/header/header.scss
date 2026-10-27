@@ -19,7 +19,7 @@
   background: rgba(245, 243, 238, 0.9);
   -webkit-backdrop-filter: blur(14px) saturate(1.1);
   backdrop-filter: blur(14px) saturate(1.1);
-  box-shadow: 0 1px 0 var(--line);
+  box-shadow: 0 1px 0 var(--line-gold);
 }
 
 .header__bar {
@@ -55,7 +55,7 @@
   font-weight: 500;
   letter-spacing: 0.42em;
   text-transform: uppercase;
-  color: var(--c-ink);
+  color: var(--c-gold-text);
 }
 
 .brand__name {

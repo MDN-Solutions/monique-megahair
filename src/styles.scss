@@ -134,11 +134,21 @@ h3 {
 }
 
 .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.8rem;
   font-size: 0.8125rem;
   font-weight: 500;
-  letter-spacing: 0.14em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--c-text-muted);
+  color: var(--c-gold-text);
+
+  &::before {
+    content: '';
+    width: 2rem;
+    height: 1px;
+    background: var(--c-gold);
+  }
 }
 
 .lead {
@@ -209,26 +219,25 @@ em.gold,
 }
 
 .btn--primary {
-  --btn-bg: var(--c-ink);
-  --btn-fg: var(--c-white);
-  --btn-bd: var(--c-ink);
+  --btn-bg: var(--c-gold);
+  --btn-fg: var(--c-ink);
+  --btn-bd: var(--c-gold);
 
   &:hover,
   &:focus-visible {
-    --btn-bg: #3a3a3a;
-    --btn-bd: #3a3a3a;
+    --btn-bg: #d3b97f;
+    --btn-bd: #d3b97f;
   }
 }
 
 .btn--outline {
-  --btn-bd: var(--c-ink);
+  --btn-bd: var(--c-gold);
   min-height: 44px;
   padding: 0 1.4rem;
 
   &:hover,
   &:focus-visible {
-    --btn-bg: var(--c-ink);
-    --btn-fg: var(--c-white);
+    --btn-bg: var(--c-gold);
   }
 }
 
@@ -245,7 +254,7 @@ em.gold,
     right: 0.1rem;
     bottom: 9px;
     height: 1px;
-    background: currentColor;
+    background: var(--c-gold);
     transform-origin: left;
     transition: transform 0.45s var(--ease);
   }
@@ -329,6 +338,8 @@ html.intro-pending .enter {
 .sec-head {
   display: grid;
   gap: 0.9rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--line-gold);
   max-width: 40rem;
   margin-bottom: clamp(2rem, 4vw, 3rem);
 

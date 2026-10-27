@@ -46,6 +46,7 @@
 }
 
 .hero__media {
+  position: relative;
   overflow: hidden;
   border-radius: var(--radius);
   background: var(--c-champagne);
@@ -56,6 +57,17 @@
     aspect-ratio: 4 / 5;
     object-fit: cover;
     object-position: 50% 20%;
+  }
+
+  // filete dourado fino, recuado, como acabamento de moldura
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    border-radius: calc(var(--radius) - 4px);
+    box-shadow: 0 0 0 1px rgba(194, 163, 106, 0.8);
+    pointer-events: none;
   }
 
   @include up($bp-lg) {

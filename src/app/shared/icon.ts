@@ -1,7 +1,10 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 export type IconName =
-  | 'arrow'
+  | 'sparkle'
+  | 'strand'
+  | 'selection'
+  | 'droplet'
   | 'whatsapp'
   | 'instagram'
   | 'pin'
@@ -10,7 +13,7 @@ export type IconName =
   | 'close'
   | 'play';
 
-/** Ícones de traço (1.5px), decorativos: o texto ao lado sempre carrega o significado. */
+/** Ícones de traço fino (1.25px), decorativos: o texto ao lado sempre carrega o significado. */
 @Component({
   selector: 'smm-icon',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,15 +23,27 @@ export type IconName =
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      stroke-width="1.5"
+      stroke-width="1.25"
       stroke-linecap="round"
       stroke-linejoin="round"
       width="100%"
       height="100%"
     >
       @switch (name()) {
-        @case ('arrow') {
-          <path d="M7 17 17 7M8.5 7H17v8.5" />
+        @case ('sparkle') {
+          <path d="M12 3.2 13.9 10.1 20.8 12 13.9 13.9 12 20.8 10.1 13.9 3.2 12 10.1 10.1Z" />
+        }
+        @case ('strand') {
+          <path d="M3.5 8.5c2.7-3 5.3 3 8.5 0s5.8 3 8.5 0" />
+          <path d="M3.5 15.5c2.7-3 5.3 3 8.5 0s5.8 3 8.5 0" />
+        }
+        @case ('selection') {
+          <circle cx="9" cy="12" r="5.2" />
+          <circle cx="15" cy="12" r="5.2" />
+        }
+        @case ('droplet') {
+          <path d="M12 3.4c-2.6 3.1-6 6.7-6 10.4a6 6 0 0 0 12 0c0-3.7-3.4-7.3-6-10.4Z" />
+          <path d="M9.2 14.6a2.9 2.9 0 0 0 2.2 2.4" />
         }
         @case ('whatsapp') {
           <path d="M12 3.2a8.8 8.8 0 0 0-7.5 13.4L3.3 20.7l4.2-1.1A8.8 8.8 0 1 0 12 3.2Z" />

@@ -23,14 +23,14 @@ import type { ImageRef } from '../core/site.config';
         @if (after(); as img) {
           <img [src]="img.src" [alt]="img.alt" loading="lazy" decoding="async" draggable="false" />
         } @else {
-          <div class="ba__ph ba__ph--after">Foto do depois</div>
+          <div class="ba__ph ba__ph--after"><span>Foto do depois</span></div>
         }
       </div>
       <div class="ba__layer ba__layer--before">
         @if (before(); as img) {
           <img [src]="img.src" [alt]="img.alt" loading="lazy" decoding="async" draggable="false" />
         } @else {
-          <div class="ba__ph ba__ph--before">Foto do antes</div>
+          <div class="ba__ph ba__ph--before"><span>Foto do antes</span></div>
         }
       </div>
 
@@ -48,7 +48,7 @@ import type { ImageRef } from '../core/site.config';
         (keydown)="key($event)"
       >
         <span class="ba__grip" aria-hidden="true">
-          <svg viewBox="0 0 24 12" width="24" height="12" fill="none" stroke="currentColor" stroke-width="1.5">
+          <svg viewBox="0 0 24 12" width="24" height="12" fill="none" stroke="currentColor" stroke-width="1.25">
             <path d="M8 2 3 6l5 4M16 2l5 4-5 4" />
           </svg>
         </span>
@@ -66,7 +66,8 @@ import type { ImageRef } from '../core/site.config';
       user-select: none;
       touch-action: pan-y;
       cursor: ew-resize;
-      background: var(--c-sand);
+      background: var(--c-champagne);
+      box-shadow: var(--shadow);
     }
     .ba__layer {
       position: absolute;
@@ -85,24 +86,38 @@ import type { ImageRef } from '../core/site.config';
       width: 100%;
       height: 100%;
       display: grid;
-      align-items: end;
-      padding: 1.25rem;
-      font-size: var(--t-small);
-      color: var(--c-text-2);
-      background: var(--c-sand);
+      place-items: center;
+      padding: 1rem;
+      text-align: center;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--c-gold-text);
+      border: 1px dashed var(--c-gold);
+      background:
+        url('/brand/monogram.svg') center 38% / 28% no-repeat,
+        var(--c-blush);
     }
     .ba__ph--after {
-      justify-items: end;
-      background: var(--c-blush);
+      padding-left: 50%;
+      background-color: #f6ecd8;
+    }
+    .ba__ph--before {
+      padding-right: 50%;
+    }
+    .ba__ph span {
+      align-self: end;
+      margin-bottom: 18%;
     }
     .ba__tag {
       position: absolute;
       top: 1rem;
-      padding: 0.3rem 0.8rem;
-      font-size: var(--t-tiny);
+      padding: 0.35rem 0.7rem;
+      font-size: 0.6875rem;
       font-weight: 500;
-      border-radius: 999px;
-      background: var(--c-white);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: rgba(250, 248, 243, 0.92);
       pointer-events: none;
     }
     .ba__tag--before {
@@ -110,8 +125,6 @@ import type { ImageRef } from '../core/site.config';
     }
     .ba__tag--after {
       right: 1rem;
-      color: var(--c-paper);
-      background: var(--c-ink);
     }
     .ba__handle {
       position: absolute;
@@ -129,9 +142,9 @@ import type { ImageRef } from '../core/site.config';
       top: 0;
       bottom: 0;
       left: 50%;
-      width: 2px;
-      margin-left: -1px;
-      background: var(--c-white);
+      width: 1px;
+      background: var(--c-gold);
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.5);
     }
     .ba__grip {
       position: absolute;
@@ -143,9 +156,9 @@ import type { ImageRef } from '../core/site.config';
       height: 44px;
       transform: translate(-50%, -50%);
       color: var(--c-ink);
-      background: var(--c-white);
+      background: var(--c-gold);
       border-radius: 50%;
-      box-shadow: 0 6px 18px -8px rgba(38, 28, 26, 0.5);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
     }
     .ba__handle:focus-visible .ba__grip {
       outline: 2px solid var(--c-ink);

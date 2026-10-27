@@ -1,11 +1,18 @@
-// Fontes self-hosted (subset latin).
-// Newsreader: instância fixa no tamanho óptico de display (opsz 60), pesos 300–500,
-// gerada com fonttools a partir do pacote @fontsource-variable/newsreader (OFL).
+// Fontes self-hosted (subset latin). Bodoni Moda tem eixo óptico (opsz): em títulos grandes
+// os fios finos ficam mais delicados automaticamente (font-optical-sizing: auto).
 @font-face {
-  font-family: 'Newsreader';
-  src: url('/fonts/newsreader-latin-display.woff2') format('woff2');
-  font-weight: 300 500;
+  font-family: 'Bodoni Moda';
+  src: url('/fonts/bodoni-moda-latin-opsz-normal.woff2') format('woff2');
+  font-weight: 400 900;
   font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Bodoni Moda';
+  src: url('/fonts/bodoni-moda-latin-opsz-italic.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: italic;
   font-display: swap;
 }
 

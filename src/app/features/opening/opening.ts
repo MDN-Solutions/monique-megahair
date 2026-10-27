@@ -14,22 +14,23 @@ type Phase = 'logo' | 'film' | 'veil' | 'fade';
 
 /**
  * Marcos do clipe editado (segundos de vídeo; arquivo de 4,42 s).
- *  - matchCut: troca do plano aberto para o close-up das tesouras (reenquadra no celular);
- *  - veil: começa a dissolver para o creme e revelar a página.
+ *  - matchCut: troca do plano aberto para o close-up das tesouras;
+ *  - cut: instante em que a fita se parte (brilho dourado);
+ *  - veil: começa a dissolver para marfim e revelar a página.
  * Se o clipe for reeditado, ajuste só estes números.
  */
-const FILM = { matchCut: 1.85, veil: 3.45 } as const;
+const FILM = { matchCut: 1.85, cut: 2.42, veil: 3.45 } as const;
 
-const LOGO_MS = 1400; // cena 1: marca sobre o creme
-const FILM_START_TIMEOUT_MS = 8000; // se o vídeo não começar a tocar até aqui, segue sem ele
+const LOGO_MS = 1700; // cena 1: marca sobre marfim
+const FILM_START_TIMEOUT_MS = 6500; // se o vídeo não iniciar até aqui, segue sem ele
 const FILM_MAX_MS = 9000; // trava de segurança total depois que o filme começou
-const VEIL_MS = 650; // vídeo -> creme
-const FADE_MS = 700; // overlay -> página
+const VEIL_MS = 750; // vídeo -> marfim
+const FADE_MS = 800; // overlay -> página
 
 /**
- * Abertura: o corte real da fita na inauguração do Studio.
- * Sequência: marca -> vídeo entra em fade -> corte da fita -> dissolve no creme -> hero entra.
- * Pode ser pulada a qualquer momento.
+ * Abertura cinematográfica: o corte real da fita na inauguração do Studio.
+ * Sequência: marca em marfim -> íris dourada revela o vídeo -> corte da fita + brilho
+ * -> dissolve em marfim -> hero entra. Pode ser pulada a qualquer momento.
  */
 @Component({
   selector: 'smm-opening',
@@ -40,10 +41,12 @@ const FADE_MS = 700; // overlay -> página
     role: 'dialog',
     'aria-modal': 'true',
     'aria-label': 'Abertura: inauguração do Studio Monique Marques',
+    '[class.is-film]': "phase() === 'film'",
     '[class.is-played]': 'played()',
     '[class.is-veil]': "phase() === 'veil' || phase() === 'fade'",
     '[class.is-fade]': "phase() === 'fade'",
     '[class.is-quick]': 'quick()',
+    '[class.is-flash]': 'flash()',
     '(document:keydown.escape)': 'skip()',
   },
 })
@@ -56,7 +59,8 @@ export class Opening {
 
   protected readonly phase = signal<Phase>('logo');
   protected readonly scene = signal<'wide' | 'close'>('wide');
-  /** true depois que o vídeo começou: mantém o vídeo visível e a marca oculta durante o véu. */
+  protected readonly flash = signal(false);
+  /** true depois que o vídeo começou: mantém íris aberta e marca oculta durante o véu. */
   protected readonly played = signal(false);
   protected readonly quick = signal(false);
 
@@ -66,8 +70,9 @@ export class Opening {
     : 'media/opening/opening-720';
 
   private logoDone = false;
-  private started = false;
+  private canPlay = false;
   private failed = false;
+  private flashed = false;
   private raf = 0;
   private readonly timers = new Set<ReturnType<typeof setTimeout>>();
 
@@ -99,6 +104,11 @@ export class Opening {
     });
   }
 
+  protected onCanPlay(): void {
+    this.canPlay = true;
+    this.tryStart();
+  }
+
   protected onVideoError(): void {
     this.failed = true;
     this.tryStart();
@@ -111,30 +121,25 @@ export class Opening {
     this.toVeil(true);
   }
 
-  /**
-   * Chama play() assim que a marca termina, sem esperar `canplay`: no iPhone (e no Chrome em
-   * rede móvel) o navegador não baixa nada do vídeo antes do play(), então `canplay` nunca
-   * chegaria e a abertura era pulada. A cena do vídeo só entra no evento `playing`.
-   */
   private tryStart(): void {
-    if (this.phase() !== 'logo' || !this.logoDone || this.started) return;
+    if (this.phase() !== 'logo' || !this.logoDone) return;
     if (this.failed) {
       this.toVeil();
       return;
     }
-    this.started = true;
-    this.videoRef()
-      .nativeElement.play()
-      .catch(() => this.toVeil()); // ex.: iOS em modo de baixa energia bloqueia autoplay
-  }
+    if (!this.canPlay) return; // espera o canplay (ou o timeout de segurança)
 
-  /** Primeiro quadro tocando de verdade: mostra o vídeo e sincroniza com o tempo dele. */
-  protected onPlaying(): void {
-    if (this.phase() !== 'logo') return;
-    this.phase.set('film');
-    this.played.set(true);
-    this.later(() => this.toVeil(), FILM_MAX_MS);
-    this.raf = requestAnimationFrame(this.tick);
+    const video = this.videoRef().nativeElement;
+    video
+      .play()
+      .then(() => {
+        if (this.phase() !== 'logo') return;
+        this.phase.set('film');
+        this.played.set(true);
+        this.later(() => this.toVeil(), FILM_MAX_MS);
+        this.raf = requestAnimationFrame(this.tick);
+      })
+      .catch(() => this.toVeil()); // ex.: iOS em modo de baixa energia bloqueia autoplay
   }
 
   /** Sincroniza efeitos ao tempo real do vídeo (mais preciso que timers). */
@@ -144,6 +149,12 @@ export class Opening {
 
     if (this.scene() === 'wide' && t >= FILM.matchCut) this.scene.set('close');
 
+    if (!this.flashed && t >= FILM.cut) {
+      this.flashed = true;
+      this.flash.set(true);
+      this.later(() => this.flash.set(false), 900);
+    }
+
     if (t >= FILM.veil || video.ended) {
       this.toVeil();
       return;
@@ -151,7 +162,7 @@ export class Opening {
     this.raf = requestAnimationFrame(this.tick);
   };
 
-  /** Vídeo -> creme; em seguida o overlay se desfaz e a hero anima. */
+  /** Vídeo -> marfim; em seguida o overlay se desfaz e a hero anima. */
   private toVeil(quick = false): void {
     if (this.phase() === 'veil' || this.phase() === 'fade') return;
     cancelAnimationFrame(this.raf);
@@ -161,9 +172,9 @@ export class Opening {
       () => {
         this.intro.markReady(); // hero começa a entrar por baixo do overlay
         this.phase.set('fade');
-        this.later(() => this.done(), quick ? 320 : FADE_MS);
+        this.later(() => this.done(), quick ? 350 : FADE_MS);
       },
-      quick ? 300 : VEIL_MS,
+      quick ? 320 : VEIL_MS,
     );
   }
 

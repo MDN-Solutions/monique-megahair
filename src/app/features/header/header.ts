@@ -21,21 +21,22 @@ interface NavItem {
   },
 })
 export class Header {
+  protected readonly site = SITE;
   protected readonly wa = whatsappUrl();
-  protected readonly instagram = SITE.contact.instagram ? `https://instagram.com/${SITE.contact.instagram}` : '';
   protected readonly waExternal = hasWhatsapp();
 
   protected readonly scrolled = signal(false);
   protected readonly menuOpen = signal(false);
-  protected readonly active = signal('');
+  protected readonly active = signal('inicio');
 
   private readonly firstLink = viewChild<ElementRef<HTMLAnchorElement>>('firstLink');
   private ticking = false;
 
   /** "Resultados" só aparece se a seção existir (há resultados reais ou placeholders ligados). */
   protected readonly nav: NavItem[] = [
-    { id: 'sobre', label: 'O Studio' },
-    { id: 'servicos', label: 'Mega Hair' },
+    { id: 'inicio', label: 'Início' },
+    { id: 'sobre', label: 'Sobre' },
+    { id: 'servicos', label: 'Serviços' },
     ...(RESULTS.length > 0 || SITE.showPlaceholders ? [{ id: 'resultados', label: 'Resultados' }] : []),
     { id: 'contato', label: 'Contato' },
   ];
@@ -57,9 +58,9 @@ export class Header {
       this.ticking = false;
       this.scrolled.set(window.scrollY > 24);
 
-      // seção ativa = a última cujo topo já passou da altura do header (nenhuma enquanto está na hero)
+      // seção ativa = a última cujo topo já passou da altura do header
       const line = 140;
-      let current = '';
+      let current = this.nav[0].id;
       for (const item of this.nav) {
         const el = document.getElementById(item.id);
         if (el && el.getBoundingClientRect().top <= line) current = item.id;

@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { IntroService } from './core/intro.service';
 import { About } from './features/about/about';
 import { Contact } from './features/contact/contact';
-import { Film } from './features/film/film';
+import { Differentials } from './features/differentials/differentials';
 import { FinalCta } from './features/final-cta/final-cta';
 import { Footer } from './features/footer/footer';
 import { Header } from './features/header/header';
@@ -10,13 +10,12 @@ import { Hero } from './features/hero/hero';
 import { Opening } from './features/opening/opening';
 import { Results } from './features/results/results';
 import { Services } from './features/services/services';
-import { Studio } from './features/studio/studio';
 import { Testimonials } from './features/testimonials/testimonials';
 import { WhatsappBar } from './features/whatsapp-bar/whatsapp-bar';
 
 @Component({
   selector: 'app-root',
-  imports: [Opening, Header, Hero, About, Services, Studio, Results, Testimonials, FinalCta, Contact, Footer, WhatsappBar, Film],
+  imports: [Opening, Header, Hero, About, Services, Results, Differentials, Testimonials, FinalCta, Contact, Footer, WhatsappBar],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (intro.active()) {
@@ -31,15 +30,14 @@ import { WhatsappBar } from './features/whatsapp-bar/whatsapp-bar';
         <smm-hero />
         <smm-about />
         <smm-services />
-        <smm-studio />
         <smm-results />
+        <smm-differentials />
         <smm-testimonials />
         <smm-final-cta />
         <smm-contact />
       </main>
       <smm-footer />
       <smm-whatsapp-bar />
-      <smm-film />
     </div>
   `,
   styles: `

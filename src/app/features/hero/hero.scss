@@ -8,6 +8,7 @@
   padding-top: calc(var(--header-h) + clamp(1.5rem, 4vw, 3rem));
   padding-bottom: clamp(5rem, 11vw, 9rem);
   overflow: clip;
+  background: var(--c-ivory);
 }
 
 // Luz suave de estúdio atrás da foto
@@ -26,7 +27,7 @@
   gap: clamp(2.5rem, 6vw, 4rem);
 
   @include up($bp-lg) {
-    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
   }
 }
@@ -38,8 +39,9 @@
 }
 
 .hero__title {
-  font-size: var(--t-display);
-  line-height: 1.04;
+  font-size: clamp(2.5rem, 1rem + 4vw, 5.25rem);
+  line-height: 1.05;
+  white-space: nowrap;
   letter-spacing: -0.018em;
 }
 
@@ -62,8 +64,14 @@
   transition: none;
 }
 
+.hero__copy {
+  @include up($bp-lg) {
+    max-width: 52%;
+  }
+}
+
 .hero__sub {
-  max-width: 34rem;
+  max-width: 30rem;
 }
 
 .hero__cta {
@@ -74,30 +82,52 @@
   margin-top: 0.5rem;
 }
 
-// ---------- Foto em arco ----------
+// ---------- Foto editorial: sangra até a borda direita, sem moldura ----------
 .hero__media {
   position: relative;
-  @include up($bp-lg) {
-    // a foto "sangra" um pouco para a direita, composição assimétrica
-    margin-right: clamp(-3rem, -2vw, 0rem);
-  }
-}
-
-.hero__media .arch {
-  width: min(100%, 440px);
+  margin-top: 2rem;
 
   @include up($bp-lg) {
-    width: min(100%, 500px);
-    margin-inline: auto 0;
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    right: 0;
+    bottom: clamp(4.5rem, 8vw, 7.5rem);
+    width: 46vw;
+    margin: 0;
   }
 }
 
 .hero__frame {
+  position: relative;
+  height: 100%;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
   clip-path: inset(0 0 0 0);
   transition: clip-path 1.5s var(--ease-door) 0.2s;
 
+  @include up($bp-lg) {
+    aspect-ratio: auto;
+  }
+
   img {
-    object-position: 50% 22%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 12%;
+  }
+
+  // dissolve a borda esquerda da foto no marfim da página
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, var(--c-ivory) 0%, rgba(250, 248, 243, 0) 22%);
+    display: none;
+    @include up($bp-lg) {
+      display: block;
+    }
   }
 }
 
@@ -154,24 +184,17 @@
   z-index: 1;
 }
 
-// ---------- Cartão "Assista à inauguração" ----------
+// ---------- Cartão "Assista à inauguração" (discreto, sob os botões) ----------
 .hero__film {
-  position: absolute;
-  left: 0;
-  bottom: 1.25rem;
-  z-index: 2;
   display: flex;
   align-items: center;
   gap: 0.9rem;
-  max-width: calc(100% - 1rem);
-  padding: 0.5rem 1.1rem 0.5rem 0.5rem;
+  margin-top: 0.75rem;
+  padding: 0.4rem 1.1rem 0.4rem 0.4rem;
   text-align: left;
-  background: rgba(250, 248, 243, 0.94);
+  background: transparent;
   border: 1px solid var(--line-gold);
-  backdrop-filter: blur(6px);
-  transition:
-    border-color 0.35s var(--ease),
-    transform 0.35s var(--ease);
+  transition: border-color 0.35s var(--ease), transform 0.35s var(--ease);
 
   &:hover {
     border-color: var(--c-gold);
@@ -179,14 +202,9 @@
   }
 
   img {
-    width: 48px;
-    height: 56px;
+    width: 40px;
+    height: 48px;
     object-fit: cover;
-  }
-
-  @include up($bp-lg) {
-    left: -2.5rem;
-    bottom: 2.5rem;
   }
 }
 

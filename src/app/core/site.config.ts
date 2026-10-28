@@ -83,6 +83,21 @@ export const SITE = {
     } satisfies ImageRef,
   },
 
+  founder: {
+    eyebrow: 'Quem é Monique',
+    title: 'Monique Marques',
+    paragraphs: [
+      'Especialista em Mega Hair e fundadora do Studio Monique Marques, onde atua como Diretora Criativa.',
+      'Antes de seguir o sonho de se tornar megahista, passou por diferentes áreas: foi colaboradora, estagiária comercial, vendedora, assistente administrativa e analista financeira em uma multinacional.',
+      'Hoje, à frente de uma unidade especializada em alongamento capilar, atende uma ampla gama de clientes, incluindo influenciadores. A marca Monique Marques já se expandiu para outros estados e países, onde vende suas extensões de luxo.',
+      'No Studio, Monique faz muito mais do que Mega Hair: ela também realiza outros serviços de cabelo, sempre com o mesmo cuidado e a mesma atenção a cada cliente.',
+    ],
+    image: {
+      src: 'images/monique-historia.webp',
+      alt: 'Monique Marques sorrindo, sentada em uma cadeira suspensa, com cabelo longo e loiro, blazer risca de giz e botas claras',
+    } satisfies ImageRef,
+  },
+
   about: {
     eyebrow: 'O Studio',
     title: 'Beleza natural, com cuidado em cada detalhe.',
@@ -102,7 +117,7 @@ export const SITE = {
     eyebrow: 'Serviços e especialidades',
     title: 'Mega Hair do jeito que o seu cabelo pede.',
     intro:
-      'A especialidade do Studio é o Mega Hair. Fale com a gente para escolher a melhor opção para o seu cabelo e o seu estilo.',
+      'A especialidade do Studio é o Mega Hair, mas o cuidado vai além: Monique também realiza outros serviços de cabelo. Fale com a gente para escolher a melhor opção para o seu cabelo e o seu estilo.',
   },
 
   results: {

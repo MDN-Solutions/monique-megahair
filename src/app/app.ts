@@ -4,6 +4,7 @@ import { About } from './features/about/about';
 import { Contact } from './features/contact/contact';
 import { Differentials } from './features/differentials/differentials';
 import { FinalCta } from './features/final-cta/final-cta';
+import { Founder } from './features/founder/founder';
 import { Footer } from './features/footer/footer';
 import { Header } from './features/header/header';
 import { Hero } from './features/hero/hero';
@@ -17,7 +18,7 @@ import { WhatsappBar } from './features/whatsapp-bar/whatsapp-bar';
 
 @Component({
   selector: 'app-root',
-  imports: [Marquee, Opening, Header, Hero, About, Services, Studio, Results, Differentials, Testimonials, FinalCta, Contact, Footer, WhatsappBar],
+  imports: [Founder, Marquee, Opening, Header, Hero, About, Services, Studio, Results, Differentials, Testimonials, FinalCta, Contact, Footer, WhatsappBar],
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     @if (intro.active()) {
@@ -31,6 +32,7 @@ import { WhatsappBar } from './features/whatsapp-bar/whatsapp-bar';
       <main id="main" tabindex="-1">
         <smm-hero />
         <smm-about />
+        <smm-founder />
         <smm-marquee />
         <smm-services />
         <smm-studio />

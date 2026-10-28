@@ -128,6 +128,7 @@ export class Footer {
 
   protected readonly nav = [
     { id: 'sobre', label: 'Sobre' },
+    { id: 'monique', label: 'Monique' },
     { id: 'servicos', label: 'Serviços' },
     ...(RESULTS.length > 0 || SITE.showPlaceholders ? [{ id: 'resultados', label: 'Resultados' }] : []),
     ...(HAS_CONTACT ? [{ id: 'contato', label: 'Contato' }] : []),

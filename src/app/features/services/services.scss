@@ -171,3 +171,105 @@
   position: relative;
   z-index: 1;
 }
+
+// ---------- Demais serviços: colunas com fio dourado ----------
+.more {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding-top: clamp(2rem, 4vw, 3rem);
+  border-top: 1px solid var(--line-gold);
+}
+
+.more__title {
+  font-size: var(--t-h3);
+  line-height: 1.15;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.more__grid {
+  display: grid;
+  gap: clamp(1.75rem, 3vw, 2.5rem) clamp(1.5rem, 3vw, 2.5rem);
+  grid-template-columns: 1fr;
+
+  @include up($bp-sm) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  @include up($bp-lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+.group {
+  display: grid;
+  align-content: start;
+  gap: 0.75rem;
+}
+
+.group__title {
+  font-size: var(--t-eyebrow);
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--c-gold-text);
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--line-gold);
+}
+
+.group__list {
+  display: grid;
+  gap: 0.4rem;
+  font-size: 0.975rem;
+  line-height: 1.5;
+  color: var(--c-text-muted);
+
+  li {
+    position: relative;
+    padding-left: 1.1rem;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.78em;
+      width: 0.5rem;
+      height: 1px;
+      background: var(--c-gold);
+    }
+  }
+}
+
+.group__link {
+  justify-self: start;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--c-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--c-gold);
+  padding-bottom: 2px;
+
+  &:hover {
+    color: var(--c-gold-text);
+  }
+}
+
+// grupo longo (Cabelos): largura total, itens em colunas
+.group--wide {
+  grid-column: 1 / -1;
+
+  .group__list {
+    display: block;
+    column-gap: clamp(1.5rem, 3vw, 2.5rem);
+
+    @include up($bp-sm) {
+      columns: 2;
+    }
+    @include up($bp-lg) {
+      columns: 3;
+    }
+
+    li {
+      break-inside: avoid;
+      margin-bottom: 0.4rem;
+    }
+  }
+}

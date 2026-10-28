@@ -26,6 +26,12 @@ export interface Service {
   image?: ImageRef;
 }
 
+export interface ServiceGroup {
+  id: string;
+  title: string;
+  items: string[];
+}
+
 export interface Differential {
   icon: IconName;
   title: string;
@@ -117,7 +123,8 @@ export const SITE = {
     eyebrow: 'Serviços e especialidades',
     title: 'Mega Hair do jeito que o seu cabelo pede.',
     intro:
-      'A especialidade do Studio é o Mega Hair, mas o cuidado vai além: Monique também realiza outros serviços de cabelo. Fale com a gente para escolher a melhor opção para o seu cabelo e o seu estilo.',
+      'A especialidade do Studio é o Mega Hair, mas o cuidado vai além: Monique também realiza outros serviços de beleza. Fale com a gente para escolher a melhor opção para o seu cabelo e o seu estilo.',
+    moreTitle: 'Outros serviços de beleza',
   },
 
   results: {
@@ -231,6 +238,65 @@ export const SERVICES: Service[] = [
       src: 'images/mega-hair.webp',
       alt: 'Mulher rindo, de cabelo longo e loiro, abraçada a uma cliente no Studio Monique Marques',
     },
+  },
+];
+
+/** Demais serviços de beleza do Studio, por categoria (lista passada pelo cliente/Marco). */
+export const SERVICE_GROUPS: ServiceGroup[] = [
+  {
+    id: 'cabelos',
+    title: 'Cabelos',
+    items: [
+      'Corte',
+      'Escova',
+      'Coloração',
+      'Mechas',
+      'Luzes',
+      'Cronograma capilar',
+      'Hidratação',
+      'Nutrição',
+      'Reconstrução',
+      'Cauterização',
+      'Progressiva',
+      'Alisamento',
+      'Penteados',
+    ],
+  },
+  {
+    id: 'unhas',
+    title: 'Unhas',
+    items: [
+      'Manicure tradicional',
+      'Pedicure',
+      'Esmaltação em gel',
+      'Unhas de acrílico ou fibra de vidro',
+      'Spa dos pés e das mãos',
+    ],
+  },
+  {
+    id: 'sobrancelhas-cilios',
+    title: 'Sobrancelhas e cílios',
+    items: [
+      'Design de sobrancelhas (pinça ou henna)',
+      'Micropigmentação',
+      'Permanente de cílios',
+      'Alongamento de cílios',
+    ],
+  },
+  {
+    id: 'estetica-rosto',
+    title: 'Estética e rosto',
+    items: ['Limpeza de pele', 'Tratamentos faciais avançados', 'Spa labial', 'Maquiagem profissional'],
+  },
+  {
+    id: 'corpo',
+    title: 'Corpo e depilação',
+    items: ['Depilação com cera ou laser', 'Massagens relaxantes', 'Drenagem linfática'],
+  },
+  {
+    id: 'especiais',
+    title: 'Serviços especiais',
+    items: ['Dia da noiva', 'Pacotes para formandas', 'Atendimento infantil'],
   },
 ];
 

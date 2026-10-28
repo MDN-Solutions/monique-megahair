@@ -1,7 +1,7 @@
 import { Strands } from '../../shared/strands';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Reveal } from '../../core/reveal';
-import { SERVICES, SERVICE_PLACEHOLDERS, SITE, Service } from '../../core/site.config';
+import { SERVICES, SERVICE_GROUPS, SERVICE_PLACEHOLDERS, SITE, Service } from '../../core/site.config';
 import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
 
 @Component({
@@ -15,10 +15,15 @@ export class Services {
   protected readonly copy = SITE.services;
   protected readonly waExternal = hasWhatsapp();
 
+  protected readonly groups = SERVICE_GROUPS;
   protected readonly items: Service[] = SITE.showPlaceholders ? [...SERVICES, ...SERVICE_PLACEHOLDERS] : SERVICES;
 
   protected isPlaceholder(s: Service): boolean {
     return s.id.startsWith('ph-');
+  }
+
+  protected groupLink(title: string): string {
+    return whatsappUrl(`Olá! Vim pelo site do Studio Monique Marques e gostaria de saber mais sobre: ${title}.`);
   }
 
   protected link(s: Service): string {

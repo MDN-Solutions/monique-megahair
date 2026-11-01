@@ -30,21 +30,8 @@
           loading="lazy"
           decoding="async"
         />
-        <button type="button" class="about__play" (click)="openFilm()">
-          <span class="about__play-icon"><smm-icon name="play" style="--icon-size: 1rem" /></span>
-          Assistir à inauguração
-        </button>
       </div>
       <figcaption>{{ about.caption }}</figcaption>
     </figure>
   </div>
-
-  <dialog #filmDialog class="film" aria-label="Vídeo da inauguração do Studio Monique Marques" (close)="onFilmClosed()" (click)="onDialogClick($event)">
-    <div class="film__inner">
-      <button type="button" class="film__close" (click)="closeFilm()" aria-label="Fechar vídeo">
-        <smm-icon name="close" style="--icon-size: 1.75rem" />
-      </button>
-      <video #filmVideo class="film__video" controls playsinline preload="none" [attr.poster]="film.poster"></video>
-    </div>
-  </dialog>
 </section>

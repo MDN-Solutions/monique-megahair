@@ -167,7 +167,7 @@ export const SITE = {
   film: {
     src: 'media/film/inauguracao-720.mp4',
     poster: 'media/film/film-poster.webp',
-    /** miniatura do card "Assistir à inauguração" (hero) */
+    /** não exibido no momento (botão "Assistir à inauguração" removido a pedido) */
     thumb: 'images/studio/neon.webp',
     duration: '1:11',
   },
@@ -235,14 +235,19 @@ export const SERVICES: Service[] = [
     description:
       'Volume e comprimento com acabamento natural, pensados para o seu cabelo e para o seu estilo.',
     image: {
-      src: 'images/mega-hair.webp',
-      alt: 'Mulher rindo, de cabelo longo e loiro, abraçada a uma cliente no Studio Monique Marques',
+      src: 'images/mega-hair-dupla.webp',
+      alt: 'Mulher de cabelo longo e loiro, em vestido dourado, posando ao lado de um rapaz no salão do Studio Monique Marques, junto a uma árvore de Natal',
     },
   },
 ];
 
 /** Demais serviços de beleza do Studio, por categoria (lista passada pelo cliente/Marco). */
 export const SERVICE_GROUPS: ServiceGroup[] = [
+  {
+    id: 'mega-hair',
+    title: 'Mega Hair',
+    items: ['Aplicação de mega hair', 'Manutenção', 'Remoção', 'Venda de cabelo'],
+  },
   {
     id: 'cabelos',
     title: 'Cabelos',
@@ -263,40 +268,9 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     ],
   },
   {
-    id: 'unhas',
-    title: 'Unhas',
-    items: [
-      'Manicure tradicional',
-      'Pedicure',
-      'Esmaltação em gel',
-      'Unhas de acrílico ou fibra de vidro',
-      'Spa dos pés e das mãos',
-    ],
-  },
-  {
-    id: 'sobrancelhas-cilios',
-    title: 'Sobrancelhas e cílios',
-    items: [
-      'Design de sobrancelhas (pinça ou henna)',
-      'Micropigmentação',
-      'Permanente de cílios',
-      'Alongamento de cílios',
-    ],
-  },
-  {
-    id: 'estetica-rosto',
-    title: 'Estética e rosto',
-    items: ['Limpeza de pele', 'Tratamentos faciais avançados', 'Spa labial', 'Maquiagem profissional'],
-  },
-  {
-    id: 'corpo',
-    title: 'Corpo e depilação',
-    items: ['Depilação com cera ou laser', 'Massagens relaxantes', 'Drenagem linfática'],
-  },
-  {
-    id: 'especiais',
-    title: 'Serviços especiais',
-    items: ['Dia da noiva', 'Pacotes para formandas', 'Atendimento infantil'],
+    id: 'sobrancelhas',
+    title: 'Sobrancelhas',
+    items: ['Design de sobrancelha', 'Limpeza de sobrancelha', 'Pinça', 'Henna'],
   },
 ];
 

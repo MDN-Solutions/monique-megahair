@@ -1,5 +1,6 @@
 <section id="inicio" class="hero" aria-labelledby="hero-title">
   <smm-strands class="hero__strands" />
+  <smm-strands class="hero__strands hero__strands--right" />
   <div class="hero__copy">
     <p class="eyebrow enter" style="--i: 0">{{ hero.eyebrow }}</p>
 
@@ -20,13 +21,6 @@
       >
         Agendar pelo WhatsApp
       </a>
-      <button type="button" class="btn btn--ghost" (click)="filmService.open()">
-        Assistir à inauguração ({{ film.duration }})
-      </button>
     </div>
-  </div>
-
-  <div class="hero__media enter" style="--i: 2">
-    <img [src]="hero.image.src" [alt]="hero.image.alt" width="1280" height="1600" fetchpriority="high" decoding="async" />
   </div>
 </section>

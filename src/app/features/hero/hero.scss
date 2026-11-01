@@ -7,10 +7,11 @@
   margin-inline: auto;
   padding: calc(var(--header-h) + 2rem) var(--gutter) clamp(3rem, 6vw, 5rem);
 
+  place-items: center;
+  text-align: center;
+  min-height: 88svh;
+
   @include up($bp-lg) {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    align-items: center;
-    gap: clamp(2.5rem, 6vw, 6rem);
     min-height: 100svh;
   }
 }
@@ -31,10 +32,15 @@
   @include up($bp-lg) {
     display: block;
   }
+
+  &--right {
+    left: auto;
+    right: calc(50% - 50vw + 1rem);
+    transform: scaleX(-1);
+  }
 }
 
-.hero__copy,
-.hero__media {
+.hero__copy {
   position: relative;
   z-index: 1;
 }
@@ -42,7 +48,8 @@
 .hero__copy {
   display: grid;
   gap: 1.5rem;
-  justify-items: start;
+  justify-items: center;
+  max-width: 52rem;
 }
 
 .hero__title {
@@ -55,7 +62,7 @@
 }
 
 .hero__sub {
-  max-width: 28rem;
+  max-width: 34rem;
   font-size: 1.125rem;
   line-height: 1.6;
   color: var(--c-text-muted);
@@ -65,41 +72,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem 1.75rem;
   margin-top: 0.5rem;
-}
-
-.hero__media {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius);
-  background: var(--c-champagne);
-
-  img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    object-position: 50% 20%;
-  }
-
-  // filete dourado fino, recuado, como acabamento de moldura
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.9);
-    border-radius: calc(var(--radius) - 4px);
-    box-shadow: 0 0 0 1px rgba(194, 163, 106, 0.8);
-    pointer-events: none;
-  }
-
-  @include up($bp-lg) {
-    max-height: calc(100svh - var(--header-h) - 4rem);
-
-    img {
-      height: calc(100svh - var(--header-h) - 4rem);
-      max-height: 720px;
-    }
-  }
 }

@@ -288,8 +288,44 @@ export const DIFFERENTIALS: Differential[] = [
   },
 ];
 
-/** Resultados reais (antes/depois ou fotos). VAZIO: nenhuma foto de resultado foi fornecida ainda. */
+/** Resultados reais (antes/depois ou fotos) do Studio. */
 export const RESULTS: ResultItem[] = [
+  {
+    kind: 'before-after',
+    before: {
+      src: 'images/results/ale-antes.webp',
+      alt: 'Antes: mulher sorrindo, de cabelo preto e liso abaixo dos ombros, top caramelo e saia bege, diante de uma parede de rosas',
+    },
+    after: {
+      src: 'images/results/ale-depois.webp',
+      alt: 'Depois: a mesma mulher com cabelo preto e liso até a altura do quadril após o Mega Hair, diante da mesma parede de rosas',
+    },
+    caption: 'Mega Hair liso: comprimento até o quadril, com volume e brilho.',
+  },
+  {
+    kind: 'before-after',
+    before: {
+      src: 'images/results/camila-antes.webp',
+      alt: 'Antes: mulher de cabelo castanho ondulado com mechas, na altura do peito, body de renda preta, diante de uma parede de rosas',
+    },
+    after: {
+      src: 'images/results/camila-depois.webp',
+      alt: 'Depois: a mesma mulher com cabelo ondulado longo e iluminado em tons de mel após o Mega Hair, diante da mesma parede de rosas',
+    },
+    caption: 'Mega Hair ondulado: mais comprimento, volume e iluminação.',
+  },
+  {
+    kind: 'before-after',
+    before: {
+      src: 'images/results/julia-antes.webp',
+      alt: 'Antes: jovem sorrindo, de cabelo preto e liso na altura dos ombros, top azul-claro, diante do letreiro neon do Studio Monique Marques',
+    },
+    after: {
+      src: 'images/results/julia-depois.webp',
+      alt: 'Depois: a mesma jovem com cabelo preto, liso e longo após o Mega Hair, diante do letreiro neon do Studio Monique Marques',
+    },
+    caption: 'Do curto ao longo: Mega Hair liso com acabamento natural.',
+  },
   {
     kind: 'before-after',
     before: {
@@ -300,7 +336,7 @@ export const RESULTS: ResultItem[] = [
       src: 'images/results/depois.webp',
       alt: 'Depois: a mesma mulher com cabelo preto, liso e longo após o Mega Hair, sorrindo, diante da mesma parede de rosas',
     },
-    caption: 'Antes e depois de Mega Hair. Arraste o divisor para comparar.',
+    caption: 'Mega Hair liso: mais comprimento e cor uniforme.',
   },
 ];
 

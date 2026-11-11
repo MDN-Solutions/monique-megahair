@@ -25,7 +25,7 @@ Tudo que é dado do negócio está em **`src/app/core/site.config.ts`**:
 | Depoimentos | `TESTIMONIALS` | Só depoimentos reais. Vazio = placeholder |
 | Mostrar/ocultar placeholders | `SITE.showPlaceholders` | **Mude para `false` antes de publicar** — seções sem conteúdo real somem |
 
-Também falta, antes de publicar: URL absoluta do domínio em `src/index.html` (`canonical`, `og:url`, `og:image`) e endereço no JSON-LD.
+Também falta, antes de publicar: URL absoluta do domínio em `src/index.html` (`canonical`, `og:url`, `og:image`). O endereço já está em `SITE.contact` e no JSON-LD de `src/index.html`; se mudar, atualize os dois.
 
 ## Abertura cinematográfica
 

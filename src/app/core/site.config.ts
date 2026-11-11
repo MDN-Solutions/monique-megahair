@@ -53,6 +53,9 @@ export interface OpeningHours {
   time: string;
 }
 
+/** Endereço do Studio em uma linha: usado no mapa e no link "Como chegar". */
+const ADDRESS = 'Av. Carlos de Lima Cavalcante, 2413 - Casa Caiada, Olinda - PE, 53130-555';
+
 export const SITE = {
   name: 'Studio Monique Marques',
   tagline: 'Especialista em Mega Hair',
@@ -67,12 +70,12 @@ export const SITE = {
       'Olá! Vim pelo site do Studio Monique Marques e gostaria de agendar um horário.',
     /** PENDENTE — usuário do Instagram, sem @ */
     instagram: '',
-    /** PENDENTE — endereço completo, em linhas */
-    addressLines: [] as string[],
-    /** PENDENTE — URL de incorporação do Google Maps (Compartilhar > Incorporar um mapa > src) */
-    mapEmbedUrl: '',
-    /** PENDENTE — link "Como chegar" (Google Maps / Waze) */
-    mapLink: '',
+    /** Endereço completo, em linhas */
+    addressLines: ['Av. Carlos de Lima Cavalcante, 2413', 'Casa Caiada, Olinda - PE', 'CEP 53130-555'],
+    /** Mapa incorporado do Google Maps, centrado no endereço */
+    mapEmbedUrl: `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=17&output=embed`,
+    /** Link "Como chegar" (abre a rota no Google Maps) */
+    mapLink: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`,
     /** PENDENTE — horários de atendimento */
     hours: [] as OpeningHours[],
   },

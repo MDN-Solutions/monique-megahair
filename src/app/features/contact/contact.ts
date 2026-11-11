@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { inject } from '@angular/core';
 import { Reveal } from '../../core/reveal';
 import { HAS_CONTACT, SITE } from '../../core/site.config';
-import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
+import { formatPhone, hasWhatsapp, instagramUrl, whatsappUrl } from '../../core/whatsapp';
 import { Icon, IconName } from '../../shared/icon';
 
 interface Row {
@@ -12,20 +11,16 @@ interface Row {
   /** conteúdo real (vazio = ainda não informado) */
   lines: string[];
   href?: string;
-  external?: boolean;
+  /** link extra abaixo do conteúdo (ex.: "Como chegar") */
+  action?: { label: string; href: string };
   /** texto do placeholder, mostrado só com showPlaceholders */
   todo: string;
 }
 
-/** 5581999998888 -> (81) 99999-8888 */
-function formatPhone(raw: string): string {
-  let d = raw.replace(/\D/g, '');
-  if (d.startsWith('55') && d.length >= 12) d = d.slice(2);
-  if (d.length === 11) return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
-  if (d.length === 10) return `(${d.slice(0, 2)}) ${d.slice(2, 6)}-${d.slice(6)}`;
-  return raw;
-}
-
+/**
+ * Contato: botões de WhatsApp e Instagram, canais, endereço com "Como chegar" e o mapa.
+ * Linhas sem dado real não aparecem (a menos que showPlaceholders esteja ligado).
+ */
 @Component({
   selector: 'smm-contact',
   imports: [Reveal, Icon],
@@ -37,6 +32,7 @@ export class Contact {
   protected readonly copy = SITE.contactSection;
   protected readonly wa = whatsappUrl();
   protected readonly hasWa = hasWhatsapp();
+  protected readonly instagramUrl = instagramUrl();
   protected readonly showPlaceholders = SITE.showPlaceholders;
   protected readonly visible = HAS_CONTACT;
 
@@ -53,23 +49,20 @@ export class Contact {
         label: 'WhatsApp',
         lines: c.whatsapp ? [formatPhone(c.whatsapp)] : [],
         href: this.hasWa ? this.wa : undefined,
-        external: true,
         todo: 'Informar o número do WhatsApp do estúdio',
       },
       {
         icon: 'instagram',
         label: 'Instagram',
         lines: c.instagram ? [`@${c.instagram}`] : [],
-        href: c.instagram ? `https://instagram.com/${c.instagram}` : undefined,
-        external: true,
+        href: this.instagramUrl || undefined,
         todo: 'Informar o usuário do Instagram',
       },
       {
         icon: 'pin',
         label: 'Endereço',
         lines: c.addressLines,
-        href: c.mapLink || undefined,
-        external: true,
+        action: c.mapLink ? { label: this.copy.directions, href: c.mapLink } : undefined,
         todo: 'Informar o endereço completo',
       },
       {

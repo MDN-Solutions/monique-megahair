@@ -7,40 +7,29 @@
       <p class="lead services__intro">{{ copy.intro }}</p>
     </header>
 
-    <ul class="services__grid" [attr.data-count]="items.length">
-      @for (s of items; track s.id; let i = $index) {
-        <li class="card reveal" smmReveal [style.--i]="i" [class.card--ph]="isPlaceholder(s)">
-          <div class="card__media">
-            @if (s.image) {
-              <img [src]="s.image.src" [alt]="s.image.alt" width="864" height="1080" loading="lazy" decoding="async" />
-            } @else {
-              <img class="card__mono" src="brand/monogram.svg" alt="" width="120" height="120" loading="lazy" />
-            }
-          </div>
-          <div class="card__body">
-            @if (s.tag) {
-              <p class="card__tag">{{ s.tag }}</p>
-            }
-            <h3 class="card__title">{{ s.title }}</h3>
-            <p class="card__text">{{ s.description }}</p>
-            @if (!isPlaceholder(s)) {
-              <a
-                class="btn btn--ghost card__link"
-                [href]="link(s)"
-                [attr.target]="waExternal ? '_blank' : null"
-                [attr.rel]="waExternal ? 'noopener' : null"
-              >
-                Agendar este serviço
-              </a>
-            }
-          </div>
-        </li>
-      }
-    </ul>
+    <article class="feature reveal" smmReveal aria-labelledby="feature-title">
+      <div class="feature__media">
+        <img [src]="featured.image.src" [alt]="featured.image.alt" width="900" height="1600" loading="lazy" decoding="async" />
+      </div>
+      <div class="feature__body">
+        <p class="feature__tag">{{ featured.tag }}</p>
+        <h3 id="feature-title" class="feature__title">{{ featured.title }}</h3>
+        <p class="feature__text">{{ featured.description }}</p>
+        <ul class="feature__list" aria-label="O que inclui">
+          @for (it of featured.items; track it) {
+            <li>{{ it }}</li>
+          }
+        </ul>
+        <a class="btn btn--primary" [href]="featuredLink" target="_blank" rel="noopener">
+          <smm-icon name="whatsapp" style="--icon-size: 1.35rem" />
+          {{ featured.button }}
+        </a>
+      </div>
+    </article>
 
-    <div class="more reveal" smmReveal>
+    <div class="reveal" smmReveal>
       <h3 class="more__title">{{ copy.moreTitle }}</h3>
-      <div class="more__grid">
+      <div class="more">
         @for (g of groups; track g.id) {
           <section class="group" [class.group--wide]="g.items.length > 8" [attr.aria-labelledby]="'grp-' + g.id">
             <h4 class="group__title" [id]="'grp-' + g.id">{{ g.title }}</h4>
@@ -49,13 +38,9 @@
                 <li>{{ it }}</li>
               }
             </ul>
-            <a
-              class="group__link"
-              [href]="groupLink(g.title)"
-              [attr.target]="waExternal ? '_blank' : null"
-              [attr.rel]="waExternal ? 'noopener' : null"
-            >
-              Agendar
+            <a class="link group__link" [href]="link(g.title)" target="_blank" rel="noopener">
+              <smm-icon name="whatsapp" style="--icon-size: 1.15rem" />
+              {{ g.button }}
             </a>
           </section>
         }

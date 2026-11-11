@@ -18,18 +18,21 @@ export interface ImageRef {
   alt: string;
 }
 
-export interface Service {
-  id: string;
+export interface FeaturedService {
   title: string;
+  tag: string;
   description: string;
-  tag?: string;
-  image?: ImageRef;
+  items: string[];
+  image: ImageRef;
+  button: string;
 }
 
 export interface ServiceGroup {
   id: string;
   title: string;
   items: string[];
+  /** texto do botão de agendar do grupo */
+  button: string;
 }
 
 export interface Differential {
@@ -64,19 +67,19 @@ export const SITE = {
   showPlaceholders: false,
 
   contact: {
-    /** PENDENTE — WhatsApp do estúdio: DDI + DDD + número, só dígitos. Ex.: '5581900000000' */
-    whatsapp: '',
+    /** WhatsApp do estúdio: DDI + DDD + número, só dígitos */
+    whatsapp: '5581985466153',
     whatsappMessage:
       'Olá! Vim pelo site do Studio Monique Marques e gostaria de agendar um horário.',
-    /** PENDENTE — usuário do Instagram, sem @ */
-    instagram: '',
+    /** Usuário do Instagram, sem @ */
+    instagram: 'studio.moniquemarques',
     /** Endereço completo, em linhas */
     addressLines: ['Av. Carlos de Lima Cavalcante, 2413', 'Casa Caiada, Olinda - PE', 'CEP 53130-555'],
     /** Mapa incorporado do Google Maps, centrado no endereço */
     mapEmbedUrl: `https://maps.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=17&output=embed`,
     /** Link "Como chegar" (abre a rota no Google Maps) */
     mapLink: `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(ADDRESS)}`,
-    /** PENDENTE — horários de atendimento */
+    /** PENDENTE — horários de atendimento. Vazio = a linha não aparece. */
     hours: [] as OpeningHours[],
   },
 
@@ -95,8 +98,8 @@ export const SITE = {
   founder: {
     eyebrow: 'Quem é Monique',
     title: 'Monique Marques',
+    role: 'Especialista em Mega Hair, fundadora e Diretora Criativa do Studio Monique Marques.',
     paragraphs: [
-      'Especialista em Mega Hair e fundadora do Studio Monique Marques, onde atua como Diretora Criativa.',
       'Antes de seguir o sonho de se tornar megahista, passou por diferentes áreas: foi colaboradora, estagiária comercial, vendedora, assistente administrativa e analista financeira em uma multinacional.',
       'Hoje, à frente de uma unidade especializada em alongamento capilar, atende uma ampla gama de clientes, incluindo influenciadores. A marca Monique Marques já se expandiu para outros estados e países, onde vende suas extensões de luxo.',
       'No Studio, Monique faz muito mais do que Mega Hair: ela também realiza outros serviços de cabelo, sempre com o mesmo cuidado e a mesma atenção a cada cliente.',
@@ -127,7 +130,7 @@ export const SITE = {
     title: 'Mega Hair do jeito que o seu cabelo pede.',
     intro:
       'A especialidade do Studio é o Mega Hair, mas o cuidado vai além: Monique também realiza outros serviços de beleza. Fale com a gente para escolher a melhor opção para o seu cabelo e o seu estilo.',
-    moreTitle: 'Outros serviços de beleza',
+    moreTitle: 'Também no Studio',
   },
 
   results: {
@@ -159,6 +162,10 @@ export const SITE = {
   contactSection: {
     eyebrow: 'Contato',
     title: 'Vamos conversar sobre o seu cabelo.',
+    text: 'Chame no WhatsApp para tirar dúvidas e agendar o seu horário.',
+    button: 'Agendar pelo WhatsApp',
+    instagramButton: 'Ver o Instagram',
+    directions: 'Como chegar',
   },
 
   studio: {
@@ -229,31 +236,25 @@ export const HAS_CONTACT =
 // Conteúdo CONFIRMADO
 // ---------------------------------------------------------------------------
 
-/** Serviços confirmados. O logo da marca diz "Especialista em Mega Hair". */
-export const SERVICES: Service[] = [
-  {
-    id: 'mega-hair',
-    title: 'Mega Hair',
-    tag: 'Especialidade',
-    description:
-      'Volume e comprimento com acabamento natural, pensados para o seu cabelo e para o seu estilo.',
-    image: {
-      src: 'images/mega-hair-dupla.webp',
-      alt: 'Mulher de cabelo longo e loiro, em vestido dourado, posando ao lado de um rapaz no salão do Studio Monique Marques, junto a uma árvore de Natal',
-    },
+/** Serviço principal, em destaque (mesma foto do card original). */
+export const FEATURED_SERVICE: FeaturedService = {
+  title: 'Mega Hair',
+  tag: 'Especialidade do Studio',
+  description: 'Volume e comprimento com acabamento natural, pensados para o seu cabelo e para o seu estilo.',
+  items: ['Aplicação de mega hair', 'Manutenção', 'Remoção', 'Venda de cabelo'],
+  image: {
+    src: 'images/mega-hair-dupla.webp',
+    alt: 'Mulher de cabelo longo e loiro, em vestido dourado, posando ao lado de um rapaz no salão do Studio Monique Marques, junto a uma árvore de Natal',
   },
-];
+  button: 'Agendar Mega Hair',
+};
 
 /** Demais serviços de beleza do Studio, por categoria (lista passada pelo cliente/Marco). */
 export const SERVICE_GROUPS: ServiceGroup[] = [
   {
-    id: 'mega-hair',
-    title: 'Mega Hair',
-    items: ['Aplicação de mega hair', 'Manutenção', 'Remoção', 'Venda de cabelo'],
-  },
-  {
     id: 'cabelos',
     title: 'Cabelos',
+    button: 'Agendar serviço de cabelo',
     items: [
       'Corte',
       'Escova',
@@ -273,6 +274,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
   {
     id: 'sobrancelhas',
     title: 'Sobrancelhas',
+    button: 'Agendar sobrancelha',
     items: ['Design de sobrancelha', 'Limpeza de sobrancelha', 'Pinça', 'Henna'],
   },
 ];
@@ -349,27 +351,6 @@ export const TESTIMONIALS: Testimonial[] = [];
 // ---------------------------------------------------------------------------
 // PLACEHOLDERS — aparecem só com `showPlaceholders: true`
 // ---------------------------------------------------------------------------
-
-export const SERVICE_PLACEHOLDERS: Service[] = [
-  {
-    id: 'ph-tecnica',
-    title: 'Técnica de aplicação',
-    tag: 'A confirmar',
-    description: 'Cadastrar as técnicas de Mega Hair que o estúdio realmente oferece.',
-  },
-  {
-    id: 'ph-tipos',
-    title: 'Tipos de cabelo',
-    tag: 'A confirmar',
-    description: 'Cadastrar os tipos de cabelo atendidos (liso, ondulado, cacheado etc.).',
-  },
-  {
-    id: 'ph-manutencao',
-    title: 'Manutenção e cuidados',
-    tag: 'A confirmar',
-    description: 'Confirmar se o estúdio faz manutenção e orientação de cuidados.',
-  },
-];
 
 export const DIFFERENTIAL_PLACEHOLDERS: Differential[] = [
   {

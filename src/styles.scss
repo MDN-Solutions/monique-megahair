@@ -265,6 +265,25 @@ em.gold,
   }
 }
 
+// Link de texto com área de toque de 44px e fio dourado
+.link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-weight: 500;
+  color: var(--c-ink);
+  text-decoration: underline;
+  text-decoration-color: var(--c-gold);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.35em;
+  transition: text-decoration-color 0.3s var(--ease);
+
+  &:hover {
+    text-decoration-color: var(--c-ink);
+  }
+}
+
 // ---------- Moldura de foto: retângulo seco ----------
 .arch {
   position: relative;

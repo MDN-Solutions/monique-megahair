@@ -14,10 +14,11 @@ import { SITE } from '../../core/site.config';
           <header class="reveal" smmReveal>
             <p class="eyebrow">{{ f.eyebrow }}</p>
             <h2 id="founder-title" class="founder__title">{{ f.title }}</h2>
+            <p class="founder__role">{{ f.role }}</p>
           </header>
           <div class="founder__text">
             @for (p of f.paragraphs; track p; let i = $index) {
-              <p class="lead reveal" smmReveal [style.--i]="i + 1">{{ p }}</p>
+              <p class="reveal" smmReveal [style.--i]="i + 1">{{ p }}</p>
             }
           </div>
         </div>
@@ -56,10 +57,18 @@ import { SITE } from '../../core/site.config';
       font-size: var(--t-h2);
       line-height: 1.1;
     }
+    // papel da Monique em dourado, logo abaixo do nome
+    .founder__role {
+      margin-top: 0.85rem;
+      font-size: var(--t-lead);
+      line-height: 1.5;
+      color: var(--c-gold-text);
+    }
     .founder__text {
       display: grid;
-      gap: 1.25rem;
+      gap: 1rem;
       max-width: 38rem;
+      color: var(--c-text-muted);
     }
     .founder__frame {
       aspect-ratio: 4 / 5;

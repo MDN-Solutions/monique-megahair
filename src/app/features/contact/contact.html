@@ -6,20 +6,37 @@
         <p class="eyebrow">{{ copy.eyebrow }}</p>
         <h2 id="contact-title" class="contact__title">{{ copy.title }}</h2>
       </header>
+      <p class="lead contact__text reveal" smmReveal style="--i: 1">{{ copy.text }}</p>
+
+      <div class="contact__actions reveal" smmReveal style="--i: 1">
+        <a class="btn btn--primary" [href]="wa" target="_blank" rel="noopener">
+          <smm-icon name="whatsapp" style="--icon-size: 1.35rem" />
+          {{ copy.button }}
+        </a>
+        @if (instagramUrl) {
+          <a class="btn btn--outline contact__ig" [href]="instagramUrl" target="_blank" rel="noopener">
+            <smm-icon name="instagram" style="--icon-size: 1.25rem" />
+            {{ copy.instagramButton }}
+          </a>
+        }
+      </div>
 
       <ul class="contact__list">
         @for (row of rows; track row.label; let i = $index) {
           <li class="row reveal" smmReveal [style.--i]="i + 1" [class.row--ph]="row.lines.length === 0">
-            <span class="row__icon"><smm-icon [name]="row.icon" style="--icon-size: 1.6rem" /></span>
+            <span class="row__icon"><smm-icon [name]="row.icon" style="--icon-size: 1.4rem" /></span>
             <div class="row__body">
               <p class="row__label">{{ row.label }}</p>
               @if (row.lines.length > 0) {
-                @for (line of row.lines; track line) {
-                  @if (row.href && $first) {
-                    <a class="row__value row__link" [href]="row.href" [attr.target]="row.external ? '_blank' : null" [attr.rel]="row.external ? 'noopener' : null">{{ line }}</a>
-                  } @else {
+                @if (row.href) {
+                  <a class="row__value row__link" [href]="row.href" target="_blank" rel="noopener">{{ row.lines[0] }}</a>
+                } @else {
+                  @for (line of row.lines; track line) {
                     <p class="row__value">{{ line }}</p>
                   }
+                }
+                @if (row.action; as a) {
+                  <a class="link row__action" [href]="a.href" target="_blank" rel="noopener">{{ a.label }}</a>
                 }
               } @else {
                 <p class="row__value row__todo">{{ row.todo }}</p>
@@ -28,17 +45,6 @@
           </li>
         }
       </ul>
-
-      @if (hasWa) {
-        <div class="reveal" smmReveal>
-          <a class="btn btn--primary" [href]="wa" target="_blank" rel="noopener">
-            Agendar pelo WhatsApp
-            <svg class="btn__arrow" viewBox="0 0 18 10" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-              <path d="M0 5h16M12 1l4 4-4 4" />
-            </svg>
-          </a>
-        </div>
-      }
     </div>
 
     <div class="contact__map reveal" smmReveal style="--i: 2">
@@ -46,7 +52,7 @@
         <iframe
           class="map"
           [src]="mapUrl"
-          title="Localização do Studio Monique Marques no mapa"
+          title="Mapa com a localização do Studio Monique Marques"
           loading="lazy"
           referrerpolicy="no-referrer-when-downgrade"
           allowfullscreen

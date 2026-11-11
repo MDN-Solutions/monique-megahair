@@ -18,14 +18,16 @@ Tudo que é dado do negócio está em **`src/app/core/site.config.ts`**:
 
 | O que | Onde | Observação |
 | --- | --- | --- |
-| WhatsApp, Instagram, endereço, mapa, horários | `SITE.contact` | Vazio = placeholder visível; os botões de WhatsApp rolam para `#contato` até haver número |
-| Serviços | `SERVICES` | Hoje só "Mega Hair" (confirmado). Adicione os demais quando confirmados |
+| WhatsApp, Instagram, endereço, mapa, horários | `SITE.contact` | Preenchidos, exceto **horários** (vazio = a linha não aparece) |
+| Mega Hair (serviço em destaque) | `FEATURED_SERVICE` | Foto, descrição, o que inclui e botão de agendar |
+| Demais serviços ("Também no Studio") | `SERVICE_GROUPS` | Cabelos e Sobrancelhas, cada grupo com seu botão de agendar |
 | Diferenciais | `DIFFERENTIALS` | Dois confirmados; os outros estão em `DIFFERENTIAL_PLACEHOLDERS` |
 | Resultados (antes/depois e galeria) | `RESULTS` | Só entram fotos reais e autorizadas. Vazio = placeholder |
 | Depoimentos | `TESTIMONIALS` | Só depoimentos reais. Vazio = placeholder |
 | Mostrar/ocultar placeholders | `SITE.showPlaceholders` | **Mude para `false` antes de publicar** — seções sem conteúdo real somem |
 
-Também falta, antes de publicar: URL absoluta do domínio em `src/index.html` (`canonical`, `og:url`, `og:image`). O endereço já está em `SITE.contact` e no JSON-LD de `src/index.html`; se mudar, atualize os dois.
+O endereço, o telefone e o Instagram também estão no JSON-LD de `src/index.html`; se mudarem, atualize os dois lugares.
+O endereço público do site (`canonical`, `og:url`, `og:image`) é `https://monique-megahair.vercel.app/`; troque se houver domínio próprio.
 
 ## Abertura cinematográfica
 

@@ -60,7 +60,11 @@ export class WhatsappBar {
   protected readonly external = hasWhatsapp();
   protected readonly visible = signal(false);
 
+  /** Aparece depois da primeira tela e some na seção Contato (que já tem o botão e fica acima do rodapé). */
   protected onScroll(): void {
-    this.visible.set(window.scrollY > window.innerHeight * 0.7);
+    const pastHero = window.scrollY > window.innerHeight * 0.7;
+    const contact = document.getElementById('contato');
+    const atContact = !!contact && contact.getBoundingClientRect().top < window.innerHeight * 0.85;
+    this.visible.set(pastHero && !atContact);
   }
 }

@@ -171,7 +171,7 @@ export const SITE = {
   studio: {
     eyebrow: 'O espaço',
     title: 'Por dentro do Studio',
-    text: 'Imagens feitas no dia da inauguração.',
+    text: 'Conheça o novo espaço do Studio.',
   },
 
   film: {
@@ -183,7 +183,7 @@ export const SITE = {
   },
 };
 
-/** Fotos reais do espaço, extraídas do vídeo da inauguração (600 px de largura). */
+/** Fotos reais do novo espaço (720 × 960 px, retrato 3:4). */
 export interface StudioPhoto extends ImageRef {
   caption: string;
   width: number;
@@ -191,39 +191,32 @@ export interface StudioPhoto extends ImageRef {
 }
 export const STUDIO_PHOTOS: StudioPhoto[] = [
   {
-    src: 'images/studio/neon.webp',
-    alt: 'Letreiro em neon rosa com o monograma M e o nome Studio Monique Marques, sobre parede lilás',
-    caption: 'O neon da marca',
-    width: 600,
-    height: 720,
+    src: 'images/studio/salao.webp',
+    alt: 'Salão do Studio com três cadeiras pretas, bancadas com espelhos e plantas pendentes, TV na parede e balcão branco de recepção',
+    caption: 'O salão',
+    width: 720,
+    height: 960,
   },
   {
-    src: 'images/studio/lavatorios.webp',
-    alt: 'Lavatório de cabelo preto ao lado de um arranjo de flores brancas no salão',
-    caption: 'Lavatórios',
-    width: 600,
-    height: 720,
-  },
-  {
-    src: 'images/studio/espelho.webp',
-    alt: 'Espelho com lâmpadas em volta, sobre bancada clara, visto entre folhagens',
+    src: 'images/studio/espelho-oval.webp',
+    alt: 'Espelho oval com iluminação dourada ao lado de um móvel branco com produtos, cafeteira e plantas, sob a escada de madeira',
     caption: 'Espelho com iluminação',
-    width: 600,
-    height: 720,
+    width: 720,
+    height: 960,
   },
   {
-    src: 'images/studio/caixa.webp',
-    alt: 'Caixa cor de terracota com o monograma e o nome do Studio Monique Marques em dourado',
+    src: 'images/studio/lavatorios-duplos.webp',
+    alt: 'Dois lavatórios brancos com poltronas marrons acolchoadas, encostados em uma parede bege',
+    caption: 'Lavatórios',
+    width: 720,
+    height: 960,
+  },
+  {
+    src: 'images/studio/caixa-presente.webp',
+    alt: 'Caixa do Studio Monique Marques com a foto da Monique e laço dourado, ao lado de uma pequena árvore de Natal dourada',
     caption: 'A caixa da marca',
-    width: 600,
-    height: 720,
-  },
-  {
-    src: 'images/studio/sacola.webp',
-    alt: 'Sacola rosada com o monograma do Studio Monique Marques e uma corrente dourada pendurada',
-    caption: 'A sacola da marca',
-    width: 576,
-    height: 720,
+    width: 720,
+    height: 960,
   },
 ];
 

@@ -74,8 +74,6 @@ import { SITE } from '../../core/site.config';
       aspect-ratio: 4 / 5;
       overflow: hidden;
       border-radius: var(--radius);
-      outline: 1px solid var(--line-gold);
-      outline-offset: 8px;
       background: var(--c-champagne);
 
       img {

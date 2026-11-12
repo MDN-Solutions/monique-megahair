@@ -183,7 +183,7 @@ export const SITE = {
   },
 };
 
-/** Fotos reais do novo espaço (720 × 960 px, retrato 3:4). */
+/** Fotos reais do novo espaço (720 × 960 px, retrato 3:4). A primeira é a destaque da seção. */
 export interface StudioPhoto extends ImageRef {
   caption: string;
   width: number;

@@ -96,8 +96,6 @@ import { hasWhatsapp, whatsappUrl } from '../../core/whatsapp';
       }
     }
     .cta__media .arch {
-      outline: 1px solid var(--line-gold);
-      outline-offset: 8px;
       border-radius: var(--radius);
       width: min(100%, 440px);
       margin-inline: auto 0;

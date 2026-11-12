@@ -2,7 +2,10 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Reveal } from '../../core/reveal';
 import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
 
-/** "Por dentro do Studio": fotos reais do novo espaço, todas em retrato 3:4 e com o mesmo peso. */
+/**
+ * "Por dentro do Studio": fotos reais do espaço, em composição assimétrica (uma destaque + quatro apoio).
+ * Com só três fotos de apoio, a última ocupa as duas colunas da segunda linha, para não sobrar um buraco.
+ */
 @Component({
   selector: 'smm-studio',
   imports: [Reveal],
@@ -19,7 +22,7 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
 
           <div class="studio__grid">
             @for (p of photos; track p.src; let i = $index) {
-              <figure class="shot reveal" smmReveal [style.--i]="i">
+              <figure class="shot reveal" [class.shot--lead]="i === 0" smmReveal [style.--i]="i">
                 <div class="shot__frame">
                   <img [src]="p.src" [alt]="p.alt" [attr.width]="p.width" [attr.height]="p.height" loading="lazy" decoding="async" />
                 </div>
@@ -34,7 +37,8 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
   styles: `
     @use '../../../styles/tokens' as *;
 
-    // celular e tablet: 2x2; a partir do desktop: as quatro fotos lado a lado
+    // mobile: destaque em largura total e quatro apoios em 2 colunas;
+    // a partir do tablet: destaque à esquerda e 2x2 à direita, alturas equivalentes
     .studio {
       background: #faf7f0;
     }
@@ -44,23 +48,59 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
       gap: 0.75rem;
 
       @include up($bp-md) {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1.25rem;
       }
       @include up($bp-lg) {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
         gap: 1.5rem;
       }
     }
     .shot {
       position: relative;
       margin: 0;
+
+      &--lead {
+        grid-column: 1 / -1;
+
+        @include up($bp-md) {
+          grid-column: 1 / span 2;
+          grid-row: 1 / span 2;
+        }
+      }
+    }
+    // destaque + três: a última foto de apoio fica larga
+    .shot:nth-child(4):last-child {
+      grid-column: 1 / -1;
+
+      @include up($bp-md) {
+        grid-column: 3 / span 2;
+      }
+      .shot__frame {
+        height: auto;
+        aspect-ratio: 7 / 4;
+      }
+      img {
+        object-position: 50% 45%;
+      }
     }
     .shot__frame {
       position: relative;
-      aspect-ratio: 3 / 4;
+      height: 100%;
+      aspect-ratio: 5 / 6;
       overflow: hidden;
       border-radius: var(--radius);
       background: var(--c-champagne);
+    }
+    // a destaque só preenche a altura das duas linhas de apoio, sem empurrá-las (vale para foto de qualquer proporção)
+    .shot--lead .shot__frame {
+      @include up($bp-md) {
+        aspect-ratio: auto;
+
+        img {
+          position: absolute;
+          inset: 0;
+        }
+      }
     }
     .shot img {
       width: 100%;
@@ -89,6 +129,16 @@ import { SITE, STUDIO_PHOTOS } from '../../core/site.config';
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--c-ivory);
+    }
+    // destaque: legenda no topo
+    .shot--lead .shot__frame::after {
+      background: linear-gradient(0deg, transparent 80%, rgba(18, 17, 16, 0.65));
+    }
+    .shot--lead .shot__cap {
+      left: 1.5rem;
+      top: 1.25rem;
+      bottom: auto;
+      font-size: 0.75rem;
     }
   `,
 })
